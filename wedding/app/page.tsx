@@ -1,8 +1,47 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 export default function Home() {
+  const containerRef = useRef<HTMLElement>(null);
+  const tommyRef = useRef<HTMLHeadingElement>(null);
+  const linhRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      // Create timeline
+      const tl = gsap.timeline({ delay: 1 });
+
+      // Animate Tommy left-to-right wipe (simulating handwriting)
+      tl.fromTo(
+        tommyRef.current,
+        { clipPath: "inset(0 100% 0 0)", opacity: 0 },
+        { clipPath: "inset(0 0% 0 0)", opacity: 1, duration: 1.8, ease: "power3.inOut" }
+      )
+      // Animate Linh starting just before Tommy finishes
+      .fromTo(
+        linhRef.current,
+        { clipPath: "inset(0 100% 0 0)", opacity: 0 },
+        { clipPath: "inset(0 0% 0 0)", opacity: 1, duration: 1.8, ease: "power3.inOut" },
+        "-=0.8"
+      )
+      // Gently fade in all the other surrounding elements staggered
+      .fromTo(
+        ".fade-up",
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 1.2, ease: "power2.out", stagger: 0.2 },
+        "-=1.2" // Start fading in while Linh is still writing
+      );
+
+    }, containerRef); // Scoped
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <main className="min-h-screen w-full relative flex flex-col overflow-hidden bg-surface">
+    <main ref={containerRef} className="min-h-screen w-full relative flex flex-col overflow-hidden bg-surface">
       {/* Immersive Hero Image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -12,9 +51,8 @@ export default function Home() {
           priority
           className="object-cover object-center md:object-[80%_50%]"
         />
-        {/* Cinematic gradient overlay sweeping right: opaque on the left for text, transparent on the right for the couple */}
+        {/* Cinematic gradient overlay sweeping right */}
         <div className="absolute inset-0 bg-gradient-to-r from-surface/95 via-surface/60 to-transparent w-full md:w-[85%]" />
-        
         {/* Subtle top/bottom framing gradients */}
         <div className="absolute inset-0 bg-gradient-to-t from-surface/90 via-transparent to-surface/30" />
       </div>
@@ -25,23 +63,37 @@ export default function Home() {
         {/* Unconstrained, flowing text grouping */}
         <div className="flex flex-col items-start w-full relative">
           
-          <p className="text-olive/90 tracking-[0.4em] uppercase text-[10px] sm:text-xs font-light mb-12 ml-4">
-            The Wedding Celebration of
-          </p>
+          <div className="fade-up opacity-0">
+            {/* Centered Divider and Subtitle Block */}
+            <div className="flex flex-col items-center self-start mb-6">
+              {/* Classic Ornamental Divider */}
+              <div className="flex items-center gap-4 mb-4">
+                <div className="h-[1px] w-16 bg-gradient-to-r from-transparent to-olive/60"></div>
+                <svg className="w-3.5 h-3.5 text-olive" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 1L13.5 10.5L23 12L13.5 13.5L12 23L10.5 13.5L1 12L10.5 10.5L12 1Z" opacity="0.8" />
+                </svg>
+                <div className="h-[1px] w-16 bg-gradient-to-l from-transparent to-olive/60"></div>
+              </div>
 
-          <h1 className="text-7xl md:text-[110px] lg:text-[140px] font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md">
+              <p className="text-olive/90 tracking-[0.4em] uppercase text-[10px] sm:text-xs font-light">
+                The Wedding Celebration of
+              </p>
+            </div>
+          </div>
+
+          <h1 ref={tommyRef} className="text-7xl md:text-[110px] lg:text-[140px] font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md">
             Tommy
           </h1>
           
-          <div className="flex w-full items-center my-2 pl-24 md:pl-44">
-            <span className="text-5xl md:text-7xl font-light italic text-olive/80 drop-shadow-md">&</span>
+          <div className="flex w-full items-center my-2 pl-24 md:pl-44 fade-up opacity-0">
+            <span className="text-5xl md:text-7xl font-light italic text-olive/80 drop-shadow-md">&amp;</span>
           </div>
 
-          <h1 className="text-7xl md:text-[110px] lg:text-[140px] font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md ml-12 md:ml-32">
+          <h1 ref={linhRef} className="text-7xl md:text-[110px] lg:text-[140px] font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md ml-12 md:ml-32">
             Linh
           </h1>
 
-          <div className="mt-20 ml-6 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-12">
+          <div className="mt-20 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-12 ml-6 fade-up opacity-0">
             <p className="text-lg md:text-2xl font-light tracking-[0.5em] text-ink drop-shadow-sm">
               17 . 01 . 2027
             </p>
@@ -51,7 +103,7 @@ export default function Home() {
             </p>
           </div>
 
-          <button className="mt-16 ml-6 px-12 py-5 bg-transparent text-burgundy hover:bg-burgundy hover:text-surface transition-all duration-700 tracking-[0.3em] uppercase text-xs font-light border border-burgundy/40 shadow-sm rounded-none">
+          <button className="fade-up opacity-0 mt-16 ml-6 px-12 py-5 bg-transparent text-burgundy hover:bg-burgundy hover:text-surface transition-all duration-700 tracking-[0.3em] uppercase text-xs font-light border border-burgundy/40 shadow-sm rounded-none">
             RSVP
           </button>
         </div>
