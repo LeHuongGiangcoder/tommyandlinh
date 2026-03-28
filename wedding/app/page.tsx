@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import SnowEffect from "./components/SnowEffect";
 
 export default function Home() {
   const containerRef = useRef<HTMLElement>(null);
@@ -118,6 +119,7 @@ export default function Home() {
         <div className="absolute -bottom-[1px] -right-[1px] w-8 h-8 border-b border-r border-olive" />
       </div>
 
+      <SnowEffect />
     </main>
   );
 }
