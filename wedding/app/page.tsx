@@ -2,64 +2,64 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <main className="min-h-screen w-full relative flex flex-col overflow-hidden bg-surface">
+      {/* Immersive Hero Image */}
+      <div className="absolute inset-0 z-0">
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
+          src="/1.jpg"
+          alt="Tommy & Linh Wedding"
+          fill
           priority
+          className="object-cover object-center"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+        {/* Cinematic gradient overlay: darker at top/bottom for text readability, clear in the middle */}
+        <div className="absolute inset-0 bg-gradient-to-b from-surface/80 via-surface/30 to-surface border-b-0" />
+      </div>
+
+      {/* Floating Hero Content */}
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 w-full max-w-5xl mx-auto h-screen">
+        {/* Subtle top decoration */}
+        <div className="w-[1px] h-24 bg-gradient-to-b from-transparent to-olive/60 absolute top-0 left-1/2 -translate-x-1/2" />
+        
+        <p className="text-olive/90 tracking-[0.3em] uppercase text-xs sm:text-sm font-light mb-8 mt-12">
+          The Wedding Celebration of
+        </p>
+
+        <h1 className="text-7xl md:text-[130px] lg:text-[150px] font-medium text-burgundy leading-none tracking-tight drop-shadow-sm">
+          Tommy
+        </h1>
+        <div className="flex items-center gap-6 my-4">
+          <div className="w-16 h-[1px] bg-olive/40" />
+          <span className="text-5xl md:text-6xl font-light italic text-olive">&amp;</span>
+          <div className="w-16 h-[1px] bg-olive/40" />
+        </div>
+        <h1 className="text-7xl md:text-[130px] lg:text-[150px] font-medium text-burgundy leading-none tracking-tight drop-shadow-sm">
+          Linh
+        </h1>
+
+        <div className="mt-16 flex flex-col items-center gap-6">
+          <p className="text-lg md:text-2xl font-light tracking-[0.4em] text-ink">
+            17 . 01 . 2027
+          </p>
+          <p className="text-xs md:text-sm font-light tracking-[0.3em] uppercase text-ink/80">
+            Ha Noi • Vietnam
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+
+        <button className="mt-16 px-10 py-4 bg-burgundy/90 backdrop-blur-md text-surface hover:bg-olive transition-colors duration-500 tracking-[0.2em] uppercase text-xs font-semibold border border-burgundy/50">
+          RSVP to Celebration
+        </button>
+      </div>
+
+      {/* Viewport Frame Decoration (Full screen borders to make it look 'formal' but native to the web) */}
+      <div className="absolute inset-6 md:inset-10 border border-olive/30 pointer-events-none z-20 hidden sm:block">
+        {/* Corner accents */}
+        <div className="absolute -top-[1px] -left-[1px] w-8 h-8 border-t border-l border-olive" />
+        <div className="absolute -top-[1px] -right-[1px] w-8 h-8 border-t border-r border-olive" />
+        <div className="absolute -bottom-[1px] -left-[1px] w-8 h-8 border-b border-l border-olive" />
+        <div className="absolute -bottom-[1px] -right-[1px] w-8 h-8 border-b border-r border-olive" />
+      </div>
+
+    </main>
   );
 }
