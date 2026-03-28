@@ -8,35 +8,40 @@ import SnowEffect from "./components/SnowEffect";
 export default function Home() {
   const containerRef = useRef<HTMLElement>(null);
   const tommyRef = useRef<HTMLHeadingElement>(null);
+  const ampRef = useRef<HTMLSpanElement>(null);
   const linhRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      // Create timeline
       const tl = gsap.timeline({ delay: 1 });
 
-      // Animate Tommy left-to-right wipe (simulating handwriting)
+      // 1. Handwriting Sequence: Tommy -> & -> Linh
       tl.fromTo(
         tommyRef.current,
         { clipPath: "inset(0 100% 0 0)", opacity: 0 },
-        { clipPath: "inset(0 0% 0 0)", opacity: 1, duration: 1.8, ease: "power3.inOut" }
+        { clipPath: "inset(0 0% 0 0)", opacity: 1, duration: 1.6, ease: "power3.inOut" }
       )
-      // Animate Linh starting just before Tommy finishes
+      .fromTo(
+        ampRef.current,
+        { clipPath: "inset(0 100% 0 0)", opacity: 0 },
+        { clipPath: "inset(0 0% 0 0)", opacity: 1, duration: 1.2, ease: "power3.inOut" },
+        "-=0.8"
+      )
       .fromTo(
         linhRef.current,
         { clipPath: "inset(0 100% 0 0)", opacity: 0 },
-        { clipPath: "inset(0 0% 0 0)", opacity: 1, duration: 1.8, ease: "power3.inOut" },
+        { clipPath: "inset(0 0% 0 0)", opacity: 1, duration: 1.6, ease: "power3.inOut" },
         "-=0.8"
       )
-      // Gently fade in all the other surrounding elements staggered
+      // 2. Detail Reveal: Everything else fades in after signatures are done
       .fromTo(
         ".fade-up",
         { opacity: 0, y: 15 },
         { opacity: 1, y: 0, duration: 1.2, ease: "power2.out", stagger: 0.2 },
-        "-=1.2" // Start fading in while Linh is still writing
+        "+=0.2"
       );
 
-    }, containerRef); // Scoped
+    }, containerRef);
 
     return () => ctx.revert();
   }, []);
@@ -86,8 +91,8 @@ export default function Home() {
             Tommy
           </h1>
           
-          <div className="flex w-full items-center my-2 pl-24 md:pl-44 fade-up opacity-0">
-            <span className="text-5xl md:text-7xl font-light italic text-olive/80 drop-shadow-md">&amp;</span>
+          <div className="flex w-full items-center my-2 pl-24 md:pl-44">
+            <span ref={ampRef} className="text-5xl md:text-7xl font-light italic text-olive/80 drop-shadow-md">&amp;</span>
           </div>
 
           <h1 ref={linhRef} className="text-7xl md:text-[110px] lg:text-[140px] font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md ml-12 md:ml-32">
