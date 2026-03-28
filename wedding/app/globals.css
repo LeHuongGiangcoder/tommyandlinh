@@ -1,26 +1,55 @@
 @import "tailwindcss";
 
+@theme {
+  --color-burgundy: #562832;
+  --color-olive: #656a52;
+  --color-ink: #3a3a3a;
+  --color-breathing: #d4cfc5;
+  --color-surface: #faf7f2;
+
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-body: 'Lato', sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--color-surface);
+  --foreground: var(--color-ink);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    /* Placeholder for the Canson 300gsm subtle tactile texture */
+    /* background-image: url('/assets/canson-texture.jpg');
+    background-blend-mode: multiply; */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--color-burgundy);
+    font-weight: 500;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .bg-hero-royal {
+    background-color: var(--color-surface);
+    /* Placeholder for classic royal damask background texture */
+    /* background-image: url('/assets/royal-texture.jpg');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply; */
+  }
+
+  .text-floral {
+    color: var(--color-olive);
+  }
+
+  .divider-elegant {
+    border-color: var(--color-olive);
+  }
 }
