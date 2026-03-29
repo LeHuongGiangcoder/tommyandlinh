@@ -71,7 +71,7 @@ export default function Home() {
           
           <div className="fade-up opacity-0">
             {/* Centered Divider and Subtitle Block */}
-            <div className="flex flex-col items-center self-start mb-6">
+            <div className="flex flex-col items-center self-start mb-6 mt-12 text-center w-full sm:w-auto">
               {/* Classic Ornamental Divider */}
               <div className="flex items-center gap-4 mb-4">
                 <div className="h-[1px] w-16 bg-gradient-to-r from-transparent to-olive/60"></div>
@@ -91,15 +91,15 @@ export default function Home() {
             Tommy
           </h1>
           
-          <div className="flex w-full items-center my-2 pl-24 md:pl-44">
+          <div className="flex w-full items-center my-0 pl-24 md:pl-44 -mt-2">
             <span ref={ampRef} className="text-5xl md:text-7xl font-light italic text-olive/80 drop-shadow-md">&amp;</span>
           </div>
 
-          <h1 ref={linhRef} className="text-7xl md:text-[110px] lg:text-[140px] font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md ml-12 md:ml-32">
+          <h1 ref={linhRef} className="text-7xl md:text-[110px] lg:text-[140px] font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md ml-12 md:ml-32 -mt-2">
             Linh
           </h1>
 
-          <div className="mt-20 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-12 ml-6 fade-up opacity-0">
+          <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-12 ml-6 fade-up opacity-0">
             <p className="text-lg md:text-2xl font-light tracking-[0.5em] text-ink drop-shadow-sm">
               17 . 01 . 2027
             </p>
@@ -109,14 +109,14 @@ export default function Home() {
             </p>
           </div>
 
-          <button className="fade-up opacity-0 mt-16 ml-6 px-12 py-5 bg-transparent text-burgundy hover:bg-burgundy hover:text-surface transition-all duration-700 tracking-[0.3em] uppercase text-xs font-light border border-burgundy/40 shadow-sm rounded-none">
+          <button className="fade-up opacity-0 mt-8 ml-6 px-12 py-5 bg-transparent text-burgundy hover:bg-burgundy hover:text-surface transition-all duration-700 tracking-[0.3em] uppercase text-xs font-light border border-burgundy/40 shadow-sm rounded-none">
             RSVP
           </button>
         </div>
       </div>
 
       {/* Viewport Frame Decoration */}
-      <div className="absolute inset-6 md:inset-10 border border-olive/30 pointer-events-none z-20 hidden sm:block">
+      <div className="absolute inset-6 md:inset-10 pointer-events-none z-20 hidden sm:block">
         {/* Corner accents */}
         <div className="absolute -top-[1px] -left-[1px] w-8 h-8 border-t border-l border-olive" />
         <div className="absolute -top-[1px] -right-[1px] w-8 h-8 border-t border-r border-olive" />
