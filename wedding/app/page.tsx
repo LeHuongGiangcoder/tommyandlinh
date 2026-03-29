@@ -1,9 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import SnowEffect from "./components/SnowEffect";
+import Countdown from "./components/Countdown";
+import OurStory from "./components/OurStory";
 
 export default function Home() {
   const [isStarted, setIsStarted] = useState(false);
@@ -88,10 +90,10 @@ export default function Home() {
   }, [isStarted]);
 
   return (
-    <main ref={containerRef} className="min-h-screen w-full relative flex flex-col overflow-hidden bg-surface">
+    <main ref={containerRef} className={`min-h-screen w-full relative flex flex-col bg-surface ${!isStarted ? 'overflow-hidden h-screen' : ''}`}>
       {/* Landing Envelope Ritual */}
       {!isStarted && (
-        <div className="absolute inset-0 z-[100] flex items-center justify-center bg-olive overflow-hidden">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-olive overflow-hidden">
           {/* Backdrop: Textural Retro Vintage Paper (Olive Tone) */}
           <div className="absolute inset-0 opacity-80 pointer-events-none" 
             style={{ 
@@ -167,8 +169,10 @@ export default function Home() {
           </div>
         </div>
       )}
-      {/* Immersive Hero Image */}
-      <div className="absolute inset-0 z-0">
+      {/* Cinematic Hero Section */}
+      <section className="relative w-full h-screen overflow-hidden flex flex-col shrink-0">
+        {/* Immersive Hero Image */}
+        <div className="absolute inset-0 z-0">
         <Image
           src="/1.jpg"
           alt="Tommy & Linh Wedding"
@@ -249,16 +253,24 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Viewport Frame DecorationDecoration */}
-      <div className="absolute inset-6 md:inset-10 pointer-events-none z-20 hidden sm:block">
-        {/* Corner accents */}
-        <div className="absolute -top-[1px] -left-[1px] w-8 h-8 border-t border-l border-olive" />
-        <div className="absolute -top-[1px] -right-[1px] w-8 h-8 border-t border-r border-olive" />
-        <div className="absolute -bottom-[1px] -left-[1px] w-8 h-8 border-b border-l border-olive" />
-        <div className="absolute -bottom-[1px] -right-[1px] w-8 h-8 border-b border-r border-olive" />
+        {/* Viewport Frame Decoration */}
+        <div className="absolute inset-6 md:inset-10 pointer-events-none z-20 hidden sm:block">
+          {/* Corner accents */}
+          <div className="absolute -top-[1px] -left-[1px] w-8 h-8 border-t border-l border-olive" />
+          <div className="absolute -top-[1px] -right-[1px] w-8 h-8 border-t border-r border-olive" />
+          <div className="absolute -bottom-[1px] -left-[1px] w-8 h-8 border-b border-l border-olive" />
+          <div className="absolute -bottom-[1px] -right-[1px] w-8 h-8 border-b border-r border-olive" />
+        </div>
+
+        <SnowEffect />
+      </section>
+
+      {/* Countdown Section */}
+      <div className="relative z-30">
+        <Countdown />
       </div>
 
-      <SnowEffect />
+      <OurStory />
     </main>
   );
 }
