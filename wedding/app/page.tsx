@@ -13,13 +13,20 @@ export default function Home() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 1 });
+      const tl = gsap.timeline({ delay: 0.5 });
 
-      // 1. Handwriting Sequence: Tommy -> & -> Linh
+      // 0. Cinematic Camera Focus (Lấy Nét)
       tl.fromTo(
+        ".hero-image",
+        { filter: "blur(20px) brightness(0.8)", scale: 1.05 },
+        { filter: "blur(0px) brightness(1)", scale: 1, duration: 2.2, ease: "power2.inOut" }
+      )
+      // 1. Handwriting Sequence: Starts as focus stabilizes
+      .fromTo(
         tommyRef.current,
         { clipPath: "inset(0 100% 0 0)", opacity: 0 },
-        { clipPath: "inset(0 0% 0 0)", opacity: 1, duration: 1.6, ease: "power3.inOut" }
+        { clipPath: "inset(0 0% 0 0)", opacity: 1, duration: 1.6, ease: "power3.inOut" },
+        "-=1.2"
       )
       .fromTo(
         ampRef.current,
@@ -38,7 +45,7 @@ export default function Home() {
         ".fade-up",
         { opacity: 0, y: 15 },
         { opacity: 1, y: 0, duration: 1.2, ease: "power2.out", stagger: 0.2 },
-        "+=0.2"
+        "-=0.4"
       );
 
     }, containerRef);
@@ -55,7 +62,7 @@ export default function Home() {
           alt="Tommy & Linh Wedding"
           fill
           priority
-          className="object-cover object-center md:object-[80%_50%]"
+          className="hero-image object-cover object-center md:object-[80%_50%]"
         />
         {/* Cinematic gradient overlay sweeping right */}
         <div className="absolute inset-0 bg-gradient-to-r from-surface/95 via-surface/60 to-transparent w-full md:w-[85%]" />
