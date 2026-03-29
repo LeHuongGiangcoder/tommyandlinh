@@ -29,52 +29,58 @@ const OurStory = () => {
         }
       });
 
-      // Line-by-line reveal for Meeting Story
+      // SEQUENTIAL CHARACTER-BY-CHARACTER reveal for Meeting Story
       if (meetingTextRef.current) {
         const paragraphs = meetingTextRef.current.querySelectorAll("p");
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: meetingTextRef.current,
+            start: "top 85%",
+            end: "bottom 30%",
+            scrub: 1,
+          }
+        });
+
         paragraphs.forEach((p) => {
-          const split = new SplitType(p, { types: 'lines' });
+          const split = new SplitType(p, { types: 'chars' });
           splits.push(split);
           
-          if (split.lines) {
-            gsap.fromTo(split.lines, 
-              { opacity: 0.1, y: 5 },
+          if (split.chars) {
+            tl.fromTo(split.chars, 
+              { opacity: 0.05 },
               { 
                 opacity: 1, 
-                y: 0,
-                stagger: 0.1,
-                scrollTrigger: {
-                  trigger: p,
-                  start: "top 85%",
-                  end: "bottom 60%",
-                  scrub: true,
-                } 
+                stagger: 0.03, // Slight stagger per char
+                ease: "none",
               }
             );
           }
         });
       }
 
-      // Line-by-line reveal for Proposal Story
+      // SEQUENTIAL CHARACTER-BY-CHARACTER reveal for Proposal Story
       if (proposalTextRef.current) {
         const paragraphs = proposalTextRef.current.querySelectorAll("p");
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: proposalTextRef.current,
+            start: "top 80%",
+            end: "bottom 80%", // Finish earlier so it reveals before reaching the page floor
+            scrub: 1,
+          }
+        });
+
         paragraphs.forEach((p) => {
-          const split = new SplitType(p, { types: 'lines' });
+          const split = new SplitType(p, { types: 'chars' });
           splits.push(split);
 
-          if (split.lines) {
-            gsap.fromTo(split.lines, 
-              { opacity: 0.1, y: 5 },
+          if (split.chars) {
+            tl.fromTo(split.chars, 
+              { opacity: 0.05 },
               { 
                 opacity: 1, 
-                y: 0,
-                stagger: 0.1,
-                scrollTrigger: {
-                  trigger: p,
-                  start: "top 85%",
-                  end: "bottom 60%",
-                  scrub: true,
-                } 
+                stagger: 0.02,
+                ease: "none",
               }
             );
           }
@@ -94,7 +100,6 @@ const OurStory = () => {
       });
     }, sectionRef);
 
-    // Re-split on window resize (essential for responsive line layout)
     const handleResize = () => {
        splits.forEach(s => s.split());
     };
@@ -107,7 +112,7 @@ const OurStory = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-24 md:py-40 bg-surface overflow-hidden">
+    <section ref={sectionRef} className="relative pt-24 md:pt-40 pb-56 md:pb-80 bg-surface overflow-hidden">
       {/* Background Texture: Canson 300gsm inspired */}
       <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-multiply"
         style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }}
