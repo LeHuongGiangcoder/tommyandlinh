@@ -4,26 +4,84 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const OurStory = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const meetingTextRef = useRef<HTMLDivElement>(null);
+  const proposalTextRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let splits: SplitType[] = [];
+
     const ctx = gsap.context(() => {
-      gsap.from(".story-reveal", {
+      // Reveal the main section headers
+      gsap.from(".story-header-reveal", {
         opacity: 0,
         y: 40,
         duration: 1.5,
         ease: "power3.out",
-        stagger: 0.3,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 70%",
         }
       });
 
+      // Line-by-line reveal for Meeting Story
+      if (meetingTextRef.current) {
+        const paragraphs = meetingTextRef.current.querySelectorAll("p");
+        paragraphs.forEach((p) => {
+          const split = new SplitType(p, { types: 'lines' });
+          splits.push(split);
+          
+          if (split.lines) {
+            gsap.fromTo(split.lines, 
+              { opacity: 0.1, y: 5 },
+              { 
+                opacity: 1, 
+                y: 0,
+                stagger: 0.1,
+                scrollTrigger: {
+                  trigger: p,
+                  start: "top 85%",
+                  end: "bottom 60%",
+                  scrub: true,
+                } 
+              }
+            );
+          }
+        });
+      }
+
+      // Line-by-line reveal for Proposal Story
+      if (proposalTextRef.current) {
+        const paragraphs = proposalTextRef.current.querySelectorAll("p");
+        paragraphs.forEach((p) => {
+          const split = new SplitType(p, { types: 'lines' });
+          splits.push(split);
+
+          if (split.lines) {
+            gsap.fromTo(split.lines, 
+              { opacity: 0.1, y: 5 },
+              { 
+                opacity: 1, 
+                y: 0,
+                stagger: 0.1,
+                scrollTrigger: {
+                  trigger: p,
+                  start: "top 85%",
+                  end: "bottom 60%",
+                  scrub: true,
+                } 
+              }
+            );
+          }
+        });
+      }
+
+      // Image Parallax/Reveal
       gsap.from(".story-image", {
         opacity: 0,
         scale: 1.05,
@@ -36,7 +94,16 @@ const OurStory = () => {
       });
     }, sectionRef);
 
-    return () => ctx.revert();
+    // Re-split on window resize (essential for responsive line layout)
+    const handleResize = () => {
+       splits.forEach(s => s.split());
+    };
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+       ctx.revert();
+       window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (
@@ -49,7 +116,7 @@ const OurStory = () => {
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col items-center mb-20 md:mb-32 story-reveal">
+        <div className="flex flex-col items-center mb-20 md:mb-32 story-header-reveal">
            <span className="text-xs md:text-sm tracking-[0.5em] uppercase text-olive font-light mb-4">Our Journey</span>
            <h2 className="text-4xl md:text-6xl font-heading text-burgundy italic">The Story of Us</h2>
            <div className="w-16 h-[1px] bg-olive/20 mt-8"></div>
@@ -73,18 +140,18 @@ const OurStory = () => {
 
           <div className="lg:col-span-1"></div>
 
-          <div className="lg:col-span-6 space-y-8 story-reveal pt-8 lg:pt-0">
-             <div className="flex items-center gap-4">
+          <div className="lg:col-span-6 space-y-8 pt-8 lg:pt-0" ref={meetingTextRef}>
+             <div className="flex items-center gap-4 highlight-reveal">
                 <span className="text-[10px] tracking-[0.4em] uppercase text-olive/60 font-medium">Chapter I</span>
                 <div className="flex-1 h-[0.5px] bg-olive/10"></div>
              </div>
              <h3 className="text-3xl md:text-4xl font-heading text-burgundy">How we met</h3>
-             <p className="text- ink/80 leading-relaxed font-light text-lg md:text-xl md:leading-loose max-w-2xl">
+             <p className="text-ink/80 leading-relaxed font-light text-lg md:text-xl md:leading-loose max-w-2xl">
                 It all started in the most unexpected way in Colorado. We first crossed paths while working at a small
                 marketing company, but it was a business trip to Vail that changed everything. At the time, neither of us
                 could have imagined how significant that trip would become.
              </p>
-             <p className="text-ink/70 leading-relaxed font-light text-base md:text-lg italic border-l border-olive/20 pl-6 py-2">
+             <p className="text-ink/80 leading-relaxed font-light text-lg md:text-xl md:leading-loose italic border-l border-olive/20 pl-6 py-2">
                 &ldquo;We quickly bonded over the things that mattered most to us: our closeness with family, the challenges we had overcome, and our hopes for the future.&rdquo;
              </p>
              <p className="text-ink/80 leading-relaxed font-light text-lg md:text-xl md:leading-loose max-w-2xl">
@@ -95,8 +162,8 @@ const OurStory = () => {
 
         {/* Part 2: The Proposal (Reversed Asymmetric) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-6 lg:order-1 order-2 space-y-8 story-reveal">
-             <div className="flex items-center gap-4">
+          <div className="lg:col-span-6 lg:order-1 order-2 space-y-8" ref={proposalTextRef}>
+             <div className="flex items-center gap-4 highlight-reveal">
                 <div className="flex-1 h-[0.5px] bg-olive/10"></div>
                 <span className="text-[10px] tracking-[0.4em] uppercase text-olive/60 font-medium">Chapter II</span>
              </div>
@@ -104,6 +171,9 @@ const OurStory = () => {
              <p className="text-ink/80 leading-relaxed font-light text-lg md:text-xl md:leading-loose">
                 On an early autumn day several years ago, what began as a simple day turned into one of the most meaningful moments of our lives.
                 Tommy planned a trip to see the golden aspens changing. After an unforgettable 11-mile hike through rugged mountain terrain, we reached the breathtaking Crystal Mill in Colorado.
+             </p>
+             <p className="text-ink/80 leading-relaxed font-light text-lg md:text-xl md:leading-loose italic border-l border-olive/20 pl-6 py-2">
+                &ldquo;Surrounded by the stillness of the mountains and the beauty of the moment, everything seemed to fall into place.&rdquo;
              </p>
              <p className="text-ink/80 leading-relaxed font-light text-lg md:text-xl md:leading-loose">
                 There, with a full heart and a quiet certainty, Tommy got down on one knee. Flustered and completely overjoyed, Linh said yes. It wasn’t perfect in the traditional sense, but it was perfect for us: thoughtful, adventurous, and filled with love.
@@ -128,7 +198,7 @@ const OurStory = () => {
               <div className="absolute inset-0 ring-1 ring-inset ring-black/5"></div>
             </div>
             {/* Overlapping small accent img or detail */}
-            <div className="absolute -bottom-10 -right-10 w-40 h-40 hidden md:block story-reveal">
+            <div className="absolute -bottom-10 -right-10 w-40 h-40 hidden md:block">
               <div className="relative w-full h-full shadow-xl bg-surface p-2 border border-burgundy/5 rotate-3">
                  <div className="relative w-full h-full overflow-hidden">
                    <Image src="/4.jpg" alt="Detail" fill className="object-cover" />
