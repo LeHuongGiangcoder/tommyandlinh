@@ -130,12 +130,12 @@ const OurStory = () => {
         {/* Part 1: How We Met (Asymmetric Layout) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-32 md:mb-56">
           <div className="lg:col-span-5 relative story-image">
-            <div className="relative aspect-[4/5] w-full shadow-2xl overflow-hidden group">
+            <div className="relative aspect-[4/5] w-full overflow-hidden group">
               <Image 
                 src="/2.jpg" 
                 alt="Our first meeting" 
                 fill 
-                className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                className="object-cover"
               />
               <div className="absolute inset-0 ring-1 ring-inset ring-black/5"></div>
             </div>
@@ -193,18 +193,18 @@ const OurStory = () => {
           <div className="lg:col-span-1 lg:order-2"></div>
 
           <div className="lg:col-span-5 lg:order-3 order-1 relative story-image">
-            <div className="relative aspect-[4/5] w-full shadow-2xl overflow-hidden group">
+            <div className="relative aspect-[4/5] w-full overflow-hidden group">
               <Image 
                 src="/3.jpg" 
                 alt="The proposal moment" 
                 fill 
-                className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                className="object-cover"
               />
               <div className="absolute inset-0 ring-1 ring-inset ring-black/5"></div>
             </div>
             {/* Overlapping small accent img or detail */}
             <div className="absolute -bottom-10 -right-10 w-40 h-40 hidden md:block">
-              <div className="relative w-full h-full shadow-xl bg-surface p-2 border border-burgundy/5 rotate-3">
+              <div className="relative w-full h-full bg-surface p-2 border border-burgundy/5 rotate-3">
                  <div className="relative w-full h-full overflow-hidden">
                    <Image src="/4.jpg" alt="Detail" fill className="object-cover" />
                  </div>
