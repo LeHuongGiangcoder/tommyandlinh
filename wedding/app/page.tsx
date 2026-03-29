@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
-import SnowEffect from "./components/SnowEffect";
 import Countdown from "./components/Countdown";
 import OurStory from "./components/OurStory";
+import TravelInfo from "./components/TravelInfo";
+import SnowEffect from "./components/SnowEffect";
 
 export default function Home() {
   const [isStarted, setIsStarted] = useState(false);
@@ -278,6 +279,7 @@ export default function Home() {
       </div>
 
       <OurStory />
+      <TravelInfo />
     </main>
   );
 }
