@@ -251,6 +251,13 @@ export default function Home() {
             RSVP
           </button>
         </div>
+
+        {/* Ultra-Minimal Scroll Hint - Just a breathing line */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center fade-up opacity-0 pointer-events-none">
+          <div className="w-[1px] h-12 bg-gradient-to-b from-olive/40 via-olive/10 to-transparent relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1/2 bg-burgundy/40 animate-scroll-line" />
+          </div>
+        </div>
       </div>
 
         {/* Viewport Frame Decoration */}

@@ -21,9 +21,6 @@
     background-color: var(--background);
     color: var(--foreground);
     font-family: var(--font-body);
-    /* Placeholder for the Canson 300gsm subtle tactile texture */
-    /* background-image: url('/assets/canson-texture.jpg');
-    background-blend-mode: multiply; */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -38,11 +35,6 @@
 @layer utilities {
   .bg-hero-royal {
     background-color: var(--color-surface);
-    /* Placeholder for classic royal damask background texture */
-    /* background-image: url('/assets/royal-texture.jpg');
-    background-size: cover;
-    background-position: center;
-    background-blend-mode: multiply; */
   }
 
   .text-floral {
@@ -52,4 +44,15 @@
   .divider-elegant {
     border-color: var(--color-olive);
   }
+}
+
+/* Ultra-Minimal Scroll Line Hint */
+@keyframes scroll-line {
+  0% { transform: translateY(-100%); }
+  50% { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}
+
+.animate-scroll-line {
+  animation: scroll-line 3s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
