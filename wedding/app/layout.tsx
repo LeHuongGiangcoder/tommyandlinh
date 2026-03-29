@@ -37,6 +37,7 @@ const lato = localFont({
 });
 
 import Navbar from "./components/Navbar";
+import AudioPlayer from "./components/AudioPlayer";
 
 export const metadata: Metadata = {
   title: "Tommy & Linh Wedding | Neo-Vietnamese Formalism",
@@ -53,9 +54,10 @@ export default function RootLayout({
       lang="en"
       className={`${cormorant.variable} ${lato.variable} h-full antialiased scroll-smooth`}
     >
-      <body className="min-h-full flex flex-col font-body">
+      <body className="min-h-full flex flex-col font-body bg-surface">
         <Navbar />
         {children}
+        <AudioPlayer />
       </body>
     </html>
   );
