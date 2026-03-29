@@ -12,7 +12,7 @@ export default function Home() {
   const linhRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
-    let ctx = gsap.context(() => {
+    const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: 1 });
 
       // 1. Handwriting Sequence: Tommy -> & -> Linh

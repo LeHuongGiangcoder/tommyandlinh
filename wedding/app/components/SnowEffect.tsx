@@ -2,6 +2,58 @@
 
 import React, { useEffect, useRef } from 'react';
 
+const particleCount = 100;
+
+class Particle {
+  x: number = 0;
+  y: number = 0;
+  size: number = 0;
+  speedX: number = 0;
+  speedY: number = 0;
+  opacity: number = 0;
+  width: number;
+  height: number;
+  ctx: CanvasRenderingContext2D;
+
+  constructor(width: number, height: number, ctx: CanvasRenderingContext2D) {
+    this.width = width;
+    this.height = height;
+    this.ctx = ctx;
+    this.reset();
+  }
+
+  reset() {
+    this.x = Math.random() * this.width;
+    this.y = Math.random() * this.height;
+    this.size = Math.random() * 2 + 1;
+    this.speedX = Math.random() * 1 - 0.5;
+    this.speedY = Math.random() * 1 + 0.5;
+    this.opacity = Math.random() * 0.5 + 0.2;
+  }
+
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+
+    if (this.y > this.height) {
+      this.y = -10;
+      this.x = Math.random() * this.width;
+    }
+    if (this.x > this.width) {
+      this.x = 0;
+    } else if (this.x < 0) {
+      this.x = this.width;
+    }
+  }
+
+  draw() {
+    this.ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+    this.ctx.beginPath();
+    this.ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    this.ctx.fill();
+  }
+}
+
 const SnowEffect: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -18,52 +70,11 @@ const SnowEffect: React.FC = () => {
     canvas.height = height;
 
     const particles: Particle[] = [];
-    const particleCount = 100;
-
-    class Particle {
-      x: number;
-      y: number;
-      size: number;
-      speedX: number;
-      speedY: number;
-      opacity: number;
-
-      constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.size = Math.random() * 2 + 1;
-        this.speedX = Math.random() * 1 - 0.5;
-        this.speedY = Math.random() * 1 + 0.5;
-        this.opacity = Math.random() * 0.5 + 0.2;
-      }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.y > height) {
-          this.y = -10;
-          this.x = Math.random() * width;
-        }
-        if (this.x > width) {
-          this.x = 0;
-        } else if (this.x < 0) {
-          this.x = width;
-        }
-      }
-
-      draw() {
-        if (!ctx) return;
-        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
+    let animationFrameId: number;
 
     const init = () => {
       for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
+        particles.push(new Particle(width, height, ctx));
       }
     };
 
@@ -73,7 +84,7 @@ const SnowEffect: React.FC = () => {
         particle.update();
         particle.draw();
       });
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
 
     const handleResize = () => {
@@ -81,13 +92,20 @@ const SnowEffect: React.FC = () => {
       height = window.innerHeight;
       canvas.width = width;
       canvas.height = height;
+      particles.forEach(p => {
+        p.width = width;
+        p.height = height;
+      });
     };
 
     init();
     animate();
 
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(animationFrameId);
+    };
   }, []);
 
   return (
