@@ -134,6 +134,9 @@ export default function Home() {
             }} 
           />
           <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-black/10 pointer-events-none" />
+          
+          {/* Grain Texture Overlay */}
+          <div className="absolute inset-0 opacity-[0.12] texture-grain pointer-events-none mix-blend-overlay" />
 
           <div className="relative flex items-center justify-center animate-in fade-in zoom-in duration-1000">
             
@@ -180,7 +183,7 @@ export default function Home() {
               {/* The Wax Seal Button */}
               <button 
                 onClick={() => setIsStarted(true)}
-                className="relative z-50 w-24 h-24 md:w-28 md:h-28 rounded-full bg-burgundy shadow-[0_20px_40px_rgba(86,40,50,0.6)] hover:shadow-[0_25px_60px_rgba(86,40,50,0.7)] transition-all duration-700 flex flex-col items-center justify-center group active:scale-95 hover:scale-105"
+                className="relative z-50 w-24 h-24 md:w-28 md:h-28 rounded-full bg-burgundy transition-all duration-700 flex flex-col items-center justify-center group active:scale-95 hover:scale-105"
               >
                 <div className="absolute inset-1.5 rounded-full border border-white/20 opacity-30"></div>
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent opacity-30 pointer-events-none"></div>
