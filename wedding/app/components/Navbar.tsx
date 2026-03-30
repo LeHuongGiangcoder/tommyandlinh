@@ -3,20 +3,34 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-const navItems = [
-  { name: 'Home', href: '/' },
-  { name: 'Our story', href: '#story' },
-  { name: 'Wedding details', href: '#details' },
-  { name: 'Gallery', href: '#gallery' },
-  { name: 'RSVP', href: '#rsvp' },
-  { name: 'Visa & Flight', href: '#travel' },
-  { name: 'FAQ', href: '#faq' },
-  { name: 'Contact', href: '#contact' },
-];
-
-const Navbar: React.FC = () => {
+const Navbar: React.FC<{ lang?: 'en' | 'vi' }> = ({ lang = 'en' }) => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  const t = {
+    en: [
+      { name: 'Home', href: '/' },
+      { name: 'Our story', href: '#story' },
+      { name: 'Wedding details', href: '#details' },
+      { name: 'Gallery', href: '#gallery' },
+      { name: 'RSVP', href: '#rsvp' },
+      { name: 'Visa & Flight', href: '#travel' },
+      { name: 'FAQ', href: '#faq' },
+      { name: 'Contact', href: '#contact' },
+    ],
+    vi: [
+      { name: 'Trang chủ', href: '/' },
+      { name: 'Câu chuyện', href: '#story' },
+      { name: 'Sự kiện', href: '#details' },
+      { name: 'Bộ sưu tập', href: '#gallery' },
+      { name: 'RSVP', href: '#rsvp' },
+      { name: 'Thị thực & Di chuyển', href: '#travel' },
+      { name: 'FAQ', href: '#faq' },
+      { name: 'Liên hệ', href: '#contact' },
+    ]
+  }[lang];
+
+  const navItems = t;
 
   useEffect(() => {
     const handleScroll = () => {

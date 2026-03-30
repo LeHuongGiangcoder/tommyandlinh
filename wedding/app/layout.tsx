@@ -36,7 +36,6 @@ const lato = localFont({
   variable: "--font-body",
 });
 
-import Navbar from "./components/Navbar";
 import AudioPlayer from "./components/AudioPlayer";
 
 export const metadata: Metadata = {
@@ -55,7 +54,6 @@ export default function RootLayout({
       className={`${cormorant.variable} ${lato.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col font-body bg-surface">
-        <Navbar />
         {children}
         <AudioPlayer />
       </body>

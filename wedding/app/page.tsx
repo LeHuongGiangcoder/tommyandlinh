@@ -6,6 +6,7 @@ import gsap from "gsap";
 import Countdown from "./components/Countdown";
 import OurStory from "./components/OurStory";
 import TravelInfo from "./components/TravelInfo";
+import Navbar from "./components/Navbar";
 import SnowEffect from "./components/SnowEffect";
 
 export default function Home() {
@@ -118,6 +119,7 @@ export default function Home() {
       ref={containerRef} 
       className={`min-h-screen w-full relative flex flex-col bg-surface ${lang === 'vi' ? 'font-vi' : ''} ${!isStarted ? 'overflow-hidden h-screen' : ''}`}
     >
+      <Navbar lang={lang} />
       {/* Landing Envelope Ritual */}
       {!isStarted && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-olive overflow-hidden">
