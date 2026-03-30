@@ -189,15 +189,41 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         }
       });
 
-      gsap.from(".travel-card", {
+      // Visa Card reveal (Section 1)
+      gsap.from(".visa-reveal", {
         opacity: 0,
         y: 40,
+        duration: 1.5,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".visa-reveal",
+          start: "top 85%",
+        }
+      });
+
+      // Logistics Grid reveal (Section 2: Stay & Connectivity)
+      gsap.from(".logistics-grid-reveal .travel-card", {
+        opacity: 0,
+        y: 30,
         stagger: 0.15,
         duration: 1.2,
         ease: "power2.out",
         scrollTrigger: {
-          trigger: ".travel-grid",
-          start: "top 85%",
+          trigger: ".logistics-grid-reveal",
+          start: "top 80%",
+        }
+      });
+
+      // Gallery Grid reveal (Section 3: Destinations)
+      gsap.from(".gallery-reveal .travel-card", {
+        opacity: 0,
+        y: 60,
+        stagger: 0.2,
+        duration: 1.5,
+        ease: "expo.out",
+        scrollTrigger: {
+          trigger: ".gallery-reveal",
+          start: "top 75%",
         }
       });
     }, sectionRef);
@@ -231,7 +257,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         <div className="space-y-20 md:space-y-32 mb-48">
           
           {/* Section 1: Visa Information - Full Width Priority */}
-          <div className="travel-card relative group">
+          <div className="travel-card relative group visa-reveal">
             <div className="absolute -inset-1 border border-olive/5 rounded-sm pointer-events-none transition-all group-hover:border-olive/20"></div>
             <div className="bg-white/60 backdrop-blur-sm border-double border-4 border-olive/10 p-8 md:p-16 relative z-10 shadow-sm transition-all hover:bg-white/80">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-14 border-b border-olive/10 pb-12">
@@ -356,7 +382,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           </div>
 
           {/* Section 2: Accommodation & Connectivity - 2 Columns Below */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 logistics-grid-reveal">
             
             {/* Where to Stay */}
             <div className="travel-card bg-surface/40 border border-olive/10 p-10 md:p-14 relative overflow-hidden group shadow-sm transition-all hover:bg-surface/50">
@@ -366,7 +392,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                     <div className="w-10 h-10 rounded-full border border-olive/20 flex items-center justify-center">
                         <MapPin className="w-4 h-4 stroke-1 text-olive" />
                     </div>
-                    <h3 className="text-3xl font-heading italic font-medium">{t.stay}</h3>
+                    <h3 className="text-3xl font-heading italic font-medium tracking-tight">{t.stay}</h3>
                  </div>
                </div>
 
@@ -374,7 +400,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                  {t.stayDesc} <strong className="text-burgundy font-medium border-b border-burgundy/20 pb-1">{t.stayHighlight}</strong> {t.staySuffix}
                </p>
 
-               <div className="space-y-14">
+               <div className="space-y-14 text-ink/80">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                      <div className="flex items-start p-6 bg-white/40 border-l-[0.5px] border-olive/20 transition-all hover:bg-white/80">
                         <div>
@@ -499,7 +525,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
              <p className="text-olive/70 font-light mt-12 italic leading-loose font-serif text-xl border-x border-olive/5 px-12">{t.exploreSub}</p>
           </div>
 
-          <div className="travel-grid grid grid-cols-1 md:grid-cols-3 gap-20 lg:gap-32 pb-16">
+          <div className="gallery-reveal grid grid-cols-1 md:grid-cols-3 gap-20 lg:gap-32 pb-16">
             {/* Hanoi */}
             <div className="travel-card group">
               <div className="relative aspect-[4/5] overflow-hidden mb-12 ring-1 ring-burgundy/5 shadow-2xl transition-all group-hover:ring-burgundy/20">
