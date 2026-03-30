@@ -78,7 +78,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       halongDesc: "A UNESCO World Heritage site known for its emerald waters and thousands of towering limestone islands.",
       ninhbinh: "Ninh Binh — The Inland Haven",
       ninhbinhDesc: "Discover the breathtaking landscapes of Tam Coc, often called Ha Long Bay on land, and ancient temple ruins.",
-      rsvpTravel: "If you are interested in any of the above tours or need assistance with coordination, please mention this in your RSVP so we can connect you with our trusted travel partners."
+      rsvpTravel: "Please RSVP if you are interested in any of the activities so we can coordinate with a local travel agency."
     },
     vi: {
       plan: "Chuẩn bị cho chuyến đi",
@@ -146,7 +146,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       halongDesc: "Di sản thế giới với hàng ngàn đảo đá vôi vươn mình trên làn nước xanh ngọc bích tuyệt đẹp.",
       ninhbinh: "Ninh Bình — Tuyệt tác Thiên nhiên",
       ninhbinhDesc: "Được mệnh danh là 'Hạ Long trên cạn' với vẻ đẹp yên bình của sông nước và núi non hùng vĩ.",
-      rsvpTravel: "Nếu quý khách quan tâm đến các điểm đến này hoặc cần hỗ trợ điều phối lịch trình, vui lòng ghi chú trong phần RSVP để chúng mình có thể hỗ trợ tốt nhất."
+      rsvpTravel: "Nếu bạn muốn tham gia hoạt động nào, nhớ RSVP để tụi mình sắp xếp nha!"
     }
   }[lang];
 
@@ -532,21 +532,20 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             </div>
           </div>
 
-          <div className="mt-56 lg:mt-80 p-16 md:p-32 relative max-w-5xl mx-auto travel-card text-center bg-white/30 backdrop-blur-[4px] group">
-              <div className="absolute inset-2 border-double border-4 border-olive/20 rounded-sm pointer-events-none transition-all group-hover:border-olive/40 translate-x-1 translate-y-1"></div>
-              <div className="absolute inset-0 border border-olive/10 rounded-sm pointer-events-none"></div>
+          <div className="mt-24 lg:mt-32 p-8 md:p-10 relative w-fit max-w-2xl mx-auto travel-card text-center bg-white/10 backdrop-blur-[1px] group overflow-hidden">
+              <div className="absolute inset-0 border border-olive/10 rounded-sm pointer-events-none group-hover:border-burgundy/20 transition-colors"></div>
               
-              <div className="relative z-10 space-y-12">
-                 <div className="flex items-center justify-center gap-8 opacity-20">
-                    <div className="w-1.5 h-1.5 rounded-full bg-burgundy"></div>
-                    <div className="w-16 h-[0.5px] bg-burgundy"></div>
-                    <div className="w-1.5 h-1.5 rounded-full bg-burgundy"></div>
+              <div className="relative z-10 space-y-6">
+                 <div className="flex items-center justify-center gap-4 opacity-[0.15]">
+                    <div className="w-1 h-1 rounded-full bg-burgundy"></div>
+                    <div className="w-8 h-[0.5px] bg-burgundy"></div>
+                    <div className="w-1 h-1 rounded-full bg-burgundy"></div>
                  </div>
-                 <p className="text-burgundy italic font-heading text-2xl md:text-4xl leading-[1.6] px-6 md:px-20 transition-all group-hover:tracking-wide duration-700">
+                 <p className="text-burgundy/80 italic font-heading text-lg md:text-xl leading-relaxed px-4 md:px-8">
                     "{t.rsvpTravel}"
                  </p>
-                 <div className="pt-8">
-                    <div className="w-[1px] h-20 bg-gradient-to-b from-burgundy/50 to-transparent mx-auto"></div>
+                 <div className="pt-2">
+                    <div className="w-[0.5px] h-8 bg-gradient-to-b from-burgundy/20 to-transparent mx-auto"></div>
                  </div>
               </div>
           </div>
