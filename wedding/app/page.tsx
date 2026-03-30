@@ -6,6 +6,7 @@ import gsap from "gsap";
 import Countdown from "./components/Countdown";
 import OurStory from "./components/OurStory";
 import TravelInfo from "./components/TravelInfo";
+import FAQ from "./components/FAQ";
 import Navbar from "./components/Navbar";
 import SnowEffect from "./components/SnowEffect";
 
@@ -308,6 +309,7 @@ export default function Home() {
 
       <OurStory key={`story-${lang}`} lang={lang} />
       <TravelInfo key={`travel-${lang}`} lang={lang} />
+      <FAQ key={`faq-${lang}`} lang={lang} />
 
       {/* Language Switcher Pill */}
       <div className="fixed top-6 right-8 z-[110] flex items-center justify-center">
