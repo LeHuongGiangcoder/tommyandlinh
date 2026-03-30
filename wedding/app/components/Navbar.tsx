@@ -9,7 +9,7 @@ const Navbar: React.FC<{ lang?: 'en' | 'vi' }> = ({ lang = 'en' }) => {
 
   const t = {
     en: [
-      { name: 'Home', href: '/' },
+      { name: 'Home', href: '#hero' },
       { name: 'Our story', href: '#story' },
       { name: 'Wedding details', href: '#details' },
       { name: 'Gallery', href: '#gallery' },
@@ -19,7 +19,7 @@ const Navbar: React.FC<{ lang?: 'en' | 'vi' }> = ({ lang = 'en' }) => {
       { name: 'Contact', href: '#contact' },
     ],
     vi: [
-      { name: 'Trang chủ', href: '/' },
+      { name: 'Trang chủ', href: '#hero' },
       { name: 'Câu chuyện', href: '#story' },
       { name: 'Sự kiện', href: '#details' },
       { name: 'Bộ sưu tập', href: '#gallery' },
@@ -63,7 +63,7 @@ const Navbar: React.FC<{ lang?: 'en' | 'vi' }> = ({ lang = 'en' }) => {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-8 xl:gap-12">
           {navItems.map((item) => (
-            <Link
+            <a
               key={item.name}
               href={item.href}
               className="group relative"
@@ -72,7 +72,7 @@ const Navbar: React.FC<{ lang?: 'en' | 'vi' }> = ({ lang = 'en' }) => {
                 {item.name}
               </span>
               <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-burgundy/30 transition-all duration-700 ease-in-out group-hover:w-full" />
-            </Link>
+            </a>
           ))}
         </div>
 
@@ -109,11 +109,11 @@ const Navbar: React.FC<{ lang?: 'en' | 'vi' }> = ({ lang = 'en' }) => {
 
           <div className="flex flex-col items-center gap-8 relative z-50">
             {navItems.map((item, idx) => (
-              <Link
+              <a
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="group flex flex-col items-center overflow-hidden"
+                className="group flex flex-col items-center overflow-hidden no-underline"
               >
                 <span 
                   className={`text-xs tracking-[0.4em] uppercase text-ink/70 group-hover:text-burgundy transition-all duration-700 ${
@@ -124,7 +124,7 @@ const Navbar: React.FC<{ lang?: 'en' | 'vi' }> = ({ lang = 'en' }) => {
                   {item.name}
                 </span>
                 <div className="w-0 h-[1px] bg-burgundy/20 group-hover:w-full transition-all duration-500 mt-2" />
-              </Link>
+              </a>
             ))}
           </div>
         </div>

@@ -199,7 +199,7 @@ export default function Home() {
         </div>
       )}
       {/* Cinematic Hero Section */}
-      <section className="relative w-full h-screen overflow-hidden flex flex-col shrink-0">
+      <section id="hero" className="relative w-full h-screen overflow-hidden flex flex-col shrink-0">
         {/* Immersive Hero Image */}
         <div className="absolute inset-0 z-0">
         <Image

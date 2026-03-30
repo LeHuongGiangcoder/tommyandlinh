@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 @import "tailwindcss";
 
 @font-face {
@@ -62,6 +66,11 @@
     font-family: var(--font-heading);
     color: var(--color-burgundy);
     font-weight: 500;
+  }
+
+  /* Ensure Fixed Navbar doesn't hide section content */
+  section[id] {
+    scroll-margin-top: 80px;
   }
 }
 
