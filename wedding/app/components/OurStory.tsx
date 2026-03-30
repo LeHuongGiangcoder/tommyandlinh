@@ -230,10 +230,21 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
              <p className="text-ink/80 leading-relaxed font-light text-lg md:text-xl md:leading-loose">
                 {content.proposalParas[1]}
              </p>
-             <div className="pt-6">
-                <p className="text-ink/60 text-sm tracking-widest font-light italic">
-                  {content.footer}
+             <div className="pt-16 mt-16 border-t border-olive/10 text-center space-y-10 group/conclusion relative">
+                {/* Visual Flourish Accent */}
+                <div className="flex items-center justify-center gap-6 opacity-20 group-hover/conclusion:opacity-40 transition-opacity duration-1000">
+                    <div className="w-12 h-[0.5px] bg-olive"></div>
+                    <div className="w-2 h-2 rotate-45 border border-olive"></div>
+                    <div className="w-12 h-[0.5px] bg-olive"></div>
+                </div>
+
+                <p className="text-2xl md:text-4xl font-heading text-burgundy italic leading-tight max-w-3xl mx-auto drop-shadow-sm px-4">
+                  “{content.footer}”
                 </p>
+
+                <div className="pt-4">
+                   <div className="w-[0.5px] h-16 bg-gradient-to-b from-olive/20 to-transparent mx-auto"></div>
+                </div>
              </div>
           </div>
 
