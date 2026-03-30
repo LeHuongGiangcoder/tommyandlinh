@@ -236,27 +236,27 @@ export default function Home() {
         {/* Unconstrained, flowing text grouping */}
         <div className="flex flex-col items-start w-full relative">
           
-          <div className="fade-up opacity-0">
-            {/* Centered Divider and Subtitle Block */}
-            <div className="flex flex-col items-center self-start mb-6 mt-12 text-center w-full sm:w-auto">
+          {/* Centered Group: Title + Tommy */}
+          <div className="flex flex-col items-center w-fit">
+            <div className="fade-up opacity-0 flex flex-col items-center mb-6 mt-12 text-center pointer-events-none">
               {/* Classic Ornamental Divider */}
               <div className="flex items-center gap-4 mb-4">
-                <div className="h-[1px] w-16 bg-gradient-to-r from-transparent to-olive/60"></div>
-                <svg className="w-3.5 h-3.5 text-olive" viewBox="0 0 24 24" fill="currentColor">
+                <div className="h-[1px] w-12 md:w-16 bg-gradient-to-r from-transparent to-olive/60"></div>
+                <svg className="w-3 md:w-3.5 h-3 md:h-3.5 text-olive" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 1L13.5 10.5L23 12L13.5 13.5L12 23L10.5 13.5L1 12L10.5 10.5L12 1Z" opacity="0.8" />
                 </svg>
-                <div className="h-[1px] w-16 bg-gradient-to-l from-transparent to-olive/60"></div>
+                <div className="h-[1px] w-12 md:w-16 bg-gradient-to-l from-transparent to-olive/60"></div>
               </div>
 
-              <p className="text-olive/90 tracking-[0.4em] uppercase text-[10px] sm:text-xs font-light">
+              <p className="text-olive/90 tracking-[0.4em] ml-[0.4em] uppercase text-[10px] md:text-xs font-light">
                 {currentT.celebration}
               </p>
             </div>
-          </div>
 
-          <h1 ref={tommyRef} className="text-7xl md:text-[110px] lg:text-[140px] font-heading font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md">
-            Tommy
-          </h1>
+            <h1 ref={tommyRef} className="text-7xl md:text-[110px] lg:text-[140px] font-heading font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md">
+              Tommy
+            </h1>
+          </div>
           
           <div className="flex w-full items-center my-0 pl-24 md:pl-44 -mt-2">
             <span ref={ampRef} className="text-5xl md:text-7xl font-heading font-light italic text-olive/80 drop-shadow-md">&amp;</span>
