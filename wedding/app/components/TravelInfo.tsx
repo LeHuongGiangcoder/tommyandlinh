@@ -256,7 +256,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             {/* Hanoi */}
             <div className="travel-card group">
               <div className="relative aspect-[4/5] overflow-hidden mb-6">
-                <Image src="/5.jpg" alt="Hanoi" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
+                <Image src="/hanoi.jpg" alt="Hanoi" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-burgundy/10 mix-blend-overlay"></div>
               </div>
               <h4 className="text-xl font-heading text-burgundy mb-2">{t.hanoi}</h4>
@@ -268,7 +268,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             {/* Ha Long Bay */}
             <div className="travel-card group">
               <div className="relative aspect-[4/5] overflow-hidden mb-6">
-                <Image src="/6.jpg" alt="Ha Long Bay" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
+                <Image src="/halong.jpg" alt="Ha Long Bay" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-burgundy/10 mix-blend-overlay"></div>
               </div>
               <h4 className="text-xl font-heading text-burgundy mb-2">{t.halong}</h4>
@@ -280,7 +280,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             {/* Ninh Binh */}
             <div className="travel-card group">
               <div className="relative aspect-[4/5] overflow-hidden mb-6">
-                <Image src="/7.jpg" alt="Ninh Binh" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
+                <Image src="/ninhbinh.jpg" alt="Ninh Binh" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-burgundy/10 mix-blend-overlay"></div>
               </div>
               <h4 className="text-xl font-heading text-burgundy mb-2">{t.ninhbinh}</h4>
