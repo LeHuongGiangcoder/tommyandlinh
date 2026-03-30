@@ -201,17 +201,17 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
            </div>
         </div>
 
-        {/* Part 5: The Traveller's Essentials (Journal Style) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-20 mb-48 items-start">
+        {/* Part 5: The Traveller's Essentials (Serial Journal Layout) */}
+        <div className="space-y-20 md:space-y-32 mb-48">
           
-          {/* Visa Information - Styled as an "Authentic Travel Doc" */}
-          <div className="lg:col-span-12 xl:col-span-7 travel-card relative group">
+          {/* Section 1: Visa Information - Full Width Priority */}
+          <div className="travel-card relative group">
             <div className="absolute -inset-1 border border-olive/5 rounded-sm pointer-events-none transition-all group-hover:border-olive/20"></div>
             <div className="bg-white/60 backdrop-blur-sm border-double border-4 border-olive/10 p-8 md:p-16 relative z-10 shadow-sm transition-all hover:bg-white/80">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-14 border-b border-olive/10 pb-12">
                 <div className="space-y-3">
                   <span className="text-[9px] tracking-[0.5em] uppercase text-olive/50 block font-medium">DOCUMENTATION REF. 001</span>
-                  <h3 className="text-4xl md:text-5xl font-heading text-burgundy italic font-medium leading-tight">{t.visaSub}</h3>
+                  <h2 className="text-4xl md:text-6xl font-heading text-burgundy italic font-medium leading-tight">{t.visaSub}</h2>
                 </div>
                 <div className="flex items-center gap-4 opacity-[0.15] grayscale brightness-50">
                    <div className="h-[1px] w-12 bg-black"></div>
@@ -219,104 +219,106 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 </div>
               </div>
               
-              <div className="space-y-12 text-ink/80 font-light leading-relaxed">
-                <div className="relative pl-10 border-l-[0.5px] border-olive/30">
-                  <p className="text-xl md:text-2xl font-heading italic text-burgundy/90 mb-8 leading-snug">{t.visaDesc}</p>
-                  <div className="px-6 py-4 bg-olive/[0.03] border-l-4 border-olive/20 rounded-r-sm">
-                    <p className="text-[13px] italic text-olive/70 font-serif leading-relaxed">{t.visaExemption}</p>
+              <div className="space-y-16 text-ink/80 font-light leading-relaxed">
+                <div className="relative pl-10 border-l-[0.5px] border-olive/30 max-w-4xl">
+                  <p className="text-xl md:text-3xl font-heading italic text-burgundy/90 mb-8 leading-snug">{t.visaDesc}</p>
+                  <div className="px-6 py-4 bg-olive/[0.03] border-l-4 border-olive/20 rounded-r-sm max-w-2xl">
+                    <p className="text-[14px] italic text-olive/70 font-serif leading-relaxed">{t.visaExemption}</p>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 border-t border-olive/10 pt-10">
-                   <div className="space-y-8">
-                      <h4 className="text-[10px] tracking-[0.4em] uppercase text-olive font-bold">{t.applyHere}</h4>
-                      <div className="space-y-6">
+                {/* Apply & Key Stats Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 border-t border-olive/10 pt-16">
+                   <div className="space-y-10">
+                      <h4 className="text-[11px] tracking-[0.4em] uppercase text-olive font-bold">{t.applyHere}</h4>
+                      <div className="space-y-8">
                         <a href="https://evisa.gov.vn" target="_blank" rel="noopener noreferrer" 
-                           className="group/btn relative inline-flex items-center gap-4 px-10 py-5 bg-burgundy text-surface text-[10px] tracking-[0.4em] uppercase transition-all overflow-hidden font-medium">
+                           className="group/btn relative inline-flex items-center gap-5 px-12 py-6 bg-burgundy text-surface text-[11px] tracking-[0.5em] uppercase transition-all overflow-hidden font-medium shadow-lg shadow-burgundy/10">
                           <span className="relative z-10">{t.applyLink1}</span>
-                          <ExternalLink className="w-3.5 h-3.5 relative z-10 transition-transform group-hover/btn:translate-x-1" />
+                          <ExternalLink className="w-4 h-4 relative z-10 transition-transform group-hover/btn:translate-x-1" />
                           <div className="absolute inset-x-0 bottom-0 h-[2px] bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
                         </a>
                         
-                        <a href="https://vn.usembassy.gov/vietnamese-visas-and-entry-exit/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-[10px] tracking-[0.1em] group/link text-burgundy/60 hover:text-burgundy transition-colors pl-1">
+                        <a href="https://vn.usembassy.gov/vietnamese-visas-and-entry-exit/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-[11px] tracking-[0.1em] group/link text-burgundy/60 hover:text-burgundy transition-colors pl-1">
                            <span className="border-b border-transparent group-hover/link:border-burgundy/30 transition-all italic">{t.applyLink2}</span>
-                           <ExternalLink className="w-2.5 h-2.5 opacity-0 group-hover/link:opacity-100 transition-all" />
+                           <ExternalLink className="w-3 h-3 opacity-0 group-hover/link:opacity-100 transition-all" />
                         </a>
                       </div>
                    </div>
-                   <div className="space-y-8">
-                      <h4 className="text-[10px] tracking-[0.4em] uppercase text-olive font-bold">{t.keyDetails}</h4>
-                      <div className="space-y-10">
+
+                   <div className="space-y-10">
+                      <h4 className="text-[11px] tracking-[0.4em] uppercase text-olive font-bold">{t.keyDetails}</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                          {/* Validity */}
-                         <div className="flex items-center gap-5">
-                            <p className="text-3xl font-heading text-burgundy italic">90</p>
+                         <div className="flex items-start gap-5">
+                            <p className="text-4xl font-heading text-burgundy italic leading-none">90</p>
                             <div className="h-10 w-[1px] bg-olive/10"></div>
                             <div className="space-y-1">
                                <p className="text-[10px] uppercase tracking-[0.2em] text-olive font-bold leading-none">{lang === 'en' ? 'Days' : 'Ngày'}</p>
                                <p className="text-[11px] text-ink/50 font-light italic leading-tight">
-                                  {lang === 'en' ? 'Max. Validity (Single or Multiple Entry)' : 'Hiệu lực tối đa (1 hoặc nhiều lần nhập cảnh)'}
+                                  {lang === 'en' ? 'Max. Validity (Single/Multiple)' : 'Hiệu lực tối đa (1/Nhiều lần)'}
                                </p>
                             </div>
                          </div>
 
                          {/* Fee */}
-                         <div className="flex items-center gap-5">
-                            <p className="text-3xl font-heading text-burgundy italic">$25</p>
+                         <div className="flex items-start gap-5">
+                            <p className="text-4xl font-heading text-burgundy italic leading-none">$25</p>
                             <div className="h-10 w-[1px] bg-olive/10"></div>
                             <div className="space-y-1">
                                <p className="text-[10px] uppercase tracking-[0.2em] text-olive font-bold leading-none">{lang === 'en' ? 'Fee' : 'Lệ phí'}</p>
                                <p className="text-[11px] text-ink/50 font-light italic leading-tight">
-                                  {lang === 'en' ? '/ $50 (Multiple Entry) — Non-refundable' : '/ $50 (Nhiều lần) — Không hoàn lại'}
+                                  {lang === 'en' ? '/ $50 (Multiple) — Non-refundable' : '/ $50 (Nhiều lần) — K.hoàn lại'}
                                </p>
                             </div>
                          </div>
+                      </div>
 
-                         {/* Processing */}
-                         <div className="flex items-center gap-5">
-                            <p className="text-3xl font-heading text-burgundy italic font-semibold">3-5</p>
-                            <div className="h-10 w-[1px] bg-olive/10"></div>
-                            <div className="space-y-1">
-                               <p className="text-[10px] uppercase tracking-[0.2em] text-olive font-bold leading-none">{lang === 'en' ? 'Business Days' : 'Ngày làm việc'}</p>
-                               <p className="text-[11px] text-ink/50 font-light italic leading-tight">
-                                  {lang === 'en' ? 'Apply 1–2 weeks early to be safe' : 'Nên làm trước 1–2 tuần cho yên tâm'}
-                               </p>
-                            </div>
+                      <div className="flex items-start gap-5 pt-4">
+                         <p className="text-4xl font-heading text-burgundy italic font-semibold leading-none">3-5</p>
+                         <div className="h-10 w-[1px] bg-olive/10"></div>
+                         <div className="space-y-1">
+                            <p className="text-[10px] uppercase tracking-[0.2em] text-olive font-bold leading-none">{lang === 'en' ? 'Business Days' : 'Ngày làm việc'}</p>
+                            <p className="text-[11px] text-ink/50 font-light italic leading-tight">
+                               {lang === 'en' ? 'Apply 1–2 weeks early for peace of mind' : 'Nên làm trước 1–2 tuần để đảm bảo'}
+                            </p>
                          </div>
                       </div>
                    </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-10 border-t border-olive/10">
+                {/* Checklists Section */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-16 pt-16 border-t border-olive/10">
                   <div className="space-y-8">
-                    <h4 className="text-[10px] tracking-[0.5em] uppercase text-olive font-bold">{t.need}</h4>
+                    <h4 className="text-[11px] tracking-[0.5em] uppercase text-olive font-bold">{t.need}</h4>
                     <ul className="space-y-6">
                       {t.needItems.map((item, i) => (
-                        <li key={i} className="flex gap-4 text-[13px] items-start group/item">
-                          <span className="text-olive/40 font-serif italic text-base leading-none mt-[-2px]">0{i+1}.</span>
+                        <li key={i} className="flex gap-4 text-[14px] items-start group/item">
+                          <span className="text-olive/40 font-serif italic text-lg leading-none mt-[-2px]">0{i+1}.</span>
                           <span className="font-light leading-relaxed opacity-90">{item}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="space-y-8">
-                    <h4 className="text-[10px] tracking-[0.5em] uppercase text-olive font-bold">{t.afterApproval}</h4>
+                  <div className="space-y-8 border-l-[0.5px] border-olive/5 pl-8 md:pl-12">
+                    <h4 className="text-[11px] tracking-[0.5em] uppercase text-olive font-bold">{t.afterApproval}</h4>
                     <ul className="space-y-6">
                       {t.afterApprovalItems.map((item, i) => (
-                        <li key={i} className="flex gap-4 text-[13px] items-start group/item">
-                          <span className="text-olive/40 font-serif italic text-base leading-none mt-[-2px]">0{i+1}.</span>
+                        <li key={i} className="flex gap-4 text-[14px] items-start group/item">
+                          <span className="text-olive/40 font-serif italic text-lg leading-none mt-[-2px]">0{i+1}.</span>
                           <span className="font-light leading-relaxed opacity-90">{item}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="space-y-8">
-                    <h4 className="text-[10px] tracking-[0.5em] uppercase text-olive font-bold">{t.arrivalTips}</h4>
+                  <div className="space-y-8 border-l-[0.5px] border-olive/5 pl-8 md:pl-12">
+                    <h4 className="text-[11px] tracking-[0.5em] uppercase text-olive font-bold">{t.arrivalTips}</h4>
                     <ul className="space-y-6">
                       {t.arrivalTipsItems.map((item, i) => (
-                        <li key={i} className="flex gap-4 text-[13px] items-start group/item">
-                          <span className="text-olive/40 font-serif italic text-base leading-none mt-[-2px]">0{i+1}.</span>
+                        <li key={i} className="flex gap-4 text-[14px] items-start group/item">
+                          <span className="text-olive/40 font-serif italic text-lg leading-none mt-[-2px]">0{i+1}.</span>
                           <span className="font-light leading-relaxed opacity-90">{item}</span>
                         </li>
                       ))}
@@ -327,8 +329,10 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             </div>
           </div>
 
-          {/* Quick Info Column - Curated Essentials */}
-          <div className="lg:col-span-12 xl:col-span-5 space-y-12 h-full">
+          {/* Section 2: Accommodation & Connectivity - 2 Columns Below */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12">
+            
+            {/* Where to Stay */}
             <div className="travel-card bg-surface/40 border border-olive/10 p-10 md:p-14 relative overflow-hidden group shadow-sm transition-all hover:bg-surface/50">
                <div className="absolute -top-16 -right-16 w-48 h-48 opacity-[0.02] bg-burgundy rounded-full group-hover:scale-110 transition-transform duration-[2s]"></div>
                <div className="flex items-center justify-between mb-12 pb-8 border-b border-olive/10">
@@ -340,46 +344,46 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                  </div>
                </div>
 
-               <p className="text-ink/80 font-light leading-[1.8] mb-12 text-[17px] font-serif italic">
+               <p className="text-ink/80 font-light leading-[1.8] mb-12 text-[17px] font-serif italic max-w-xl">
                  {t.stayDesc} <strong className="text-burgundy font-medium border-b border-burgundy/20 pb-1">{t.stayHighlight}</strong> {t.staySuffix}
                </p>
 
-               <div className="space-y-12">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                     <div className="flex items-start gap-8 p-6 bg-white/40 border-l-[0.5px] border-olive/20 transition-all hover:bg-white/80">
+               <div className="space-y-14">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                     <div className="flex items-start p-6 bg-white/40 border-l-[0.5px] border-olive/20 transition-all hover:bg-white/80">
                         <div>
-                           <h4 className="text-burgundy text-[11px] uppercase tracking-[0.3em] mb-3 font-semibold">{t.oldQuarter}</h4>
+                           <h4 className="text-burgundy text-[11px] uppercase tracking-[0.3em] mb-4 font-semibold">{t.oldQuarter}</h4>
                            <p className="text-ink/60 text-[11px] leading-[1.8] font-light">{t.oldQuarterDesc}</p>
                         </div>
                      </div>
-                     <div className="flex items-start gap-8 p-6 bg-white/40 border-l-[0.5px] border-olive/20 transition-all hover:bg-white/80">
+                     <div className="flex items-start p-6 bg-white/40 border-l-[0.5px] border-olive/20 transition-all hover:bg-white/80">
                         <div>
-                           <h4 className="text-burgundy text-[11px] uppercase tracking-[0.3em] mb-3 font-semibold">{t.frenchQuarter}</h4>
+                           <h4 className="text-burgundy text-[11px] uppercase tracking-[0.3em] mb-4 font-semibold">{t.frenchQuarter}</h4>
                            <p className="text-ink/60 text-[11px] leading-[1.8] font-light">{t.frenchQuarterDesc}</p>
                         </div>
                      </div>
                   </div>
 
-                  <div className="pt-8 border-t border-olive/10">
-                    <h4 className="text-[10px] tracking-[0.5em] uppercase text-olive font-bold mb-8">{t.priceRange}</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                  <div className="pt-10 border-t border-olive/10">
+                    <h4 className="text-[11px] tracking-[0.5em] uppercase text-olive font-bold mb-10">{t.priceRange}</h4>
+                    <div className="grid grid-cols-3 gap-8">
                        {t.prices.map((p, i) => (
-                         <div key={i} className="space-y-2">
-                           <p className="text-[10px] text-olive/60 uppercase tracking-widest">{p.label}</p>
-                           <p className="text-lg font-heading text-burgundy italic">{p.value}</p>
+                         <div key={i} className="space-y-3">
+                           <p className="text-[11px] text-olive/60 uppercase tracking-widest leading-none">{p.label}</p>
+                           <p className="text-xl font-heading text-burgundy italic leading-none">{p.value}</p>
                          </div>
                        ))}
                     </div>
                   </div>
 
-                  <div className="pt-8 border-t border-olive/10">
-                    <div className="flex items-center gap-3 mb-8">
-                       <h4 className="text-[10px] tracking-[0.5em] uppercase text-olive font-bold">{t.reviewedHotels}</h4>
-                       <span className="text-[10px] font-serif italic text-olive/40">(TripAdvisor)</span>
+                  <div className="pt-10 border-t border-olive/10">
+                    <div className="flex items-center gap-4 mb-10">
+                       <h4 className="text-[11px] tracking-[0.5em] uppercase text-olive font-bold">{t.reviewedHotels}</h4>
+                       <div className="h-[1px] flex-grow bg-olive/5"></div>
                     </div>
-                    <ul className="grid grid-cols-1 gap-4">
-                      {t.hotelList.map(( hotel, i) => (
-                        <li key={i} className="flex gap-4 text-xs items-start group/hotel">
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-5">
+                      {t.hotelList.map((hotel, i) => (
+                        <li key={i} className="flex gap-4 text-[13px] items-start group/hotel">
                           <span className="text-olive/30 mt-1">✦</span>
                           <span className="font-light leading-relaxed group-hover/hotel:text-burgundy transition-colors">{hotel}</span>
                         </li>
@@ -389,42 +393,68 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                </div>
             </div>
 
-            {/* Connectivity - Toolset Kit Style */}
-            <div className="travel-card bg-olive/[0.04] border-double border-4 border-olive/5 p-10 md:p-14 relative group">
-               <div className="flex items-center gap-6 text-olive mb-12 pb-8 border-b border-olive/10">
-                 <div className="w-10 h-10 rounded-full border border-olive/20 flex items-center justify-center">
-                    <Smartphone className="w-4 h-4 stroke-1" />
-                 </div>
-                 <h3 className="text-3xl font-heading text-burgundy italic font-medium">{t.connectivity}</h3>
+            {/* The Digital Toolkit - High Density Display */}
+            <div className="travel-card bg-olive/[0.04] border-double border-4 border-olive/5 p-10 md:p-14 relative group flex flex-col h-full overflow-hidden">
+               {/* Decorative Background Accent */}
+               <div className="absolute -bottom-10 -right-10 w-64 h-64 opacity-[0.03] pointer-events-none rotate-12">
+                  <Smartphone className="w-full h-full" />
                </div>
-               <div className="space-y-12">
-                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
-                    <div className="space-y-5">
-                      <p className="text-[10px] uppercase tracking-[0.5em] text-olive font-bold">{t.esim}</p>
-                      <p className="text-xs text-ink/70 leading-relaxed font-light">{t.esimDesc}</p>
+
+               <div className="relative z-10 flex flex-col h-full">
+                  <div className="flex items-center gap-6 text-olive mb-12 pb-8 border-b border-olive/10">
+                    <div className="w-10 h-10 rounded-full border border-olive/20 flex items-center justify-center">
+                        <Smartphone className="w-4 h-4 stroke-1" />
                     </div>
-                    <div className="space-y-5">
-                      <p className="text-[10px] uppercase tracking-[0.5em] text-olive font-bold">{t.apps}</p>
-                      <p className="text-xs text-ink/70 leading-relaxed font-light">{t.appsDesc}</p>
+                    <h3 className="text-3xl font-heading text-burgundy italic font-medium">{t.connectivity}</h3>
+                  </div>
+                  
+                  <div className="space-y-12 flex-grow flex flex-col">
+                    {/* eSIM Specialized Card */}
+                    <div className="bg-white/40 border border-olive/10 p-8 relative group/sim overflow-hidden shadow-sm transition-all hover:bg-white/60">
+                       <div className="absolute top-0 right-0 p-4 opacity-10 group-hover/sim:opacity-20 transition-opacity">
+                          <div className="flex gap-1 items-end h-6">
+                            <div className="w-1 h-2 bg-olive"></div>
+                            <div className="w-1 h-3 bg-olive"></div>
+                            <div className="w-1 h-4 bg-olive"></div>
+                            <div className="w-1 h-5 bg-burgundy"></div>
+                          </div>
+                       </div>
+                       <h4 className="text-[11px] uppercase tracking-[0.4em] text-olive font-bold mb-6">{t.esim}</h4>
+                       <div className="flex items-baseline gap-4 mb-6">
+                          <p className="text-5xl font-heading text-burgundy italic">5GB</p>
+                          <p className="text-[10px] uppercase tracking-widest text-olive/60 font-bold border-l border-olive/10 pl-4">/ {lang === 'en' ? 'Day' : 'Ngày'}</p>
+                       </div>
+                       <p className="text-[13px] text-ink/70 leading-relaxed font-serif italic max-w-xs">{t.esimDesc}</p>
                     </div>
-                 </div>
-                 
-                 <div className="flex flex-wrap gap-6 pt-10 border-t border-olive/10">
-                    {[
-                      { src: "/grab.jpg", name: "Grab" },
-                      { src: "/xanhsm.png", name: "Xanh SM" },
-                      { src: "/be.jpeg", name: "Be" },
-                      { src: "/zalo.jpg", name: "Zalo" }
-                    ].map((app, idx) => (
-                      <div key={idx} className="group/app relative w-16 h-16 bg-white rounded-sm p-4 border border-olive/10 shadow-sm transition-all hover:shadow-md hover:-translate-y-2 flex items-center justify-center overflow-hidden">
-                         <div className="relative w-full h-full grayscale group-hover/app:grayscale-0 transition-all duration-700">
-                           <Image src={app.src} alt={app.name} fill className="object-contain" />
-                         </div>
-                         <div className="absolute inset-0 border border-burgundy/10 opacity-0 group-hover/app:opacity-100 transition-opacity"></div>
-                         <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover/app:opacity-100 transition-all text-[8px] tracking-[0.5em] uppercase text-olive whitespace-nowrap bg-surface py-1 font-medium">{app.name}</div>
-                      </div>
-                    ))}
-                 </div>
+
+                    {/* App List - Vertical High-Density Layout */}
+                    <div className="space-y-8 flex-grow flex flex-col">
+                       <h4 className="text-[11px] uppercase tracking-[0.4em] text-olive font-bold">{t.apps}</h4>
+                       <div className="grid grid-cols-1 gap-4 flex-grow">
+                          {[
+                            { src: "/grab.jpg", name: "Grab", desc: lang === 'en' ? "Rides, Food & Delivery" : "Di chuyển, Giao đồ ăn", url: "https://www.grab.com/vn/en/" },
+                            { src: "/xanhsm.png", name: "Xanh SM", desc: lang === 'en' ? "Electric Taxi & Bikes" : "Taxi điện & Xe máy điện", url: "https://www.xanhsm.com/" },
+                            { src: "/be.jpeg", name: "Be", desc: lang === 'en' ? "Local Ride-sharing" : "Ứng dụng gọi xe đa dịch vụ", url: "https://be.com.vn/#intro" },
+                            { src: "/zalo.jpg", name: "Zalo", desc: lang === 'en' ? "Primary Local Messaging" : "Liên lạc & Nhắn tin chính", url: "https://zalo.me/vi/" }
+                          ].map((app, idx) => (
+                            <a key={idx} href={app.url} target="_blank" rel="noopener noreferrer" className="group/appitem flex items-center gap-5 p-4 bg-white/20 border border-transparent transition-all hover:bg-white/50 hover:border-olive/10 hover:translate-x-2 no-underline">
+                               <div className="relative w-14 h-14 bg-white rounded-sm p-3 border border-olive/5 shadow-sm group-hover/appitem:shadow-md transition-all">
+                                  <div className="relative w-full h-full grayscale group-hover/appitem:grayscale-0 transition-transform duration-500 group-hover/appitem:scale-110">
+                                     <Image src={app.src} alt={app.name} fill className="object-contain" />
+                                  </div>
+                               </div>
+                               <div className="flex-grow">
+                                  <h5 className="text-[10px] uppercase tracking-[0.3em] text-burgundy font-bold mb-1 leading-none">{app.name}</h5>
+                                  <p className="text-[11px] text-olive/60 font-serif italic leading-none">{app.desc}</p>
+                               </div>
+                               <div className="opacity-0 group-hover/appitem:opacity-30 transition-opacity">
+                                  <ExternalLink className="w-3 h-3 text-burgundy" />
+                                </div>
+                            </a>
+                          ))}
+                       </div>
+                    </div>
+                  </div>
                </div>
             </div>
           </div>
