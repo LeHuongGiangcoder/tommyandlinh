@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Plane, FileText, Globe, Smartphone, MapPin, Compass, ExternalLink } from "lucide-react";
+import { FileText, Smartphone, MapPin, ExternalLink } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,82 +18,140 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       visaSub: "Visa (E-Visa)",
       visaDesc: "If you are a US citizen, you must obtain a visa to enter Vietnam. The process is simple, affordable, and completed entirely online.",
       visaExemption: "Note: Some nationalities may qualify for exemptions (typically 30–45 days).",
+      applyHere: "Apply Here",
+      applyLink1: "Vietnam E-Visa Portal",
+      applyLink2: "Vietnamese Visas & Entry/Exit Info",
+      keyDetails: "Key Details",
+      validity: "Valid for up to 90 days (Single or Multiple Entry)",
+      feeNote: "Fee: $25 (Single) / $50 (Multiple) — non-refundable",
+      processingNote: "Processing Time: 3–5 Business Days (apply 1–2 weeks early)",
       fee: "Fee",
       processing: "Processing",
       need: "What You'll Need",
       needItems: [
-        "Passport valid for 6+ months with at least one blank page",
-        "Scanned passport bio page & 4×6 cm digital photo",
-        "Credit/debit card for online payment"
+        "Passport valid for 6+ months with specialized scanning",
+        "Recent digital portrait (4×6 cm, white background)",
+        "Credit/debit card for administrative payment"
       ],
-      portal: "Vietnam E-Visa Portal",
-      stay: "Where to Stay",
-      stayDesc: "Hanoi offers amazing value for hotels. We recommend staying near",
+      afterApproval: "After Approval",
+      afterApprovalItems: [
+        "Download and print at least 2 copies of your e-visa",
+        "Present your e-visa + passport at immigration upon arrival"
+      ],
+      arrivalTips: "Arrival Tips",
+      arrivalTipsItems: [
+        "You must enter/exit through designated international border gates",
+        "Keep both digital and printed copies of your visa handy"
+      ],
+      portal: "Official E-Visa Portal",
+      stay: "Boutique Stays",
+      stayDesc: "Hanoi offers a curated selection of heritage hotels. We recommend staying near",
       stayHighlight: "Hoan Kiem Lake",
-      staySuffix: "to be in the center of everything.",
-      oldQuarter: "Old Quarter",
-      oldQuarterDesc: "Best for first-time visitors, food, and walkability.",
-      frenchQuarter: "French Quarter",
-      frenchQuarterDesc: "Quieter, more upscale, beautiful architecture.",
-      connectivity: "Connectivity & Apps",
-      esim: "E-SIM Options",
-      esimDesc: "We recommend ByteSim or Gigago. 5GB/day is more than enough.",
-      apps: "Essential Apps",
-      appsDesc: "Grab (transport & food), Xanh SM (electric taxi), Zalo (communication).",
-      explore: "Let's Explore",
-      exploreSub: "A few highlights to discover during your stay",
-      hanoi: "Hanoi — Culture & Cuisine",
-      hanoiDesc: "Experience the Temple of Literature, Hoan Kiem Lake, and the lively Old Quarter. Unforgettable street food and history awaiting at every corner.",
-      halong: "Ha Long Bay — Cruise",
-      halongDesc: "One of the New Seven Wonders of Nature. An overnight cruise takes you through thousands of limestone islands. Highly recommended.",
-      ninhbinh: "Ninh Binh — Nature",
-      ninhbinhDesc: "Known as 'Ha Long Bay on land.' Breathtaking landscapes of limestone mountains, peaceful rivers, and lush rice fields.",
-      rsvpTravel: "Please RSVP if you are interested in any of the above activities so we can coordinate with a local travel agency."
+      staySuffix: "to immerse yourself in the city's old-world charm.",
+      priceRange: "Typical Price Range",
+      prices: [
+        { label: "Budget", value: "$10–$30/night" },
+        { label: "Mid-range", value: "$30–$60/night" },
+        { label: "Luxury", value: "$80–$200+/night" }
+      ],
+      oldQuarter: "The Old Quarter",
+      oldQuarterDesc: "Best for authentic local life, street food, and historic architecture.",
+      frenchQuarter: "The French Quarter",
+      frenchQuarterDesc: "Quiet, refined, with wide boulevards and luxury boutiques.",
+      reviewedHotels: "Well-reviewed Hotels on TripAdvisor",
+      hotelList: [
+        "Sofitel Legend Metropole — Iconic luxury stay",
+        "Peridot Grand Luxury — Stylish + rooftop pool",
+        "Hanoi Tirant Hotel — Great location + value",
+        "La Siesta Classic Ma May — Popular boutique option"
+      ],
+      connectivity: "The Digital Toolkit",
+      esim: "E-SIM Solutions",
+      esimDesc: "Enable seamless roaming with ByteSim or Gigago (approx. 5GB/day recommended).",
+      apps: "Essential Local Apps",
+      appsDesc: "Download Grab/XanhSM/Be for transport and Zalo for local communication.",
+      explore: "The Explorer's Folio",
+      exploreSub: "A curated collection of destinations to discover during your stay in Vietnam",
+      hanoi: "Hanoi — Heritage & Soul",
+      hanoiDesc: "Wander through the Temple of Literature, the serene Hoan Kiem Lake, and the winding alleys of the Old Quarter.",
+      halong: "Ha Long Bay — Nature's Masterpiece",
+      halongDesc: "A UNESCO World Heritage site known for its emerald waters and thousands of towering limestone islands.",
+      ninhbinh: "Ninh Binh — The Inland Haven",
+      ninhbinhDesc: "Discover the breathtaking landscapes of Tam Coc, often called Ha Long Bay on land, and ancient temple ruins.",
+      rsvpTravel: "If you are interested in any of the above tours or need assistance with coordination, please mention this in your RSVP so we can connect you with our trusted travel partners."
     },
     vi: {
       plan: "Chuẩn bị cho chuyến đi",
       visaTitle: "Thị thực & Di chuyển",
       visaSub: "Thị thực (E-Visa)",
-      visaDesc: "Nếu bạn là công dân Mỹ, bạn sẽ cần xin visa để nhập cảnh vào Việt Nam. Quy trình khá đơn giản, làm online và không mất nhiều thời gian.",
-      visaExemption: "Lưu ý: Một số quốc tịch có thể được miễn visa trong thời gian ngắn. Bạn có thể tham khảo thêm tại Cổng thông tin E-Visa Việt Nam.",
-      fee: "Phí",
+      visaDesc: "Quý khách mang quốc tịch Mỹ cần xin thị thực điện tử để nhập cảnh Việt Nam. Quy trình hoàn toàn trực tuyến và vô cùng thuận tiện.",
+      visaExemption: "Lưu ý: Một số quốc tịch được miễn thị thực ngắn hạn. Vui lòng kiểm tra kỹ trước khi khởi hành.",
+      applyHere: "Nộp đơn tại",
+      applyLink1: "Cổng Thông Tin E-Visa Việt Nam",
+      applyLink2: "Thông tin về thị thực & Xuất nhập cảnh",
+      keyDetails: "Thông tin chính",
+      validity: "Có hiệu lực tối đa 90 ngày (1 hoặc nhiều lần nhập cảnh)",
+      feeNote: "Phí: $25 (1 lần) / $50 (nhiều lần) — không hoàn lại",
+      processingNote: "Thời gian xử lý: 3–5 ngày làm việc (nên làm trước 1–2 tuần)",
+      fee: "Lệ phí",
       processing: "Thời gian xử lý",
-      need: "Những gì cần chuẩn bị",
+      need: "Hồ sơ cần chuẩn bị",
       needItems: [
-        "Hộ chiếu còn hạn ít nhất 6 tháng",
-        "Bản scan trang thông tin hộ chiếu",
-        "Ảnh thẻ nền trắng (4x6 cm, không đeo kính)",
-        "Thẻ thanh toán"
+        "Hộ chiếu còn hạn trên 6 tháng với bản scan rõ nét",
+        "Ảnh chân dung kỹ thuật số mới nhất (4x6 cm)",
+        "Thẻ thanh toán quốc tế hợp lệ"
       ],
-      portal: "Vietnam E-Visa Portal",
-      stay: "Nơi lưu trú (Hà Nội)",
-      stayDesc: "Hà Nội có rất nhiều lựa chọn chỗ ở với giá hợp lý cho mọi ngân sách. Chúng mình gợi ý",
-      stayHighlight: "ở gần Hồ Hoàn Kiếm",
-      staySuffix: "là tiện nhất để khám phá Hà Nội.",
-      oldQuarter: "Khu vực tham khảo",
-      oldQuarterDesc: "Phố Cổ (tiện đi lại) & Phố Pháp (yên tĩnh, sang trọng).",
-      frenchQuarter: "Khoảng giá",
-      frenchQuarterDesc: "Tiết kiệm ($10-30), Trung bình ($30-60), Cao cấp ($80-200+).",
+      afterApproval: "Sau khi được cấp thị thực",
+      afterApprovalItems: [
+        "Tải xuống và in ít nhất 2 bản thị thực điện tử",
+        "Xuất trình thị thực + hộ chiếu khi nhập cảnh"
+      ],
+      arrivalTips: "Lưu ý khi nhập cảnh",
+      arrivalTipsItems: [
+        "Bạn phải nhập/xuất cảnh qua các cửa khẩu quốc tế được quy định",
+        "Luôn mang theo cả bản in và bản kỹ thuật số trên điện thoại"
+      ],
+      portal: "Cổng Thông Tin E-Visa",
+      stay: "Lưu trú tại Thủ đô",
+      stayDesc: "Hà Nội sở hữu nhiều không gian lưu trú mang đậm dấu ấn di sản. Chúng mình gợi ý quý khách",
+      stayHighlight: "chọn khu vực Hồ Hoàn Kiếm",
+      staySuffix: "để thuận tiện khám phá tâm hồn phố cổ.",
+      priceRange: "Khoảng giá tham khảo",
+      prices: [
+        { label: "Tiết kiệm", value: "$10–$30/đêm" },
+        { label: "Trung bình", value: "$30–$60/đêm" },
+        { label: "Cao cấp", value: "$80–$200+/đêm" }
+      ],
+      oldQuarter: "Khu Phố Cổ",
+      oldQuarterDesc: "Trải nghiệm nhịp sống bản địa, ẩm thực đường phố và kiến trúc cổ.",
+      frenchQuarter: "Khu Phố Pháp",
+      frenchQuarterDesc: "Không gian yên tĩnh, sang trọng với các công trình kiến trúc thuộc địa.",
+      reviewedHotels: "Một số khách sạn được đánh giá tốt (TripAdvisor)",
+      hotelList: [
+        "Sofitel Legend Metropole — Khách sạn di sản đẳng cấp",
+        "Peridot Grand Luxury — Sang trọng + hồ bơi tầng thượng",
+        "Hanoi Tirant Hotel — Vị trí đẹp + giá tốt",
+        "La Siesta Classic Ma May — Khách sạn boutique phổ biến"
+      ],
       connectivity: "Ứng dụng & Kết nối",
-      esim: "SIM / eSIM",
-      esimDesc: "Khuyên dùng ByteSim hoặc Gigago. Gói 5GB/ngày là hoàn toàn đủ.",
-      apps: "Ứng dụng nên có",
-      appsDesc: "Grab (vận chuyển), Xanh SM & Be (lựa chọn địa phương), Zalo (liên lạc).",
-      explore: "Khám phá",
-      exploreSub: "Hà Nội là nơi tụi mình rất mong mọi người được trải nghiệm trọn vẹn",
-      hanoi: "Hà Nội — Văn hóa & Ẩm thực",
-      hanoiDesc: "Văn Miếu, Hồ Hoàn Kiếm, Lăng Bác và Phố Cổ. Chỉ cần 2 ngày 1 đêm là đủ để cảm nhận nét đặc trưng. RSVP nếu bạn muốn đi tour theo nhóm nha!",
-      halong: "Vịnh Hạ Long — Du thuyền",
-      halongDesc: "Trải nghiệm du thuyền qua đêm qua hàng nghìn đảo đá vôi tuyệt đẹp. Chèo kayak và cực kỳ relax. Tụi mình rất recommend!",
-      ninhbinh: "Ninh Bình — Thiên nhiên",
-      ninhbinhDesc: "Được mệnh danh là 'Hạ Long trên cạn' với núi đá vôi và sông nước thơ mộng. Có thể tham quan chùa Bái Đính và các di tích cổ.",
-      rsvpTravel: "Các chuyến đi gần Hà Nội: Bát Tràng (làm gốm), Núi Hàm Lợn (trekking), Làng lụa Vạn Phúc. Nhớ RSVP để tụi mình sắp xếp nha!"
+      esim: "Giải pháp E-SIM",
+      esimDesc: "Sử dụng ByteSim hoặc Gigago để duy trì kết nối (Gói 5GB/ngày là lựa chọn tối ưu).",
+      apps: "Ứng dụng Cần thiết",
+      appsDesc: "Tải ứng dụng Grab/XanhSM/Be (di chuyển) và Zalo (liên lạc) để thuận tiện hơn.",
+      explore: "Hành trình Khám phá",
+      exploreSub: "Bộ sưu tập những điểm đến đặc sắc nhất mà chúng mình mong muốn giới thiệu tới quý khách",
+      hanoi: "Hà Nội — Linh hồn Di sản",
+      hanoiDesc: "Khám phá Văn Miếu, Hồ Hoàn Kiếm và những con phố cổ mang đậm hơi thở thời gian.",
+      halong: "Vịnh Hạ Long — Kỳ quan Thiên nhiên",
+      halongDesc: "Di sản thế giới với hàng ngàn đảo đá vôi vươn mình trên làn nước xanh ngọc bích tuyệt đẹp.",
+      ninhbinh: "Ninh Bình — Tuyệt tác Thiên nhiên",
+      ninhbinhDesc: "Được mệnh danh là 'Hạ Long trên cạn' với vẻ đẹp yên bình của sông nước và núi non hùng vĩ.",
+      rsvpTravel: "Nếu quý khách quan tâm đến các điểm đến này hoặc cần hỗ trợ điều phối lịch trình, vui lòng ghi chú trong phần RSVP để chúng mình có thể hỗ trợ tốt nhất."
     }
   }[lang];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Reveal header
       gsap.from(".travel-header-reveal", {
         opacity: 0,
         y: 30,
@@ -105,12 +163,11 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         }
       });
 
-      // Stagger reveal cards
       gsap.from(".travel-card", {
         opacity: 0,
         y: 40,
-        stagger: 0.2,
-        duration: 1,
+        stagger: 0.15,
+        duration: 1.2,
         ease: "power2.out",
         scrollTrigger: {
           trigger: ".travel-grid",
@@ -134,169 +191,336 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col items-center mb-20 md:mb-32 travel-header-reveal">
-           <span className="text-xs md:text-sm tracking-[0.5em] uppercase text-olive font-light mb-4 text-center">{t.plan}</span>
-           <h2 className="text-4xl md:text-6xl font-heading text-burgundy italic text-center">{t.visaTitle}</h2>
-           <div className="w-16 h-[1px] bg-olive/20 mt-8"></div>
+        <div className="flex flex-col items-center mb-24 md:mb-36 travel-header-reveal">
+           <span className="text-[10px] md:text-xs tracking-[0.6em] uppercase text-olive font-light mb-6 text-center">{t.plan}</span>
+           <h2 className="text-5xl md:text-7xl font-heading text-burgundy italic text-center tracking-tight">{t.visaTitle}</h2>
+           <div className="flex items-center gap-6 mt-12 opacity-40">
+              <div className="w-16 h-[1px] bg-olive"></div>
+              <div className="w-1.5 h-1.5 rounded-full border border-olive rotate-45"></div>
+              <div className="w-16 h-[1px] bg-olive"></div>
+           </div>
         </div>
 
-        {/* Part 5: Plan Your Trip - Essentials */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-32 items-start">
+        {/* Part 5: The Traveller's Essentials (Journal Style) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-20 mb-48 items-start">
           
-          {/* Visa Information */}
-          <div className="travel-card bg-white/40 border border-olive/10 p-8 md:p-12 space-y-8 h-full">
-            <div className="flex items-center gap-4 text-burgundy">
-               <FileText className="w-6 h-6 stroke-1" />
-               <h3 className="text-2xl font-heading tracking-wide">{t.visaSub}</h3>
-            </div>
-            
-            <div className="space-y-6 text-ink/80 font-light leading-relaxed">
-              <p>
-                {t.visaDesc}
-                <span className="block mt-2 text-sm italic text-olive">{t.visaExemption}</span>
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-olive/5">
-                <div>
-                   <span className="block text-[10px] tracking-[0.2em] uppercase text-olive/60 mb-1">{t.fee}</span>
-                   <p className="text-burgundy font-medium">$25 (Single) / $50 (Multiple)</p>
+          {/* Visa Information - Styled as an "Authentic Travel Doc" */}
+          <div className="lg:col-span-12 xl:col-span-7 travel-card relative group">
+            <div className="absolute -inset-1 border border-olive/5 rounded-sm pointer-events-none transition-all group-hover:border-olive/20"></div>
+            <div className="bg-white/60 backdrop-blur-sm border-double border-4 border-olive/10 p-8 md:p-16 relative z-10 shadow-sm transition-all hover:bg-white/80">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-14 border-b border-olive/10 pb-12">
+                <div className="space-y-3">
+                  <span className="text-[9px] tracking-[0.5em] uppercase text-olive/50 block font-medium">DOCUMENTATION REF. 001</span>
+                  <h3 className="text-4xl md:text-5xl font-heading text-burgundy italic font-medium leading-tight">{t.visaSub}</h3>
                 </div>
-                <div>
-                   <span className="block text-[10px] tracking-[0.2em] uppercase text-olive/60 mb-1">{t.processing}</span>
-                   <p className="text-burgundy font-medium">3–5 {lang === 'en' ? 'Business Days' : 'Ngày làm việc'}</p>
+                <div className="flex items-center gap-4 opacity-[0.15] grayscale brightness-50">
+                   <div className="h-[1px] w-12 bg-black"></div>
+                   <FileText className="w-10 h-10 stroke-1" />
                 </div>
               </div>
+              
+              <div className="space-y-12 text-ink/80 font-light leading-relaxed">
+                <div className="relative pl-10 border-l-[0.5px] border-olive/30">
+                  <p className="text-xl md:text-2xl font-heading italic text-burgundy/90 mb-8 leading-snug">{t.visaDesc}</p>
+                  <div className="px-6 py-4 bg-olive/[0.03] border-l-4 border-olive/20 rounded-r-sm">
+                    <p className="text-[13px] italic text-olive/70 font-serif leading-relaxed">{t.visaExemption}</p>
+                  </div>
+                </div>
 
-              <div className="space-y-3">
-                <span className="block text-[10px] tracking-[0.2em] uppercase text-olive/60">{t.need}</span>
-                <ul className="text-sm space-y-2 list-disc pl-4 marker:text-olive">
-                  {t.needItems.map((item, i) => (
-                    <li key={i}>{item}</li>
-                  ))}
-                </ul>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 border-t border-olive/10 pt-10">
+                   <div className="space-y-8">
+                      <h4 className="text-[10px] tracking-[0.4em] uppercase text-olive font-bold">{t.applyHere}</h4>
+                      <div className="space-y-6">
+                        <a href="https://evisa.gov.vn" target="_blank" rel="noopener noreferrer" 
+                           className="group/btn relative inline-flex items-center gap-4 px-10 py-5 bg-burgundy text-surface text-[10px] tracking-[0.4em] uppercase transition-all overflow-hidden font-medium">
+                          <span className="relative z-10">{t.applyLink1}</span>
+                          <ExternalLink className="w-3.5 h-3.5 relative z-10 transition-transform group-hover/btn:translate-x-1" />
+                          <div className="absolute inset-x-0 bottom-0 h-[2px] bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                        </a>
+                        
+                        <a href="https://vn.usembassy.gov/vietnamese-visas-and-entry-exit/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-[10px] tracking-[0.1em] group/link text-burgundy/60 hover:text-burgundy transition-colors pl-1">
+                           <span className="border-b border-transparent group-hover/link:border-burgundy/30 transition-all italic">{t.applyLink2}</span>
+                           <ExternalLink className="w-2.5 h-2.5 opacity-0 group-hover/link:opacity-100 transition-all" />
+                        </a>
+                      </div>
+                   </div>
+                   <div className="space-y-8">
+                      <h4 className="text-[10px] tracking-[0.4em] uppercase text-olive font-bold">{t.keyDetails}</h4>
+                      <div className="space-y-10">
+                         {/* Validity */}
+                         <div className="flex items-center gap-5">
+                            <p className="text-3xl font-heading text-burgundy italic">90</p>
+                            <div className="h-10 w-[1px] bg-olive/10"></div>
+                            <div className="space-y-1">
+                               <p className="text-[10px] uppercase tracking-[0.2em] text-olive font-bold leading-none">{lang === 'en' ? 'Days' : 'Ngày'}</p>
+                               <p className="text-[11px] text-ink/50 font-light italic leading-tight">
+                                  {lang === 'en' ? 'Max. Validity (Single or Multiple Entry)' : 'Hiệu lực tối đa (1 hoặc nhiều lần nhập cảnh)'}
+                               </p>
+                            </div>
+                         </div>
+
+                         {/* Fee */}
+                         <div className="flex items-center gap-5">
+                            <p className="text-3xl font-heading text-burgundy italic">$25</p>
+                            <div className="h-10 w-[1px] bg-olive/10"></div>
+                            <div className="space-y-1">
+                               <p className="text-[10px] uppercase tracking-[0.2em] text-olive font-bold leading-none">{lang === 'en' ? 'Fee' : 'Lệ phí'}</p>
+                               <p className="text-[11px] text-ink/50 font-light italic leading-tight">
+                                  {lang === 'en' ? '/ $50 (Multiple Entry) — Non-refundable' : '/ $50 (Nhiều lần) — Không hoàn lại'}
+                               </p>
+                            </div>
+                         </div>
+
+                         {/* Processing */}
+                         <div className="flex items-center gap-5">
+                            <p className="text-3xl font-heading text-burgundy italic font-semibold">3-5</p>
+                            <div className="h-10 w-[1px] bg-olive/10"></div>
+                            <div className="space-y-1">
+                               <p className="text-[10px] uppercase tracking-[0.2em] text-olive font-bold leading-none">{lang === 'en' ? 'Business Days' : 'Ngày làm việc'}</p>
+                               <p className="text-[11px] text-ink/50 font-light italic leading-tight">
+                                  {lang === 'en' ? 'Apply 1–2 weeks early to be safe' : 'Nên làm trước 1–2 tuần cho yên tâm'}
+                               </p>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-10 border-t border-olive/10">
+                  <div className="space-y-8">
+                    <h4 className="text-[10px] tracking-[0.5em] uppercase text-olive font-bold">{t.need}</h4>
+                    <ul className="space-y-6">
+                      {t.needItems.map((item, i) => (
+                        <li key={i} className="flex gap-4 text-[13px] items-start group/item">
+                          <span className="text-olive/40 font-serif italic text-base leading-none mt-[-2px]">0{i+1}.</span>
+                          <span className="font-light leading-relaxed opacity-90">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="space-y-8">
+                    <h4 className="text-[10px] tracking-[0.5em] uppercase text-olive font-bold">{t.afterApproval}</h4>
+                    <ul className="space-y-6">
+                      {t.afterApprovalItems.map((item, i) => (
+                        <li key={i} className="flex gap-4 text-[13px] items-start group/item">
+                          <span className="text-olive/40 font-serif italic text-base leading-none mt-[-2px]">0{i+1}.</span>
+                          <span className="font-light leading-relaxed opacity-90">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="space-y-8">
+                    <h4 className="text-[10px] tracking-[0.5em] uppercase text-olive font-bold">{t.arrivalTips}</h4>
+                    <ul className="space-y-6">
+                      {t.arrivalTipsItems.map((item, i) => (
+                        <li key={i} className="flex gap-4 text-[13px] items-start group/item">
+                          <span className="text-olive/40 font-serif italic text-base leading-none mt-[-2px]">0{i+1}.</span>
+                          <span className="font-light leading-relaxed opacity-90">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
-
-              <a href="https://evisa.gov.vn" target="_blank" rel="noopener noreferrer" 
-                 className="inline-flex items-center gap-2 px-6 py-3 bg-burgundy text-surface text-xs tracking-widest uppercase hover:bg-burgundy/90 transition-all">
-                {t.portal} <ExternalLink className="w-3 h-3" />
-              </a>
             </div>
           </div>
 
-          {/* Apps & Connectivity */}
-          <div className="space-y-8 h-full">
-            {/* Where to Stay */}
-            <div className="travel-card bg-burgundy/5 border border-burgundy/5 p-8 md:p-10">
-               <div className="flex items-center gap-4 text-burgundy mb-6">
-                 <MapPin className="w-6 h-6 stroke-1" />
-                 <h3 className="text-2xl font-heading tracking-wide">{t.stay}</h3>
+          {/* Quick Info Column - Curated Essentials */}
+          <div className="lg:col-span-12 xl:col-span-5 space-y-12 h-full">
+            <div className="travel-card bg-surface/40 border border-olive/10 p-10 md:p-14 relative overflow-hidden group shadow-sm transition-all hover:bg-surface/50">
+               <div className="absolute -top-16 -right-16 w-48 h-48 opacity-[0.02] bg-burgundy rounded-full group-hover:scale-110 transition-transform duration-[2s]"></div>
+               <div className="flex items-center justify-between mb-12 pb-8 border-b border-olive/10">
+                 <div className="flex items-center gap-6 text-burgundy">
+                    <div className="w-10 h-10 rounded-full border border-olive/20 flex items-center justify-center">
+                        <MapPin className="w-4 h-4 stroke-1 text-olive" />
+                    </div>
+                    <h3 className="text-3xl font-heading italic font-medium">{t.stay}</h3>
+                 </div>
                </div>
-               <p className="text-ink/80 font-light leading-relaxed mb-6">
-                 {t.stayDesc} <strong className="text-burgundy underline decoration-burgundy/20 underline-offset-4">{t.stayHighlight}</strong> {t.staySuffix}
+
+               <p className="text-ink/80 font-light leading-[1.8] mb-12 text-[17px] font-serif italic">
+                 {t.stayDesc} <strong className="text-burgundy font-medium border-b border-burgundy/20 pb-1">{t.stayHighlight}</strong> {t.staySuffix}
                </p>
-               <div className="grid grid-cols-2 gap-4 text-sm">
-                 <div className="p-4 bg-white/60">
-                    <span className="block text-olive text-[10px] uppercase tracking-tighter mb-1 font-bold">{t.oldQuarter}</span>
-                    <p className="text-ink/60 text-xs">{t.oldQuarterDesc}</p>
-                 </div>
-                 <div className="p-4 bg-white/60">
-                    <span className="block text-olive text-[10px] uppercase tracking-tighter mb-1 font-bold">{t.frenchQuarter}</span>
-                    <p className="text-ink/60 text-xs">{t.frenchQuarterDesc}</p>
-                 </div>
+
+               <div className="space-y-12">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                     <div className="flex items-start gap-8 p-6 bg-white/40 border-l-[0.5px] border-olive/20 transition-all hover:bg-white/80">
+                        <div>
+                           <h4 className="text-burgundy text-[11px] uppercase tracking-[0.3em] mb-3 font-semibold">{t.oldQuarter}</h4>
+                           <p className="text-ink/60 text-[11px] leading-[1.8] font-light">{t.oldQuarterDesc}</p>
+                        </div>
+                     </div>
+                     <div className="flex items-start gap-8 p-6 bg-white/40 border-l-[0.5px] border-olive/20 transition-all hover:bg-white/80">
+                        <div>
+                           <h4 className="text-burgundy text-[11px] uppercase tracking-[0.3em] mb-3 font-semibold">{t.frenchQuarter}</h4>
+                           <p className="text-ink/60 text-[11px] leading-[1.8] font-light">{t.frenchQuarterDesc}</p>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div className="pt-8 border-t border-olive/10">
+                    <h4 className="text-[10px] tracking-[0.5em] uppercase text-olive font-bold mb-8">{t.priceRange}</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                       {t.prices.map((p, i) => (
+                         <div key={i} className="space-y-2">
+                           <p className="text-[10px] text-olive/60 uppercase tracking-widest">{p.label}</p>
+                           <p className="text-lg font-heading text-burgundy italic">{p.value}</p>
+                         </div>
+                       ))}
+                    </div>
+                  </div>
+
+                  <div className="pt-8 border-t border-olive/10">
+                    <div className="flex items-center gap-3 mb-8">
+                       <h4 className="text-[10px] tracking-[0.5em] uppercase text-olive font-bold">{t.reviewedHotels}</h4>
+                       <span className="text-[10px] font-serif italic text-olive/40">(TripAdvisor)</span>
+                    </div>
+                    <ul className="grid grid-cols-1 gap-4">
+                      {t.hotelList.map(( hotel, i) => (
+                        <li key={i} className="flex gap-4 text-xs items-start group/hotel">
+                          <span className="text-olive/30 mt-1">✦</span>
+                          <span className="font-light leading-relaxed group-hover/hotel:text-burgundy transition-colors">{hotel}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                </div>
             </div>
 
-            {/* Apps */}
-            <div className="travel-card bg-olive/[0.03] border border-olive/5 p-8 md:p-10">
-               <div className="flex items-center gap-4 text-olive mb-6">
-                 <Smartphone className="w-6 h-6 stroke-1" />
-                 <h3 className="text-2xl font-heading tracking-wide text-burgundy">{t.connectivity}</h3>
+            {/* Connectivity - Toolset Kit Style */}
+            <div className="travel-card bg-olive/[0.04] border-double border-4 border-olive/5 p-10 md:p-14 relative group">
+               <div className="flex items-center gap-6 text-olive mb-12 pb-8 border-b border-olive/10">
+                 <div className="w-10 h-10 rounded-full border border-olive/20 flex items-center justify-center">
+                    <Smartphone className="w-4 h-4 stroke-1" />
+                 </div>
+                 <h3 className="text-3xl font-heading text-burgundy italic font-medium">{t.connectivity}</h3>
                </div>
-               <div className="space-y-6">
-                 <div className="flex items-start gap-4">
-                   <Globe className="w-5 h-5 text-olive/60 mt-1" />
-                   <div>
-                     <p className="text-sm font-medium text-ink">{t.esim}</p>
-                     <p className="text-xs text-ink/60 mt-1">{t.esimDesc}</p>
-                   </div>
+               <div className="space-y-12">
+                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
+                    <div className="space-y-5">
+                      <p className="text-[10px] uppercase tracking-[0.5em] text-olive font-bold">{t.esim}</p>
+                      <p className="text-xs text-ink/70 leading-relaxed font-light">{t.esimDesc}</p>
+                    </div>
+                    <div className="space-y-5">
+                      <p className="text-[10px] uppercase tracking-[0.5em] text-olive font-bold">{t.apps}</p>
+                      <p className="text-xs text-ink/70 leading-relaxed font-light">{t.appsDesc}</p>
+                    </div>
                  </div>
-                 <div className="flex items-start gap-4">
-                   <Compass className="w-5 h-5 text-olive/60 mt-1" />
-                   <div>
-                     <p className="text-sm font-medium text-ink">{t.apps}</p>
-                     <p className="text-xs text-ink/60 mt-1">{t.appsDesc}</p>
-                   </div>
-                 </div>
-                 <div className="flex gap-4 pt-2">
-                    <div className="w-10 h-10 relative bg-white rounded-lg p-1 border border-black/5 shadow-sm overflow-hidden">
-                       <Image src="/grab.jpg" alt="Grab" fill className="object-contain" />
-                    </div>
-                    <div className="w-10 h-10 relative bg-white rounded-lg p-1 border border-black/5 shadow-sm overflow-hidden">
-                       <Image src="/xanhsm.png" alt="Xanh SM" fill className="object-contain" />
-                    </div>
-                    <div className="w-10 h-10 relative bg-white rounded-lg p-1 border border-black/5 shadow-sm overflow-hidden">
-                       <Image src="/be.jpeg" alt="Be" fill className="object-contain" />
-                    </div>
-                    <div className="w-10 h-10 relative bg-white rounded-lg p-1 border border-black/5 shadow-sm overflow-hidden">
-                       <Image src="/zalo.jpg" alt="Zalo" fill className="object-contain" />
-                    </div>
+                 
+                 <div className="flex flex-wrap gap-6 pt-10 border-t border-olive/10">
+                    {[
+                      { src: "/grab.jpg", name: "Grab" },
+                      { src: "/xanhsm.png", name: "Xanh SM" },
+                      { src: "/be.jpeg", name: "Be" },
+                      { src: "/zalo.jpg", name: "Zalo" }
+                    ].map((app, idx) => (
+                      <div key={idx} className="group/app relative w-16 h-16 bg-white rounded-sm p-4 border border-olive/10 shadow-sm transition-all hover:shadow-md hover:-translate-y-2 flex items-center justify-center overflow-hidden">
+                         <div className="relative w-full h-full grayscale group-hover/app:grayscale-0 transition-all duration-700">
+                           <Image src={app.src} alt={app.name} fill className="object-contain" />
+                         </div>
+                         <div className="absolute inset-0 border border-burgundy/10 opacity-0 group-hover/app:opacity-100 transition-opacity"></div>
+                         <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover/app:opacity-100 transition-all text-[8px] tracking-[0.5em] uppercase text-olive whitespace-nowrap bg-surface py-1 font-medium">{app.name}</div>
+                      </div>
+                    ))}
                  </div>
                </div>
             </div>
           </div>
         </div>
 
-        <div className="relative">
-          <div className="mb-16">
-             <h3 className="text-3xl md:text-4xl font-heading text-burgundy">{t.explore}</h3>
-             <p className="text-olive/80 font-light mt-2 italic">{t.exploreSub}</p>
+        {/* Part 6: Explorer's Gallery (Cinematic Framing) */}
+        <div className="relative pt-40 border-t border-olive/10">
+          <div className="mb-32 text-center max-w-3xl mx-auto px-6">
+             <span className="text-[11px] tracking-[0.8em] uppercase text-olive/50 block mb-8 leading-none font-medium text-center">{lang === 'en' ? 'VOYAGE JOURNAL' : 'NHẬT KÝ HÀNH TRÌNH'}</span>
+             <h3 className="text-5xl md:text-7xl font-heading text-burgundy italic font-medium tracking-tight leading-tight">{t.explore}</h3>
+             <div className="flex items-center justify-center gap-4 mt-10 opacity-30">
+                <div className="w-8 h-[0.5px] bg-olive"></div>
+                <div className="w-1.5 h-1.5 rounded-full bg-burgundy"></div>
+                <div className="w-8 h-[0.5px] bg-olive"></div>
+             </div>
+             <p className="text-olive/70 font-light mt-12 italic leading-loose font-serif text-xl border-x border-olive/5 px-12">{t.exploreSub}</p>
           </div>
 
-          <div className="travel-grid grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="travel-grid grid grid-cols-1 md:grid-cols-3 gap-20 lg:gap-32">
             {/* Hanoi */}
             <div className="travel-card group">
-              <div className="relative aspect-[4/5] overflow-hidden mb-6">
-                <Image src="/hanoi.jpg" alt="Hanoi" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-burgundy/10 mix-blend-overlay"></div>
+              <div className="relative aspect-[4/5] overflow-hidden mb-12 ring-1 ring-burgundy/5 shadow-2xl transition-all group-hover:ring-burgundy/20">
+                <Image src="/hanoi.jpg" alt="Hanoi" fill className="object-cover transition-all duration-[3s] ease-out-expo group-hover:scale-110 group-hover:rotate-1" />
+                <div className="absolute inset-0 bg-gradient-to-t from-burgundy/60 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity"></div>
+                <div className="absolute inset-12 border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-1000 scale-95 group-hover:scale-100"></div>
+                <div className="absolute inset-x-8 bottom-12 text-white text-[10px] tracking-[0.6em] uppercase opacity-0 group-hover:opacity-100 transition-all duration-1000 translate-y-4 group-hover:translate-y-0 text-center font-bold">HERITAGE HEART</div>
               </div>
-              <h4 className="text-xl font-heading text-burgundy mb-2">{t.hanoi}</h4>
-              <p className="text-sm text-ink/70 font-light leading-relaxed">
-                {t.hanoiDesc}
-              </p>
+              <div className="space-y-8">
+                <div className="flex items-center gap-6">
+                  <span className="text-[10px] text-olive font-serif italic opacity-40 pr-4 border-r border-olive/10 tracking-[0.2em] font-medium leading-none">REF. 01</span>
+                  <h4 className="text-3xl md:text-4xl font-heading text-burgundy italic font-medium leading-none">{t.hanoi.split('—')[0]}</h4>
+                </div>
+                <p className="text-[17px] text-ink/70 font-light leading-relaxed italic pr-10 border-l border-olive/10 pl-8 group-hover:border-olive/30 transition-colors py-1">
+                  {t.hanoiDesc}
+                </p>
+              </div>
             </div>
 
             {/* Ha Long Bay */}
-            <div className="travel-card group">
-              <div className="relative aspect-[4/5] overflow-hidden mb-6">
-                <Image src="/halong.jpg" alt="Ha Long Bay" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-burgundy/10 mix-blend-overlay"></div>
+            <div className="travel-card group md:translate-y-24 lg:translate-y-36">
+              <div className="relative aspect-[4/5] overflow-hidden mb-12 ring-1 ring-burgundy/5 shadow-2xl transition-all group-hover:ring-burgundy/20">
+                <Image src="/halong.jpg" alt="Ha Long Bay" fill className="object-cover transition-all duration-[3s] ease-out-expo group-hover:scale-110 group-hover:-rotate-1" />
+                <div className="absolute inset-0 bg-gradient-to-t from-burgundy/60 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity"></div>
+                <div className="absolute inset-12 border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-1000 scale-95 group-hover:scale-100"></div>
+                <div className="absolute inset-x-8 bottom-12 text-white text-[10px] tracking-[0.6em] uppercase opacity-0 group-hover:opacity-100 transition-all duration-1000 translate-y-4 group-hover:translate-y-0 text-center font-bold">EMERALD DREAM</div>
               </div>
-              <h4 className="text-xl font-heading text-burgundy mb-2">{t.halong}</h4>
-              <p className="text-sm text-ink/70 font-light leading-relaxed">
-                {t.halongDesc}
-              </p>
+              <div className="space-y-8">
+                <div className="flex items-center gap-6">
+                  <span className="text-[10px] text-olive font-serif italic opacity-40 pr-4 border-r border-olive/10 tracking-[0.2em] font-medium leading-none">REF. 02</span>
+                  <h4 className="text-3xl md:text-4xl font-heading text-burgundy italic font-medium leading-none">{t.halong.split('—')[0]}</h4>
+                </div>
+                <p className="text-[17px] text-ink/70 font-light leading-relaxed italic pr-10 border-l border-olive/10 pl-8 group-hover:border-olive/30 transition-colors py-1">
+                  {t.halongDesc}
+                </p>
+              </div>
             </div>
 
             {/* Ninh Binh */}
             <div className="travel-card group">
-              <div className="relative aspect-[4/5] overflow-hidden mb-6">
-                <Image src="/ninhbinh.jpg" alt="Ninh Binh" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-burgundy/10 mix-blend-overlay"></div>
+              <div className="relative aspect-[4/5] overflow-hidden mb-12 ring-1 ring-burgundy/5 shadow-2xl transition-all group-hover:ring-burgundy/20">
+                <Image src="/ninhbinh.jpg" alt="Ninh Binh" fill className="object-cover transition-all duration-[3s] ease-out-expo group-hover:scale-110 group-hover:rotate-1" />
+                <div className="absolute inset-0 bg-gradient-to-t from-burgundy/60 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity"></div>
+                <div className="absolute inset-12 border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-1000 scale-95 group-hover:scale-100"></div>
+                <div className="absolute inset-x-8 bottom-12 text-white text-[10px] tracking-[0.6em] uppercase opacity-0 group-hover:opacity-100 transition-all duration-1000 translate-y-4 group-hover:translate-y-0 text-center font-bold">INLAND MAJESTY</div>
               </div>
-              <h4 className="text-xl font-heading text-burgundy mb-2">{t.ninhbinh}</h4>
-              <p className="text-sm text-ink/70 font-light leading-relaxed">
-                {t.ninhbinhDesc}
-              </p>
+              <div className="space-y-8">
+                <div className="flex items-center gap-6">
+                  <span className="text-[10px] text-olive font-serif italic opacity-40 pr-4 border-r border-olive/10 tracking-[0.2em] font-medium leading-none">REF. 03</span>
+                  <h4 className="text-3xl md:text-4xl font-heading text-burgundy italic font-medium leading-none">{t.ninhbinh.split('—')[0]}</h4>
+                </div>
+                <p className="text-[17px] text-ink/70 font-light leading-relaxed italic pr-10 border-l border-olive/10 pl-8 group-hover:border-olive/30 transition-colors py-1">
+                  {t.ninhbinhDesc}
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="mt-20 p-8 border border-dashed border-olive/30 bg-white/40 text-center max-w-4xl mx-auto travel-card">
-              <p className="text-burgundy italic font-medium">
-                "{t.rsvpTravel}"
-              </p>
+          <div className="mt-56 lg:mt-80 p-16 md:p-32 relative max-w-5xl mx-auto travel-card text-center bg-white/30 backdrop-blur-[4px] group">
+              <div className="absolute inset-2 border-double border-4 border-olive/20 rounded-sm pointer-events-none transition-all group-hover:border-olive/40 translate-x-1 translate-y-1"></div>
+              <div className="absolute inset-0 border border-olive/10 rounded-sm pointer-events-none"></div>
+              
+              <div className="relative z-10 space-y-12">
+                 <div className="flex items-center justify-center gap-8 opacity-20">
+                    <div className="w-1.5 h-1.5 rounded-full bg-burgundy"></div>
+                    <div className="w-16 h-[0.5px] bg-burgundy"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-burgundy"></div>
+                 </div>
+                 <p className="text-burgundy italic font-heading text-2xl md:text-4xl leading-[1.6] px-6 md:px-20 transition-all group-hover:tracking-wide duration-700">
+                    "{t.rsvpTravel}"
+                 </p>
+                 <div className="pt-8">
+                    <div className="w-[1px] h-20 bg-gradient-to-b from-burgundy/50 to-transparent mx-auto"></div>
+                 </div>
+              </div>
           </div>
         </div>
-
       </div>
 
       {/* Aesthetic Border Accent */}
