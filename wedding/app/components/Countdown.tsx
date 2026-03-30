@@ -93,10 +93,8 @@ const Countdown = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
   return (
     <section ref={sectionRef} className="relative py-24 md:py-32 bg-burgundy overflow-hidden flex flex-col items-center justify-center">
-      {/* Texture Overlay (Royal Damask inspired) */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay"
-        style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/royal-line.png")' }}
-      />
+      {/* Signature Grain Texture Overlay */}
+      <div className="absolute inset-0 opacity-[0.05] texture-grain pointer-events-none mix-blend-overlay" />
       
       {/* Decorative Border Line */}
       <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-surface/20 to-transparent" />

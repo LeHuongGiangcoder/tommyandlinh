@@ -124,6 +124,8 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
   return (
     <section ref={sectionRef} id="travel" className="relative py-24 md:py-40 bg-surface">
+      {/* Signature Grain Texture Overlay */}
+      <div className="absolute inset-0 opacity-[0.06] texture-grain pointer-events-none mix-blend-multiply" />
       {/* Background Texture Integration */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-multiply"
         style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }}

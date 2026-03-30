@@ -161,6 +161,8 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
   return (
     <section ref={sectionRef} className="relative pt-24 md:pt-40 pb-56 md:pb-80 bg-surface overflow-hidden">
+      {/* Signature Grain Texture Overlay */}
+      <div className="absolute inset-0 opacity-[0.08] texture-grain pointer-events-none mix-blend-multiply" />
       {/* Background Texture: Canson 300gsm inspired */}
       <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-multiply"
         style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }}
