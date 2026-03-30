@@ -67,24 +67,31 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       ],
       connectivity: "The Digital Toolkit",
       esim: "E-SIM Solutions",
-      esimDesc: "Enable seamless roaming with ByteSim or Gigago (approx. 5GB/day recommended).",
+      esimDesc: "Enable seamless roaming with ByteSim or Gigago. Around 5GB/day is more than enough, as Wi-Fi is widely available.",
       apps: "Essential Local Apps",
       appsDesc: "Download Grab/XanhSM/Be for transport and Zalo for local communication.",
-      explore: "The Explorer's Folio",
+      explore: "Let's Explore",
       exploreSub: "A curated collection of destinations to discover during your stay in Vietnam",
-      hanoi: "Hanoi — Heritage & Soul",
-      hanoiDesc: "Wander through the Temple of Literature, the serene Hoan Kiem Lake, and the winding alleys of the Old Quarter.",
-      halong: "Ha Long Bay — Nature's Masterpiece",
-      halongDesc: "A UNESCO World Heritage site known for its emerald waters and thousands of towering limestone islands.",
-      ninhbinh: "Ninh Binh — The Inland Haven",
-      ninhbinhDesc: "Discover the breathtaking landscapes of Tam Coc, often called Ha Long Bay on land, and ancient temple ruins.",
+      hanoi: "Hanoi — Culture & Cuisine",
+      hanoiDesc: "No trip to Hanoi is complete without experiencing its incredible food and history. From iconic landmarks like the Temple of Literature, Hoan Kiem Lake, and Ho Chi Minh Mausoleum, to the lively Old Quarter, the city is full of culture, charm, and unforgettable flavors.\n\nEven a short 2-day, 1-night visit is enough to experience the highlights and enjoy some of the best food in Vietnam.\n\nWe can organize a group experience—please RSVP if you’re interested!",
+      halong: "Ha Long Bay — Overnight Cruise",
+      halongDesc: "Ha Long Bay is one of the New Seven Wonders of Nature and a true highlight of northern Vietnam.\n\nA 2-day, 1-night cruise takes you through thousands of limestone islands, with opportunities for kayaking, swimming, and relaxing on a beautiful boat.\n\nA once-in-a-lifetime experience we highly recommend!",
+      ninhbinh: "Ninh Binh — Nature & History",
+      ninhbinhDesc: "Ninh Binh is known for its breathtaking landscapes of limestone mountains, peaceful rivers, and lush rice fields—often called “Ha Long Bay on land.”\n\nHighlights include boat rides through caves, ancient temples like Bai Dinh Pagoda, and historic sites from Vietnam’s early capital.",
+      dayTrips: "Easy Day Trips from Hanoi",
+      dayTripsSub: "If you have extra time, these are great half- or full-day excursions near Hanoi:",
+      dayTripList: [
+        { name: "Bat Trang Ceramic Village – Get Hands-On with Pottery", desc: "Bat Trang Ceramic Village is a fun and interactive day trip, especially if you enjoy creative activities. Located just 30 minutes from Hanoi, this village has been producing ceramics for centuries. You can try your hand at making pottery, browse markets filled with colorful bowls and vases, and watch skilled artisans at work. It’s an easy and rewarding half-day excursion.", src: "/langgom.jpg" },
+        { name: "Ham Lon Mountain – A Mini Adventure Close to the City", desc: "If you’re craving a bit of adventure, Ham Lon Mountain is the closest hiking spot to Hanoi. Just about an hour away, it offers forest trails, a manageable climb, and rewarding views from the summit. Many locals come here for day hikes or overnight camping by the nearby lake. It’s a great option if you want a quick nature fix without traveling far.", src: "/hamlon.jpg" },
+        { name: "Van Phuc Silk Village – Vietnam’s Silk Heritage", desc: "Only about 30–40 minutes from Hanoi, Van Phuc Silk Village is one of the oldest silk-making communities in Vietnam. Walking through its narrow streets, you’ll see vibrant fabrics hanging overhead and hear the rhythmic clatter of weaving looms. It’s a great place to learn about traditional craftsmanship and pick up high-quality silk scarves or garments directly from local artisans.", src: "/vanphuc.jpg" }
+      ],
       rsvpTravel: "Please RSVP if you are interested in any of the activities so we can coordinate with a local travel agency."
     },
     vi: {
       plan: "Chuẩn bị cho chuyến đi",
       visaTitle: "Thị thực & Di chuyển",
       visaSub: "Thị thực (E-Visa)",
-      visaDesc: "Quý khách mang quốc tịch Mỹ cần xin thị thực điện tử để nhập cảnh Việt Nam. Quy trình hoàn toàn trực tuyến và vô cùng thuận tiện.",
+      visaDesc: "Các bạn mang quốc tịch Mỹ cần xin thị thực điện tử để nhập cảnh Việt Nam. Quy trình hoàn toàn trực tuyến và vô cùng thuận tiện.",
       visaExemption: "Lưu ý: Một số quốc tịch được miễn thị thực ngắn hạn. Vui lòng kiểm tra kỹ trước khi khởi hành.",
       applyHere: "Nộp đơn tại",
       applyLink1: "Cổng Thông Tin E-Visa Việt Nam",
@@ -112,15 +119,15 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         "Luôn mang theo cả bản in và bản kỹ thuật số trên điện thoại"
       ],
       portal: "Cổng Thông Tin E-Visa",
-      stay: "Lưu trú tại Thủ đô",
-      stayDesc: "Hà Nội sở hữu nhiều không gian lưu trú mang đậm dấu ấn di sản. Chúng mình gợi ý quý khách",
-      stayHighlight: "chọn khu vực Hồ Hoàn Kiếm",
-      staySuffix: "để thuận tiện khám phá tâm hồn phố cổ.",
-      priceRange: "Khoảng giá tham khảo",
+      stay: "Khách sạn & Lưu trú",
+      stayDesc: "Hà Nội sở hữu nhiều không gian lưu trú mang đậm dấu ấn di sản. Chúng mình gợi ý bạn nên ở gần khu vực",
+      stayHighlight: "Hồ Hoàn Kiếm",
+      staySuffix: "để cảm nhận trọn vẹn vẻ đẹp cổ kính của thành phố.",
+      priceRange: "Mức giá tham khảo",
       prices: [
-        { label: "Tiết kiệm", value: "$10–$30/đêm" },
-        { label: "Trung bình", value: "$30–$60/đêm" },
-        { label: "Cao cấp", value: "$80–$200+/đêm" }
+        { label: "Tiết kiệm", value: "250k–750k/đêm" },
+        { label: "Trung bình", value: "750k–1.5tr/đêm" },
+        { label: "Cao cấp", value: "2tr–5tr+/đêm" }
       ],
       oldQuarter: "Khu Phố Cổ",
       oldQuarterDesc: "Trải nghiệm nhịp sống bản địa, ẩm thực đường phố và kiến trúc cổ.",
@@ -133,19 +140,38 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         "Hanoi Tirant Hotel — Vị trí đẹp + giá tốt",
         "La Siesta Classic Ma May — Khách sạn boutique phổ biến"
       ],
-      connectivity: "Ứng dụng & Kết nối",
+      connectivity: "Giải pháp Kết nối",
       esim: "Giải pháp E-SIM",
       esimDesc: "Sử dụng ByteSim hoặc Gigago để duy trì kết nối (Gói 5GB/ngày là lựa chọn tối ưu).",
       apps: "Ứng dụng Cần thiết",
       appsDesc: "Tải ứng dụng Grab/XanhSM/Be (di chuyển) và Zalo (liên lạc) để thuận tiện hơn.",
-      explore: "Hành trình Khám phá",
-      exploreSub: "Bộ sưu tập những điểm đến đặc sắc nhất mà chúng mình mong muốn giới thiệu tới quý khách",
-      hanoi: "Hà Nội — Linh hồn Di sản",
-      hanoiDesc: "Khám phá Văn Miếu, Hồ Hoàn Kiếm và những con phố cổ mang đậm hơi thở thời gian.",
-      halong: "Vịnh Hạ Long — Kỳ quan Thiên nhiên",
-      halongDesc: "Di sản thế giới với hàng ngàn đảo đá vôi vươn mình trên làn nước xanh ngọc bích tuyệt đẹp.",
-      ninhbinh: "Ninh Bình — Tuyệt tác Thiên nhiên",
-      ninhbinhDesc: "Được mệnh danh là 'Hạ Long trên cạn' với vẻ đẹp yên bình của sông nước và núi non hùng vĩ.",
+      explore: "Khám phá",
+      exploreSub: "Bộ sưu tập những điểm đến đặc sắc nhất mà chúng mình mong muốn giới thiệu tới các bạn",
+      hanoi: "Hà Nội — Văn hóa & Ẩm thực",
+      hanoiDesc: "Hà Nội là nơi tụi mình rất mong mọi người được trải nghiệm trọn vẹn từ những địa điểm nổi tiếng như Văn Miếu, Hồ Hoàn Kiếm, Lăng Bác đến khu phố cổ nhộn nhịp.\n\nChỉ cần 2 ngày 1 đêm là đủ để cảm nhận nét đặc trưng của thành phố và thưởng thức rất nhiều món ngon.\n\n Tụi mình có thể tổ chức đi theo nhóm — nhớ RSVP nếu bạn quan tâm nha!",
+      halong: "Vịnh Hạ Long — Du thuyền qua đêm",
+      halongDesc: "Đây là một trong những điểm đến đẹp nhất Việt Nam và cũng là trải nghiệm tụi mình rất recommend.\n\nHành trình 2 ngày 1 đêm sẽ đưa bạn qua hàng ngàn đảo đá vôi tuyệt đẹp, kèm theo các hoạt động như chèo kayak, bơi lội và thư giãn trên tàu.\n\n Sẽ là một trải nghiệm rất đáng nhớ!",
+      ninhbinh: "Ninh Bình — Thiên nhiên & lịch sử",
+      ninhbinhDesc: "Ninh Bình nổi tiếng với cảnh quan núi đá vôi, sông nước và ruộng lúa xanh mướt — thường được gọi là “Vịnh Hạ Long trên cạn”.\n\nBạn có thể đi thuyền xuyên hang, tham quan chùa Bái Đính và các di tích lịch sử cổ.",
+      dayTrips: "Các chuyến đi gần Hà Nội",
+      dayTripsSub: "Nếu bạn có thêm thời gian, dưới đây là những lựa chọn tuyệt vời cho chuyến đi trong ngày",
+      dayTripList: [
+        { 
+          name: "Làng gốm Bát Tràng – trải nghiệm làm gốm", 
+          desc: "Làng gốm Bát Tràng là một điểm đến thú vị và đầy tính tương tác, đặc biệt dành cho những ai yêu thích các hoạt động sáng tạo. Chỉ cách Hà Nội 30 phút di chuyển, ngôi làng này đã có truyền thống làm gốm từ hàng thế kỷ. Bạn có thể tự tay nhào nặn gốm, dạo quanh các gian hàng rực rỡ sắc màu và tận mắt chiêm ngưỡng các nghệ nhân tài hoa làm việc. Đây là một chuyến đi nửa ngày nhẹ nhàng nhưng đầy ý nghĩa.", 
+          src: "/langgom.jpg" 
+        },
+        { 
+          name: "Núi Hàm Lợn – trekking nhẹ gần Hà Nội", 
+          desc: "Nếu bạn đang tìm kiếm một chút phiêu lưu, Núi Hàm Lợn là địa điểm trekking gần Hà Nội nhất. Chỉ mất khoảng một giờ di chuyển, nơi đây đón bạn bằng những con đường mòn xuyên rừng, dốc leo vừa sức và tầm nhìn tuyệt đẹp từ đỉnh núi. Nhiều người dân địa phương thường đến đây để đi bộ đường dài trong ngày hoặc cắm trại qua đêm bên hồ nước thơ mộng. Một lựa chọn tuyệt vời để 'đổi gió' giữa thiên nhiên mà không cần đi quá xa.", 
+          src: "/hamlon.jpg" 
+        },
+        { 
+          name: "Làng lụa Vạn Phúc – tìm hiểu nghề dệt truyền thống", 
+          desc: "Cách Hà Nội chỉ 30–40 phút, Làng lụa Vạn Phúc là một trong những làng nghề dệt lụa lâu đời nhất Việt Nam. Sải bước trên những con ngõ nhỏ, bạn sẽ thấy những dải lụa rực rỡ sắc màu treo cao và lắng nghe tiếng khung cửi lách cách nhịp nhàng. Đây là nơi lý tưởng để tìm hiểu về nghề thủ công truyền thống và chọn mua những món quà lụa cao cấp trực tiếp từ các nghệ nhân.", 
+          src: "/vanphuc.jpg" 
+        }
+      ],
       rsvpTravel: "Nếu bạn muốn tham gia hoạt động nào, nhớ RSVP để tụi mình sắp xếp nha!"
     }
   }[lang];
@@ -473,7 +499,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
              <p className="text-olive/70 font-light mt-12 italic leading-loose font-serif text-xl border-x border-olive/5 px-12">{t.exploreSub}</p>
           </div>
 
-          <div className="travel-grid grid grid-cols-1 md:grid-cols-3 gap-20 lg:gap-32">
+          <div className="travel-grid grid grid-cols-1 md:grid-cols-3 gap-20 lg:gap-32 pb-16">
             {/* Hanoi */}
             <div className="travel-card group">
               <div className="relative aspect-[4/5] overflow-hidden mb-12 ring-1 ring-burgundy/5 shadow-2xl transition-all group-hover:ring-burgundy/20">
@@ -487,9 +513,9 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                   <span className="text-[10px] text-olive font-serif italic opacity-40 pr-4 border-r border-olive/10 tracking-[0.2em] font-medium leading-none">REF. 01</span>
                   <h4 className="text-3xl md:text-4xl font-heading text-burgundy italic font-medium leading-none">{t.hanoi.split('—')[0]}</h4>
                 </div>
-                <p className="text-[17px] text-ink/70 font-light leading-relaxed italic pr-10 border-l border-olive/10 pl-8 group-hover:border-olive/30 transition-colors py-1">
+                <div className="text-[15px] text-ink/70 font-light leading-relaxed italic pr-10 border-l border-olive/10 pl-8 group-hover:border-olive/30 transition-colors py-1 whitespace-pre-line">
                   {t.hanoiDesc}
-                </p>
+                </div>
               </div>
             </div>
 
@@ -506,9 +532,9 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                   <span className="text-[10px] text-olive font-serif italic opacity-40 pr-4 border-r border-olive/10 tracking-[0.2em] font-medium leading-none">REF. 02</span>
                   <h4 className="text-3xl md:text-4xl font-heading text-burgundy italic font-medium leading-none">{t.halong.split('—')[0]}</h4>
                 </div>
-                <p className="text-[17px] text-ink/70 font-light leading-relaxed italic pr-10 border-l border-olive/10 pl-8 group-hover:border-olive/30 transition-colors py-1">
+                <div className="text-[15px] text-ink/70 font-light leading-relaxed italic pr-10 border-l border-olive/10 pl-8 group-hover:border-olive/30 transition-colors py-1 whitespace-pre-line">
                   {t.halongDesc}
-                </p>
+                </div>
               </div>
             </div>
 
@@ -525,13 +551,54 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                   <span className="text-[10px] text-olive font-serif italic opacity-40 pr-4 border-r border-olive/10 tracking-[0.2em] font-medium leading-none">REF. 03</span>
                   <h4 className="text-3xl md:text-4xl font-heading text-burgundy italic font-medium leading-none">{t.ninhbinh.split('—')[0]}</h4>
                 </div>
-                <p className="text-[17px] text-ink/70 font-light leading-relaxed italic pr-10 border-l border-olive/10 pl-8 group-hover:border-olive/30 transition-colors py-1">
+                <div className="text-[15px] text-ink/70 font-light leading-relaxed italic pr-10 border-l border-olive/10 pl-8 group-hover:border-olive/30 transition-colors py-1 whitespace-pre-line">
                   {t.ninhbinhDesc}
-                </p>
+                </div>
               </div>
             </div>
           </div>
 
+          {/* Day Trips Section - Descriptive Registry */}
+          <div className="mt-16 pt-16 border-t border-olive/10">
+            <div className="max-w-4xl mx-auto space-y-20">
+               <div className="text-center space-y-8">
+                  <h3 className="text-4xl md:text-6xl font-heading text-burgundy italic font-medium">{t.dayTrips}</h3>
+                  <div className="px-8 py-4 bg-olive/[0.03] border-x border-olive/10 inline-block">
+                    <p className="text-olive/70 font-serif italic text-lg leading-relaxed">{t.dayTripsSub}</p>
+                  </div>
+               </div>
+
+               <div className="grid grid-cols-1 gap-12">
+                  {t.dayTripList.map((trip: any, idx: number) => (
+                    <div key={idx} className="group/trip relative flex flex-col lg:flex-row gap-12 lg:items-center">
+                       {/* Cinematic Image Frame */}
+                       <div className="relative w-full lg:w-96 aspect-[3/2] overflow-hidden ring-1 ring-olive/10 shadow-xl transition-all group-hover/trip:ring-burgundy/20 group-hover/trip:shadow-2xl">
+                          <Image src={trip.src} alt={trip.name} fill className="object-cover grayscale-[0.2] transition-all duration-[3s] group-hover/trip:scale-110 group-hover/trip:grayscale-0" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-burgundy/40 to-transparent opacity-0 group-hover/trip:opacity-40 transition-opacity"></div>
+                          <div className="absolute bottom-6 left-6 text-white/90 text-[10px] tracking-[0.4em] uppercase font-bold opacity-0 group-hover/trip:opacity-100 transition-all duration-700 translate-y-2 group-hover/trip:translate-y-0">ADVENTURE {idx + 1}</div>
+                       </div>
+
+                       <div className="flex-grow space-y-6 lg:pl-4">
+                          <div className="flex items-center gap-6 text-burgundy/30 font-serif italic text-3xl">
+                             <span>0{idx+1}</span>
+                             <div className="w-12 h-[0.5px] bg-olive/10 group-hover/trip:w-20 transition-all duration-700 group-hover/trip:bg-burgundy/30"></div>
+                          </div>
+                          <div className="space-y-4">
+                             <h4 className="text-2xl md:text-3xl font-heading text-burgundy italic leading-tight group-hover/trip:translate-x-3 transition-transform duration-700">{trip.name}</h4>
+                             {trip.desc && (
+                               <p className="text-[16px] text-ink/70 font-light leading-relaxed italic max-w-3xl whitespace-pre-line border-l border-olive/5 pl-8 group-hover/trip:border-olive/20 transition-colors">
+                                  {trip.desc}
+                               </p>
+                             )}
+                          </div>
+                       </div>
+                    </div>
+                  ))}
+               </div>
+            </div>
+          </div>
+
+          {/* Final Travel Context Note */}
           <div className="mt-24 lg:mt-32 p-8 md:p-10 relative w-fit max-w-2xl mx-auto travel-card text-center bg-white/10 backdrop-blur-[1px] group overflow-hidden">
               <div className="absolute inset-0 border border-olive/10 rounded-sm pointer-events-none group-hover:border-burgundy/20 transition-colors"></div>
               
