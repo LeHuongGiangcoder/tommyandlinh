@@ -201,18 +201,21 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         }
       });
 
-      // Logistics Grid reveal (Section 2: Stay & Connectivity)
-      gsap.from(".logistics-grid-reveal .travel-card", {
-        opacity: 0,
-        y: 30,
-        stagger: 0.15,
-        duration: 1.2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".logistics-grid-reveal",
-          start: "top 80%",
+      // Logistics Grid reveal (Section 2: Stay & Connectivity) - High Reliability fromTo
+      gsap.fromTo(".logistics-grid-reveal .travel-card", 
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.15,
+          duration: 1.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".logistics-grid-reveal",
+            start: "top 85%",
+          }
         }
-      });
+      );
 
       // Gallery Grid reveal (Section 3: Destinations)
       gsap.from(".gallery-reveal .travel-card", {
@@ -381,72 +384,75 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             </div>
           </div>
 
-          {/* Section 2: Accommodation & Connectivity - 2 Columns Below */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 logistics-grid-reveal">
+          {/* Section 2: Accommodation & Connectivity - Dual Block Folio */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 logistics-grid-reveal items-stretch">
             
-            {/* Where to Stay */}
-            <div className="travel-card bg-surface/40 border border-olive/10 p-10 md:p-14 relative overflow-hidden group shadow-sm transition-all hover:bg-surface/50">
-               <div className="absolute -top-16 -right-16 w-48 h-48 opacity-[0.02] bg-burgundy rounded-full group-hover:scale-110 transition-transform duration-[2s]"></div>
-               <div className="flex items-center justify-between mb-12 pb-8 border-b border-olive/10">
-                 <div className="flex items-center gap-6 text-burgundy">
-                    <div className="w-10 h-10 rounded-full border border-olive/20 flex items-center justify-center">
-                        <MapPin className="w-4 h-4 stroke-1 text-olive" />
-                    </div>
-                    <h3 className="text-3xl font-heading italic font-medium tracking-tight">{t.stay}</h3>
-                 </div>
-               </div>
-
-               <p className="text-ink/80 font-light leading-[1.8] mb-12 text-[17px] font-serif italic max-w-xl">
-                 {t.stayDesc} <strong className="text-burgundy font-medium border-b border-burgundy/20 pb-1">{t.stayHighlight}</strong> {t.staySuffix}
-               </p>
-
-               <div className="space-y-14 text-ink/80">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                     <div className="flex items-start p-6 bg-white/40 border-l-[0.5px] border-olive/20 transition-all hover:bg-white/80">
-                        <div>
-                           <h4 className="text-burgundy text-[11px] uppercase tracking-[0.3em] mb-4 font-semibold">{t.oldQuarter}</h4>
-                           <p className="text-ink/60 text-[11px] leading-[1.8] font-light">{t.oldQuarterDesc}</p>
+            {/* Where to Stay (Card 1) */}
+            <div className="travel-card bg-surface/40 border border-olive/10 p-8 md:p-14 relative overflow-hidden group shadow-sm transition-all hover:bg-surface/50 flex flex-col h-full min-h-[500px]">
+               <div className="absolute -top-16 -right-16 w-48 h-48 opacity-[0.03] bg-burgundy rounded-full group-hover:scale-110 transition-transform duration-[2s]"></div>
+               
+               <div className="relative z-10 flex flex-col h-full">
+                  <div className="flex items-center justify-between mb-12 pb-8 border-b border-olive/10">
+                    <div className="flex items-center gap-6 text-burgundy">
+                        <div className="w-10 h-10 rounded-full border border-olive/20 flex items-center justify-center">
+                            <MapPin className="w-4 h-4 stroke-1 text-olive" />
                         </div>
-                     </div>
-                     <div className="flex items-start p-6 bg-white/40 border-l-[0.5px] border-olive/20 transition-all hover:bg-white/80">
-                        <div>
-                           <h4 className="text-burgundy text-[11px] uppercase tracking-[0.3em] mb-4 font-semibold">{t.frenchQuarter}</h4>
-                           <p className="text-ink/60 text-[11px] leading-[1.8] font-light">{t.frenchQuarterDesc}</p>
-                        </div>
-                     </div>
-                  </div>
-
-                  <div className="pt-10 border-t border-olive/10">
-                    <h4 className="text-[11px] tracking-[0.5em] uppercase text-olive font-bold mb-10">{t.priceRange}</h4>
-                    <div className="grid grid-cols-3 gap-8">
-                       {t.prices.map((p, i) => (
-                         <div key={i} className="space-y-3">
-                           <p className="text-[11px] text-olive/60 uppercase tracking-widest leading-none">{p.label}</p>
-                           <p className="text-xl font-heading text-burgundy italic leading-none">{p.value}</p>
-                         </div>
-                       ))}
+                        <h3 className="text-3xl font-heading italic font-medium tracking-tight">{t.stay}</h3>
                     </div>
                   </div>
 
-                  <div className="pt-10 border-t border-olive/10">
-                    <div className="flex items-center gap-4 mb-10">
-                       <h4 className="text-[11px] tracking-[0.5em] uppercase text-olive font-bold">{t.reviewedHotels}</h4>
-                       <div className="h-[1px] flex-grow bg-olive/5"></div>
-                    </div>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-5">
-                      {t.hotelList.map((hotel, i) => (
-                        <li key={i} className="flex gap-4 text-[13px] items-start group/hotel">
-                          <span className="text-olive/30 mt-1">✦</span>
-                          <span className="font-light leading-relaxed group-hover/hotel:text-burgundy transition-colors">{hotel}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <p className="text-ink/80 font-light leading-[1.8] mb-12 text-[17px] font-serif italic max-w-xl">
+                    {t.stayDesc} <strong className="text-burgundy font-medium border-b border-burgundy/20 pb-1">{t.stayHighlight}</strong> {t.staySuffix}
+                  </p>
+
+                  <div className="space-y-14 flex-grow flex flex-col">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div className="flex items-start p-6 bg-white/40 border-l-[0.5px] border-olive/20 transition-all hover:bg-white/80">
+                            <div className="space-y-2">
+                              <h4 className="text-burgundy text-[11px] uppercase tracking-[0.3em] font-semibold">{t.oldQuarter}</h4>
+                              <p className="text-ink/60 text-[11px] leading-[1.8] font-light">{t.oldQuarterDesc}</p>
+                            </div>
+                        </div>
+                        <div className="flex items-start p-6 bg-white/40 border-l-[0.5px] border-olive/20 transition-all hover:bg-white/80">
+                            <div className="space-y-2">
+                              <h4 className="text-burgundy text-[11px] uppercase tracking-[0.3em] font-semibold">{t.frenchQuarter}</h4>
+                              <p className="text-ink/60 text-[11px] leading-[1.8] font-light">{t.frenchQuarterDesc}</p>
+                            </div>
+                        </div>
+                      </div>
+
+                      <div className="pt-10 border-t border-olive/10">
+                        <h4 className="text-[11px] tracking-[0.5em] uppercase text-olive font-bold mb-10">{t.priceRange}</h4>
+                        <div className="grid grid-cols-3 gap-8">
+                          {t.prices && t.prices.map((p, i) => (
+                            <div key={i} className="space-y-3">
+                              <p className="text-[11px] text-olive/60 uppercase tracking-widest leading-none">{p.label}</p>
+                              <p className="text-xl font-heading text-burgundy italic leading-none">{p.value}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="pt-10 border-t border-olive/10 mt-auto">
+                        <div className="flex items-center gap-4 mb-10">
+                          <h4 className="text-[11px] tracking-[0.5em] uppercase text-olive font-bold">{t.reviewedHotels}</h4>
+                          <div className="h-[1px] flex-grow bg-olive/5"></div>
+                        </div>
+                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-5">
+                          {t.hotelList && t.hotelList.map((hotel, i) => (
+                            <li key={i} className="flex gap-4 text-[13px] items-start group/hotel">
+                              <span className="text-olive/30 mt-1">✦</span>
+                              <span className="font-light leading-relaxed group-hover/hotel:text-burgundy transition-colors text-ink/70">{hotel}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                   </div>
                </div>
             </div>
 
-            {/* The Digital Toolkit - High Density Display */}
-            <div className="travel-card bg-olive/[0.04] border-double border-4 border-olive/5 p-10 md:p-14 relative group flex flex-col h-full overflow-hidden">
+            {/* The Digital Toolkit (Card 2) */}
+            <div className="travel-card bg-olive/[0.04] border-double border-4 border-olive/5 p-8 md:p-14 relative group flex flex-col h-full min-h-[500px] overflow-hidden">
                {/* Decorative Background Accent */}
                <div className="absolute -bottom-10 -right-10 w-64 h-64 opacity-[0.03] pointer-events-none rotate-12">
                   <Smartphone className="w-full h-full" />
