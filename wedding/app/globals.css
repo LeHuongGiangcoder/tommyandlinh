@@ -1,5 +1,37 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Lato Viet';
+  src: url('/lato-viet/lato-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Lato Viet';
+  src: url('/lato-viet/lato-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Lato Viet';
+  src: url('/lato-viet/lato-light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Lato Viet';
+  src: url('/lato-viet/lato-italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 @theme {
   --color-burgundy: #562832;
   --color-olive: #656a52;
@@ -9,6 +41,7 @@
 
   --font-heading: 'Cormorant Garamond', serif;
   --font-body: 'Lato', sans-serif;
+  --font-vi: 'Lato Viet', sans-serif;
 }
 
 :root {
@@ -43,6 +76,10 @@
 
   .divider-elegant {
     border-color: var(--color-olive);
+  }
+
+  .font-vi {
+    --font-body: var(--font-vi);
   }
 }
 

@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
             <svg className="w-6 h-6 md:w-8 md:h-8 text-burgundy transition-all duration-700 ease-out group-hover:rotate-[15deg] group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12,2C12,2 10.5,6.5 10.5,10.5C10.5,14.5 12,22 12,22C12,22 13.5,14.5 13.5,10.5C13.5,6.5 12,2 12,2M12,2C12,2 16,4.5 18,9C20,13.5 18,18 18,18C18,18 14,20 10,18C6,16 4,11.5 4,11.5C4,11.5 8,9.5 12,2Z"/>
             </svg>
-            <span className="text-xl md:text-2xl font-heading text-burgundy tracking-widest uppercase transition-opacity">T&L</span>
+            <span className="text-xl md:text-2xl font-heading font-light text-burgundy tracking-widest uppercase transition-opacity">T&L</span>
           </div>
         </Link>
 

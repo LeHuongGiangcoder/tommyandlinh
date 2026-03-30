@@ -13,10 +13,31 @@ interface TimeLeft {
   seconds: number;
 }
 
-const Countdown = () => {
+const Countdown = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const sectionRef = useRef<HTMLElement>(null);
   
+  const translations = {
+    en: {
+      title: "Saving the Celebration",
+      subtitle: "Until our forever starts",
+      days: "Days",
+      hours: "Hours",
+      minutes: "Minutes",
+      seconds: "Seconds"
+    },
+    vi: {
+      title: "Ghi dấu ngày hạnh phúc",
+      subtitle: "Cho đến khi chúng mình thuộc về nhau",
+      days: "Ngày",
+      hours: "Giờ",
+      minutes: "Phút",
+      seconds: "Giây"
+    }
+  };
+
+  const t = translations[lang];
+
   // Wedding Date: January 17, 2027
   const targetDate = new Date("2027-01-17T10:00:00").getTime();
 
@@ -85,24 +106,24 @@ const Countdown = () => {
         <div className="flex flex-col items-center mb-16 space-y-4 countdown-reveal">
           <div className="w-12 h-[1px] bg-surface/30"></div>
           <h2 className="text-xl md:text-2xl font-heading text-surface tracking-[0.3em] uppercase italic px-4 text-center">
-            Saving the Celebration
+            {t.title}
           </h2>
           <div className="w-12 h-[1px] bg-surface/30"></div>
         </div>
 
         {/* The Grid */}
         <div className="flex flex-wrap justify-center gap-8 md:gap-16">
-          <TimeBlock value={timeLeft.days} label="Days" />
+          <TimeBlock value={timeLeft.days} label={t.days} />
           <div className="hidden md:block w-[1px] h-12 bg-surface/10 self-center" />
-          <TimeBlock value={timeLeft.hours} label="Hours" />
+          <TimeBlock value={timeLeft.hours} label={t.hours} />
           <div className="hidden md:block w-[1px] h-12 bg-surface/10 self-center" />
-          <TimeBlock value={timeLeft.minutes} label="Minutes" />
+          <TimeBlock value={timeLeft.minutes} label={t.minutes} />
           <div className="hidden md:block w-[1px] h-12 bg-surface/10 self-center" />
-          <TimeBlock value={timeLeft.seconds} label="Seconds" />
+          <TimeBlock value={timeLeft.seconds} label={t.seconds} />
         </div>
 
         <p className="mt-16 text-[10px] md:text-xs tracking-[0.5em] uppercase text-surface/40 font-light countdown-reveal">
-          Until our forever starts
+          {t.subtitle}
         </p>
       </div>
 

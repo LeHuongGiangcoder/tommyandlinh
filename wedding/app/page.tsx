@@ -10,7 +10,30 @@ import SnowEffect from "./components/SnowEffect";
 
 export default function Home() {
   const [isStarted, setIsStarted] = useState(false);
+  const [lang, setLang] = useState<'en' | 'vi'>('en');
   const containerRef = useRef<HTMLElement>(null);
+  
+  // Translation dictionary for current page content
+  const t = {
+    en: {
+      celebration: "The Wedding Celebration of",
+      date: "17 . 01 . 2027",
+      location: "Ha Noi • Vietnam",
+      open: "Open",
+      scroll: "Scroll to explore",
+      toggle: "VI"
+    },
+    vi: {
+      celebration: "Lễ Thành Hôn Của",
+      date: "17 . 01 . 2027",
+      location: "Hà Nội • Việt Nam",
+      open: "Mở",
+      scroll: "Cuộn để xem tiếp",
+      toggle: "EN"
+    }
+  };
+
+  const currentT = t[lang];
   const tommyRef = useRef<HTMLHeadingElement>(null);
   const ampRef = useRef<HTMLSpanElement>(null);
   const linhRef = useRef<HTMLHeadingElement>(null);
@@ -91,7 +114,10 @@ export default function Home() {
   }, [isStarted]);
 
   return (
-    <main ref={containerRef} className={`min-h-screen w-full relative flex flex-col bg-surface ${!isStarted ? 'overflow-hidden h-screen' : ''}`}>
+    <main 
+      ref={containerRef} 
+      className={`min-h-screen w-full relative flex flex-col bg-surface ${lang === 'vi' ? 'font-vi' : ''} ${!isStarted ? 'overflow-hidden h-screen' : ''}`}
+    >
       {/* Landing Envelope Ritual */}
       {!isStarted && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-olive overflow-hidden">
@@ -148,20 +174,20 @@ export default function Home() {
                  </svg>
               </div>
 
-              {/* The Wax Seal Button (Z-index 50) */}
+              {/* The Wax Seal Button */}
               <button 
                 onClick={() => setIsStarted(true)}
                 className="relative z-50 w-24 h-24 md:w-28 md:h-28 rounded-full bg-burgundy shadow-[0_20px_40px_rgba(86,40,50,0.6)] hover:shadow-[0_25px_60px_rgba(86,40,50,0.7)] transition-all duration-700 flex flex-col items-center justify-center group active:scale-95 hover:scale-105"
               >
                 <div className="absolute inset-1.5 rounded-full border border-white/20 opacity-30"></div>
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent opacity-30 pointer-events-none"></div>
-                <span className="text-[11px] md:text-xs font-heading text-surface tracking-[0.4em] uppercase mb-1 drop-shadow-lg italic">Open</span>
+                <span className="text-[11px] md:text-xs font-heading text-surface tracking-[0.4em] uppercase mb-1 drop-shadow-lg italic">{currentT.open}</span>
                 <div className="w-6 h-[0.5px] bg-white/40" />
               </button>
 
               {/* Inner Letter Detail (Barely visible) */}
               <div className="absolute bottom-12 left-0 right-0 flex justify-center opacity-40 z-30">
-                 <span className="text-[10px] tracking-[1em] uppercase text-olive font-medium">T & L</span>
+                 <span className="text-[10px] font-heading font-light tracking-[1em] uppercase text-olive">T & L</span>
               </div>
             </div>
 
@@ -221,30 +247,30 @@ export default function Home() {
               </div>
 
               <p className="text-olive/90 tracking-[0.4em] uppercase text-[10px] sm:text-xs font-light">
-                The Wedding Celebration of
+                {currentT.celebration}
               </p>
             </div>
           </div>
 
-          <h1 ref={tommyRef} className="text-7xl md:text-[110px] lg:text-[140px] font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md">
+          <h1 ref={tommyRef} className="text-7xl md:text-[110px] lg:text-[140px] font-heading font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md">
             Tommy
           </h1>
           
           <div className="flex w-full items-center my-0 pl-24 md:pl-44 -mt-2">
-            <span ref={ampRef} className="text-5xl md:text-7xl font-light italic text-olive/80 drop-shadow-md">&amp;</span>
+            <span ref={ampRef} className="text-5xl md:text-7xl font-heading font-light italic text-olive/80 drop-shadow-md">&amp;</span>
           </div>
 
-          <h1 ref={linhRef} className="text-7xl md:text-[110px] lg:text-[140px] font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md ml-12 md:ml-32 -mt-2">
+          <h1 ref={linhRef} className="text-7xl md:text-[110px] lg:text-[140px] font-heading font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md ml-12 md:ml-32 -mt-2">
             Linh
           </h1>
 
           <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-12 ml-6 fade-up opacity-0">
             <p className="text-lg md:text-2xl font-light tracking-[0.5em] text-ink drop-shadow-sm">
-              17 . 01 . 2027
+              {currentT.date}
             </p>
             <div className="hidden sm:block w-12 h-[1px] bg-olive/30"></div>
             <p className="text-xs md:text-sm font-light tracking-[0.4em] uppercase text-ink/80 drop-shadow-sm">
-              Ha Noi • Vietnam
+              {currentT.location}
             </p>
           </div>
 
@@ -275,11 +301,23 @@ export default function Home() {
 
       {/* Countdown Section */}
       <div className="relative z-30">
-        <Countdown />
+        <Countdown lang={lang} />
       </div>
 
-      <OurStory />
-      <TravelInfo />
+      <OurStory key={`story-${lang}`} lang={lang} />
+      <TravelInfo key={`travel-${lang}`} lang={lang} />
+
+      {/* Language Switcher Pill */}
+      <div className="fixed top-6 right-8 z-[110] flex items-center justify-center">
+         <button 
+           onClick={() => setLang(lang === 'en' ? 'vi' : 'en')}
+           className="px-4 py-2 bg-white/40 backdrop-blur-md border border-burgundy/10 rounded-full shadow-lg text-[10px] tracking-[0.3em] font-medium text-burgundy transition-all hover:bg-white/60 flex items-center gap-2"
+         >
+           <span className={`${lang === 'en' ? 'font-bold' : 'opacity-40'}`}>EN</span>
+           <div className="w-[1px] h-3 bg-burgundy/20"></div>
+           <span className={`${lang === 'vi' ? 'font-bold' : 'opacity-40'}`}>VI</span>
+         </button>
+      </div>
     </main>
   );
 }
