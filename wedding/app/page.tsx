@@ -8,6 +8,7 @@ import Countdown from "./components/Countdown";
 import OurStory from "./components/OurStory";
 import TravelInfo from "./components/TravelInfo";
 import FAQ from "./components/FAQ";
+import RSVP from "./components/RSVP";
 import Navbar from "./components/Navbar";
 import SnowEffect from "./components/SnowEffect";
 
@@ -432,6 +433,7 @@ export default function Home() {
 
       <OurStory key={`story-${lang}`} lang={lang} />
       <TravelInfo key={`travel-${lang}`} lang={lang} />
+      <RSVP key={`rsvp-${lang}`} lang={lang} />
       <FAQ key={`faq-${lang}`} lang={lang} />
 
       {/* Language Switcher Pill */}

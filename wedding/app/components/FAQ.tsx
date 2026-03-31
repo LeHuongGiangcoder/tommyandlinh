@@ -188,6 +188,31 @@ const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           }
         }
       );
+
+      // Parallax Background Accents
+      gsap.to(".faq-parallax-1", {
+        y: -150,
+        rotation: 45,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+
+      gsap.to(".faq-parallax-2", {
+        y: -250,
+        rotation: -30,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -199,16 +224,29 @@ const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
   return (
     <section ref={sectionRef} id="faq" className="relative py-24 md:py-40 bg-surface overflow-hidden">
       {/* Background Accents */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-multiply"
+      <div className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-multiply"
         style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }}
       />
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-olive/5 to-transparent pointer-events-none" />
       
-      {/* Decorative Botanical SVG in background */}
-      <div className="absolute -bottom-20 -left-20 w-80 h-80 opacity-[0.05] text-burgundy pointer-events-none rotate-12">
-        <svg viewBox="0 0 200 200" className="w-full h-full fill-current">
-          <path d="M100,20 Q120,60 160,80 T180,140 Q140,160 100,140 T40,120 Q60,60 100,20" />
-        </svg>
+      {/* Grain Texture Overlay */}
+      <div className="absolute inset-0 opacity-[0.4] texture-grain pointer-events-none mix-blend-soft-light" />
+      
+      {/* Cinematic Ambient Glow Orbs */}
+      <div className="absolute top-[10%] right-[-15%] w-[600px] h-[600px] md:w-[900px] md:h-[900px] bg-olive/[0.04] rounded-full filter blur-[120px] pointer-events-none mix-blend-multiply" />
+      <div className="absolute bottom-[20%] left-[-15%] w-[500px] h-[500px] md:w-[800px] md:h-[800px] bg-burgundy/[0.03] rounded-full filter blur-[120px] pointer-events-none mix-blend-multiply" />
+      
+      {/* Decorative Botanical SVGs in background with Parallax */}
+      <div className="absolute top-20 right-10 w-64 h-64 md:w-[400px] md:h-[400px] opacity-[0.03] text-olive pointer-events-none faq-parallax-1">
+         <svg viewBox="0 0 512 512" className="w-full h-full fill-current">
+            <path d="M383.8 351.7c2.5-2.5 105.2-92.4 105.2-92.4l-17.5-7.5c-10-4.9-7.4-11.5-5-17.4 2.4-7.6 20.1-67.3 20.1-67.3s-47.7 10-57.7 12.5c-7.5 2.4-10-2.5-12.5-7.5s-15-32.4-15-32.4-52.6 59.9-55.1 62.3c-10 7.5-20.1 0-17.6-10 0-10 27.6-129.6 27.6-129.6s-30.1 17.4-40.1 22.4c-7.5 5-12.6 5-17.6-5C293.5 72.3 255.9 0 255.9 0s-37.5 72.3-42.5 79.8c-5 10-10 10-17.6 5-10-5-40.1-22.4-40.1-22.4S183.3 182 183.3 192c2.5 10-7.5 17.5-17.6 10-2.5-2.5-55.1-62.3-55.1-62.3S98.1 167 95.6 172s-5 9.9-12.5 7.5C73 177 25.4 167 25.4 167s17.6 59.7 20.1 67.3c2.4 6 5 12.5-5 17.4L23 259.3s102.6 89.9 105.2 92.4c5.1 5 10 7.5 5.1 22.5-5.1 15-10.1 35.1-10.1 35.1s95.2-20.1 105.3-22.6c8.7-.9 18.3 2.5 18.3 12.5S241 512 241 512h30s-5.8-102.7-5.8-112.8 9.5-13.4 18.4-12.5c10 2.5 105.2 22.6 105.2 22.6s-5-20.1-10-35.1 0-17.5 5-22.5z"/>
+         </svg>
+      </div>
+
+      <div className="absolute -bottom-20 -left-20 w-80 h-80 md:w-[600px] md:h-[600px] opacity-[0.02] text-burgundy pointer-events-none rotate-12 faq-parallax-2">
+         <svg viewBox="0 0 512 512" className="w-full h-full fill-current">
+            <path d="M383.8 351.7c2.5-2.5 105.2-92.4 105.2-92.4l-17.5-7.5c-10-4.9-7.4-11.5-5-17.4 2.4-7.6 20.1-67.3 20.1-67.3s-47.7 10-57.7 12.5c-7.5 2.4-10-2.5-12.5-7.5s-15-32.4-15-32.4-52.6 59.9-55.1 62.3c-10 7.5-20.1 0-17.6-10 0-10 27.6-129.6 27.6-129.6s-30.1 17.4-40.1 22.4c-7.5 5-12.6 5-17.6-5C293.5 72.3 255.9 0 255.9 0s-37.5 72.3-42.5 79.8c-5 10-10 10-17.6 5-10-5-40.1-22.4-40.1-22.4S183.3 182 183.3 192c2.5 10-7.5 17.5-17.6 10-2.5-2.5-55.1-62.3-55.1-62.3S98.1 167 95.6 172s-5 9.9-12.5 7.5C73 177 25.4 167 25.4 167s17.6 59.7 20.1 67.3c2.4 6 5 12.5-5 17.4L23 259.3s102.6 89.9 105.2 92.4c5.1 5 10 7.5 5.1 22.5-5.1 15-10.1 35.1-10.1 35.1s95.2-20.1 105.3-22.6c8.7-.9 18.3 2.5 18.3 12.5S241 512 241 512h30s-5.8-102.7-5.8-112.8 9.5-13.4 18.4-12.5c10 2.5 105.2 22.6 105.2 22.6s-5-20.1-10-35.1 0-17.5 5-22.5z"/>
+         </svg>
       </div>
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
