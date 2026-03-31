@@ -15,8 +15,19 @@ const AudioPlayer: React.FC = () => {
       }
     };
 
+    const handleWarmupAudio = () => {
+      if (audioRef.current) {
+        audioRef.current.load(); // Prime the audio element on high-priority user interaction
+      }
+    };
+
     window.addEventListener("play_wedding_music", handleStartAudio);
-    return () => window.removeEventListener("play_wedding_music", handleStartAudio);
+    window.addEventListener("warmup_audio", handleWarmupAudio);
+    
+    return () => {
+      window.removeEventListener("play_wedding_music", handleStartAudio);
+      window.removeEventListener("warmup_audio", handleWarmupAudio);
+    };
   }, [isPlaying]);
 
   const togglePlay = () => {

@@ -51,10 +51,13 @@ export default function Home() {
     if (!isStarted) return;
     // Real Camera Shutter Sound (Tách)
     const playShutterSound = () => {
-      const audio = new Audio(encodeURI("/camera shutter.mp4"));
-      audio.play().catch((err) => {
-        console.warn("Shutter sound blocked by browser:", err);
-      });
+      // @ts-ignore
+      const audio = window._shutter;
+      if (audio) {
+        audio.play().catch((err: any) => {
+          console.warn("Shutter sound blocked by browser:", err);
+        });
+      }
     };
 
     const ctx = gsap.context(() => {
@@ -125,6 +128,16 @@ export default function Home() {
   const handleOpenEnvelope = () => {
     if (isEnvelopeOpening) return;
     setIsEnvelopeOpening(true);
+
+    // CRITICAL FOR MOBILE: Prime the audio engine on first user click.
+    // iOS blocks any audio not started by a direct user action.
+    const shutter = new Audio(encodeURI("/camera shutter.mp4"));
+    shutter.load(); // Pre-load
+    // @ts-ignore
+    window._shutter = shutter;
+
+    // Dispatch a "pre-warm" event for the music player too
+    window.dispatchEvent(new CustomEvent('warmup_audio'));
 
     const tl = gsap.timeline({
       onComplete: () => {
