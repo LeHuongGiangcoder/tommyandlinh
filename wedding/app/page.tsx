@@ -343,9 +343,11 @@ export default function Home() {
           style={{ filter: "blur(40px) brightness(0.6)" }}
         />
         {/* Cinematic gradient overlay sweeping right */}
-        <div className="absolute inset-0 bg-gradient-to-r from-surface/95 via-surface/60 to-transparent w-full md:w-[85%]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-surface/98 via-surface/40 to-transparent w-full md:w-[85%] z-0" />
         {/* Subtle top/bottom framing gradients */}
-        <div className="absolute inset-0 bg-gradient-to-t from-surface/90 via-transparent to-surface/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-surface/90 via-transparent to-surface/30 z-0" />
+        {/* Extra localized soft backdrop for names on mobile */}
+        <div className="absolute inset-0 bg-radial-gradient(circle at 30% 50%, white/40, transparent 60%) md:hidden opacity-60 z-0" />
       </div>
 
       {/* Shutter Flash Overlay */}
@@ -386,30 +388,30 @@ export default function Home() {
               </p>
             </div>
 
-            <h1 ref={tommyRef} className="text-7xl md:text-[110px] lg:text-[140px] font-heading font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md opacity-0" style={{ clipPath: "inset(0 100% 0 0)" }}>
+            <h1 ref={tommyRef} className="text-6xl md:text-[110px] lg:text-[140px] font-heading font-medium italic text-burgundy leading-none tracking-tight drop-shadow-sm opacity-0" style={{ clipPath: "inset(0 100% 0 0)" }}>
               Tommy
             </h1>
           </div>
           
-          <div className="flex w-full items-center my-0 pl-24 md:pl-44 -mt-2">
-            <span ref={ampRef} className="text-5xl md:text-7xl font-heading font-light italic text-olive/80 drop-shadow-md opacity-0" style={{ clipPath: "inset(0 100% 0 0)" }}>&amp;</span>
+          <div className="flex w-full items-center my-0 pl-20 md:pl-44 -mt-1 md:-mt-2">
+            <span ref={ampRef} className="text-4xl md:text-7xl font-heading font-light italic text-olive/80 drop-shadow-sm opacity-0" style={{ clipPath: "inset(0 100% 0 0)" }}>&amp;</span>
           </div>
 
-          <h1 ref={linhRef} className="text-7xl md:text-[110px] lg:text-[140px] font-heading font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md ml-12 md:ml-32 -mt-2 opacity-0" style={{ clipPath: "inset(0 100% 0 0)" }}>
+          <h1 ref={linhRef} className="text-6xl md:text-[110px] lg:text-[140px] font-heading font-medium italic text-burgundy leading-none tracking-tight drop-shadow-sm ml-8 md:ml-32 -mt-1 md:-mt-2 opacity-0" style={{ clipPath: "inset(0 100% 0 0)" }}>
             Linh
           </h1>
 
-          <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-12 ml-6 fade-up opacity-0">
-            <p className="text-lg md:text-2xl font-light tracking-[0.5em] text-ink drop-shadow-sm">
+          <div className="mt-8 md:mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-12 ml-4 md:ml-6 fade-up opacity-0">
+            <p className="text-md md:text-2xl font-light tracking-[0.4em] text-ink/90 drop-shadow-sm">
               {currentT.date}
             </p>
             <div className="hidden sm:block w-12 h-[1px] bg-olive/30"></div>
-            <p className="text-xs md:text-sm font-light tracking-[0.4em] uppercase text-ink/80 drop-shadow-sm">
+            <p className="text-[10px] md:text-sm font-light tracking-[0.3em] uppercase text-ink/70 drop-shadow-sm">
               {currentT.location}
             </p>
           </div>
 
-          <button className="fade-up opacity-0 mt-8 mb-20 md:mb-0 ml-6 px-12 py-5 bg-transparent text-burgundy hover:bg-burgundy hover:text-surface transition-all duration-700 tracking-[0.3em] uppercase text-xs font-light border border-burgundy/40 shadow-sm rounded-none">
+          <button className="fade-up opacity-0 mt-8 mb-20 md:mb-0 ml-4 md:ml-6 px-10 md:px-12 py-4 md:py-5 bg-transparent text-burgundy hover:bg-burgundy hover:text-surface transition-all duration-700 tracking-[0.3em] uppercase text-[10px] md:text-xs font-light border border-burgundy/40 shadow-sm rounded-none">
             RSVP
           </button>
         </div>
@@ -445,16 +447,18 @@ export default function Home() {
       <FAQ key={`faq-${lang}`} lang={lang} />
 
       {/* Language Switcher Pill */}
-      <div className="fixed top-6 right-8 z-[110] flex items-center justify-center">
-         <button 
-           onClick={() => setLang(lang === 'en' ? 'vi' : 'en')}
-           className="px-4 py-2 bg-white/40 backdrop-blur-md border border-burgundy/10 rounded-full shadow-lg text-[10px] tracking-[0.3em] font-medium text-burgundy transition-all hover:bg-white/60 flex items-center gap-2"
-         >
-           <span className={`${lang === 'en' ? 'font-bold' : 'opacity-40'}`}>EN</span>
-           <div className="w-[1px] h-3 bg-burgundy/20"></div>
-           <span className={`${lang === 'vi' ? 'font-bold' : 'opacity-40'}`}>VI</span>
-         </button>
-      </div>
+      {isStarted && (
+        <div className="fixed top-6 right-8 z-[170] flex items-center justify-center">
+           <button 
+             onClick={() => setLang(lang === 'en' ? 'vi' : 'en')}
+             className="px-4 py-2 bg-white/60 backdrop-blur-md border border-burgundy/10 rounded-full shadow-lg text-[10px] tracking-[0.3em] font-medium text-burgundy transition-all hover:bg-white/80 flex items-center gap-2"
+           >
+             <span className={`${lang === 'en' ? 'font-bold' : 'opacity-40'}`}>EN</span>
+             <div className="w-[1px] h-3 bg-burgundy/20"></div>
+             <span className={`${lang === 'vi' ? 'font-bold' : 'opacity-40'}`}>VI</span>
+           </button>
+        </div>
+      )}
     </main>
   );
 }
