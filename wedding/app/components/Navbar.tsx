@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-const Navbar: React.FC<{ lang?: 'en' | 'vi' }> = ({ lang = 'en' }) => {
+const Navbar: React.FC<{ lang: 'en' | 'vi', setLang: (l: 'en' | 'vi') => void }> = ({ lang, setLang }) => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -76,16 +76,31 @@ const Navbar: React.FC<{ lang?: 'en' | 'vi' }> = ({ lang = 'en' }) => {
           ))}
         </div>
 
-        {/* Mobile Toggle */}
-        <button 
-          onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden relative z-[160] w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none"
-          aria-label="Toggle Menu"
-        >
-          <div className={`h-[1px] bg-burgundy transition-all duration-500 ${isOpen ? 'rotate-45 translate-y-2 w-8' : 'w-8'}`} />
-          <div className={`h-[1px] bg-burgundy transition-all duration-500 ${isOpen ? 'opacity-0' : 'w-6 self-end'}`} />
-          <div className={`h-[1px] bg-burgundy transition-all duration-500 ${isOpen ? '-rotate-45 -translate-y-2 w-8' : 'w-8'}`} />
-        </button>
+        {/* Mobile Actions: Language + Toggle */}
+        <div className="lg:hidden flex items-center gap-4 relative z-[160]">
+          {/* Language Switcher (Mobile) */}
+          <button 
+            onClick={() => setLang(lang === 'en' ? 'vi' : 'en')}
+            className={`px-3 py-1.5 rounded-full border border-burgundy/10 text-[9px] tracking-widest font-medium transition-all duration-500 ${
+              scrolled || isOpen ? 'bg-white/40 backdrop-blur-md text-burgundy' : 'bg-white/20 text-burgundy'
+            }`}
+          >
+            <span className={lang === 'en' ? 'font-bold' : 'opacity-40'}>EN</span>
+            <span className="mx-1.5 opacity-20">|</span>
+            <span className={lang === 'vi' ? 'font-bold' : 'opacity-40'}>VI</span>
+          </button>
+
+          {/* Toggle Menu Button */}
+          <button 
+            onClick={() => setIsOpen(!isOpen)}
+            className="w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none"
+            aria-label="Toggle Menu"
+          >
+            <div className={`h-[1px] bg-burgundy transition-all duration-500 ${isOpen ? 'rotate-45 translate-y-2 w-8' : 'w-8'}`} />
+            <div className={`h-[1px] bg-burgundy transition-all duration-500 ${isOpen ? 'opacity-0' : 'w-6 self-end'}`} />
+            <div className={`h-[1px] bg-burgundy transition-all duration-500 ${isOpen ? '-rotate-45 -translate-y-2 w-8' : 'w-8'}`} />
+          </button>
+        </div>
 
         {/* Mobile Overlay */}
         <div className={`fixed inset-0 bg-surface/98 backdrop-blur-xl z-[150] flex flex-col items-center justify-center transition-all duration-700 ease-in-out lg:hidden ${

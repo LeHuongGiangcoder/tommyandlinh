@@ -11,6 +11,7 @@ import FAQ from "./components/FAQ";
 import RSVP from "./components/RSVP";
 import Navbar from "./components/Navbar";
 import SnowEffect from "./components/SnowEffect";
+import AudioPlayer from "./components/AudioPlayer";
 
 export default function Home() {
   const [isStarted, setIsStarted] = useState(false);
@@ -243,7 +244,7 @@ export default function Home() {
       ref={containerRef} 
       className={`min-h-screen w-full relative flex flex-col bg-surface ${lang === 'vi' ? 'font-vi' : ''} ${!isStarted ? 'overflow-hidden h-screen' : ''}`}
     >
-      {isStarted && <Navbar lang={lang} />}
+      {isStarted && <Navbar lang={lang} setLang={setLang} />}
       {/* Landing Envelope Ritual */}
       {!isStarted && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-olive overflow-hidden envelope-ritual-container">
@@ -461,19 +462,7 @@ export default function Home() {
       <RSVP key={`rsvp-${lang}`} lang={lang} />
       <FAQ key={`faq-${lang}`} lang={lang} />
 
-      {/* Language Switcher Pill */}
-      {isStarted && (
-        <div className="fixed top-6 right-8 z-[170] flex items-center justify-center">
-           <button 
-             onClick={() => setLang(lang === 'en' ? 'vi' : 'en')}
-             className="px-4 py-2 bg-white/60 backdrop-blur-md border border-burgundy/10 rounded-full shadow-lg text-[10px] tracking-[0.3em] font-medium text-burgundy transition-all hover:bg-white/80 flex items-center gap-2"
-           >
-             <span className={`${lang === 'en' ? 'font-bold' : 'opacity-40'}`}>EN</span>
-             <div className="w-[1px] h-3 bg-burgundy/20"></div>
-             <span className={`${lang === 'vi' ? 'font-bold' : 'opacity-40'}`}>VI</span>
-           </button>
-        </div>
-      )}
+      <AudioPlayer />
     </main>
   );
 }
