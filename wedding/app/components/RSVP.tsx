@@ -32,7 +32,9 @@ const RSVP = ({ lang = 'en' }: RSVPProps) => {
         submit: "Send Response",
         submitting: "Sending...",
         success: "Thank you for your response!",
-        successDesc: "Your RSVP has been successfully received. We can't wait to celebrate with you!"
+        successDesc: "Your RSVP has been successfully received. We can't wait to celebrate with you!",
+        error: "Something went wrong",
+        errorDesc: "We couldn't process your response. Please wait 30s and try again."
       },
       options: {
         yes: "Yes, count me in!",
@@ -56,7 +58,9 @@ const RSVP = ({ lang = 'en' }: RSVPProps) => {
         submit: "Gửi phản hồi",
         submitting: "Đang gửi...",
         success: "Cảm ơn bạn đã phản hồi!",
-        successDesc: "Thông tin của bạn đã được ghi lại. Chúng mình rất mong chờ được gặp bạn!"
+        successDesc: "Thông tin của bạn đã được ghi lại. Chúng mình rất mong chờ được gặp bạn!",
+        error: "Đã có lỗi xảy ra",
+        errorDesc: "Hệ thống chưa ghi nhận được phản hồi của bạn. Vui lòng đợi 30 giây rồi thử lại nha."
       },
       options: {
         yes: "Có, mình sẽ đến",
@@ -69,6 +73,8 @@ const RSVP = ({ lang = 'en' }: RSVPProps) => {
   };
 
   const t = translations[lang];
+
+  const [errorStatus, setErrorStatus] = useState<boolean>(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -114,15 +120,35 @@ const RSVP = ({ lang = 'en' }: RSVPProps) => {
     return () => ctx.revert();
   }, [lang]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
+    setErrorStatus(false);
+
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch("https://n8n.giangle.site/webhook/5559aeff-8da3-4379-b522-8cab48176c51", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        if (formRef.current) formRef.current.reset();
+      } else {
+        setErrorStatus(true);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setErrorStatus(true);
+    } finally {
       setIsSubmitting(false);
-      setIsSubmitted(true);
-      if (formRef.current) formRef.current.reset();
-    }, 1500);
+    }
   };
 
   return (
@@ -157,6 +183,7 @@ const RSVP = ({ lang = 'en' }: RSVPProps) => {
                   <User className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-[#d4af37]/80 transition-colors group-focus-within:text-[#d4af37]" />
                   <input 
                     required
+                    name="guest_name"
                     type="text"
                     className="w-full bg-transparent border-b border-white/10 px-8 py-4 text-surface placeholder:text-surface/20 focus:outline-none focus:border-[#d4af37]/60 transition-all duration-500 rounded-none font-light"
                   />
@@ -169,7 +196,7 @@ const RSVP = ({ lang = 'en' }: RSVPProps) => {
                 <div className="flex flex-col sm:flex-row gap-6">
                   {['yes', 'no'].map((opt) => (
                     <label key={opt} className="relative cursor-pointer flex-1 group">
-                      <input type="radio" name="attendance" className="peer hidden" required />
+                      <input type="radio" name="attendance" value={opt} className="peer hidden" required />
                       <div className="bg-white/[0.03] border border-white/10 px-8 h-24 flex items-center justify-center text-center transition-all duration-500 peer-checked:bg-white/[0.08] peer-checked:border-[#d4af37]/60 group-hover:border-white/20">
                         <span className="text-[11px] tracking-[0.2em] text-surface uppercase font-light leading-relaxed">
                           {opt === 'yes' ? t.options.yes : t.options.no}
@@ -186,6 +213,7 @@ const RSVP = ({ lang = 'en' }: RSVPProps) => {
                 <div className="relative group">
                   <Users className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-[#d4af37]/80 transition-colors group-focus-within:text-[#d4af37]" />
                   <input 
+                    name="num_guests"
                     type="number"
                     min="1"
                     max="10"
@@ -200,7 +228,7 @@ const RSVP = ({ lang = 'en' }: RSVPProps) => {
                 <label className="block text-surface/90 text-[11px] tracking-[0.34em] uppercase mb-4 ml-1 font-medium">{t.fields.meal}</label>
                 <div className="relative group">
                   <Utensils className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-[#d4af37]/80 transition-colors group-focus-within:text-[#d4af37]" />
-                  <select className="w-full bg-transparent border-b border-white/10 px-8 py-4 text-surface focus:outline-none focus:border-[#d4af37]/60 transition-all duration-500 rounded-none font-light appearance-none cursor-pointer">
+                  <select name="meal_preference" className="w-full bg-transparent border-b border-white/10 px-8 py-4 text-surface focus:outline-none focus:border-[#d4af37]/60 transition-all duration-500 rounded-none font-light appearance-none cursor-pointer">
                     <option value="standard" className="bg-burgundy text-surface">{t.options.standard}</option>
                     <option value="vegetarian" className="bg-burgundy text-surface">{t.options.vegetarian}</option>
                     <option value="vegan" className="bg-burgundy text-surface">{t.options.vegan}</option>
@@ -214,6 +242,7 @@ const RSVP = ({ lang = 'en' }: RSVPProps) => {
                 <div className="relative group">
                   <AlertCircle className="absolute left-0 top-5 w-4 h-4 text-[#d4af37]/80 transition-colors group-focus-within:text-[#d4af37]" />
                   <textarea 
+                    name="dietary_restrictions"
                     rows={2}
                     className="w-full bg-transparent border-b border-white/10 px-8 py-4 text-surface placeholder:text-surface/20 focus:outline-none focus:border-[#d4af37]/60 transition-all duration-500 rounded-none font-light resize-none"
                   />
@@ -226,6 +255,7 @@ const RSVP = ({ lang = 'en' }: RSVPProps) => {
                 <div className="relative group">
                   <MessageSquare className="absolute left-0 top-5 w-4 h-4 text-[#d4af37]/80 transition-colors group-focus-within:text-[#d4af37]" />
                   <textarea 
+                    name="message"
                     rows={3}
                     className="w-full bg-transparent border-b border-white/10 px-8 py-4 text-surface placeholder:text-surface/20 focus:outline-none focus:border-[#d4af37]/60 transition-all duration-500 rounded-none font-light resize-none"
                   />
@@ -247,6 +277,19 @@ const RSVP = ({ lang = 'en' }: RSVPProps) => {
                   </div>
                 </button>
               </div>
+              
+              {/* Error Message for Webhook Issues */}
+              {errorStatus && (
+                <div className="col-span-full mt-6 p-6 bg-red-950/20 border border-red-500/20 text-center animate-in fade-in slide-in-from-top-4 duration-700">
+                  <div className="flex items-center justify-center gap-3 mb-2 text-red-400">
+                    <AlertCircle className="w-5 h-5" />
+                    <span className="text-sm font-medium uppercase tracking-widest">{t.fields.error}</span>
+                  </div>
+                  <p className="text-surface/60 text-xs italic font-light leading-relaxed">
+                    {t.fields.errorDesc}
+                  </p>
+                </div>
+              )}
             </form>
           ) : (
             <div className="flex flex-col items-center justify-center text-center py-24 bg-white/[0.02] border border-white/5 backdrop-blur-md rsvp-reveal">
