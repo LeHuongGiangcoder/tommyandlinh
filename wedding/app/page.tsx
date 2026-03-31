@@ -424,9 +424,11 @@ export default function Home() {
             </p>
           </div>
 
-          <button className="fade-up opacity-0 mt-8 mb-20 md:mb-0 ml-4 md:ml-6 px-10 md:px-12 py-4 md:py-5 bg-transparent text-burgundy hover:bg-burgundy hover:text-surface transition-all duration-700 tracking-[0.3em] uppercase text-[10px] md:text-xs font-light border border-burgundy/40 shadow-sm rounded-none">
-            RSVP
-          </button>
+          <a href="#rsvp" className="fade-up opacity-0 mt-8 mb-20 md:mb-0 ml-4 md:ml-6 inline-block">
+            <button className="px-10 md:px-12 py-4 md:py-5 bg-transparent text-burgundy hover:bg-burgundy hover:text-surface transition-all duration-700 tracking-[0.3em] uppercase text-[10px] md:text-xs font-light border border-burgundy/40 shadow-sm rounded-none">
+              RSVP
+            </button>
+          </a>
         </div>
 
         {/* Ultra-Minimal Scroll Hint - Just a breathing line */}

@@ -171,10 +171,10 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col items-center mb-20 md:mb-32 story-header-reveal">
-           <span className="text-xs md:text-sm tracking-[0.5em] uppercase text-olive font-light mb-4">{t.journey}</span>
-           <h2 className="text-4xl md:text-6xl font-heading text-burgundy italic">{t.storyTitle}</h2>
-           <div className="w-16 h-[1px] bg-olive/20 mt-8"></div>
+        <div className="flex flex-col items-center mb-20 md:mb-32 story-header-reveal text-center">
+           <span className="text-xs md:text-sm tracking-[0.5em] uppercase text-olive font-light mb-4 text-center">{t.journey}</span>
+           <h2 className="text-4xl md:text-6xl font-heading text-burgundy italic text-center leading-tight max-w-2xl">{t.storyTitle}</h2>
+           <div className="w-16 h-[1px] bg-olive/20 mt-8 mx-auto"></div>
         </div>
 
         {/* Part 1: How We Met (Asymmetric Layout) */}
