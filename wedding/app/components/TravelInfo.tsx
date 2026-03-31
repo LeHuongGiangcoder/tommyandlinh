@@ -1,15 +1,100 @@
-"use client";
-
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FileText, Smartphone, MapPin, ExternalLink } from "lucide-react";
+import { FileText, Smartphone, MapPin, ExternalLink, ChevronDown } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
   const sectionRef = useRef<HTMLElement>(null);
+
+  // Interaction Component for Destinations
+  const DestinationCard = ({ id, title, desc, img, sub, refLabel }: { id: string, title: string, desc: string, img: string, sub: string, refLabel: string }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+    
+    return (
+      <div className={`travel-card group cursor-pointer transition-all duration-500 ${id === 'halong' ? 'md:translate-y-24 lg:translate-y-36' : ''}`}>
+        <div 
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="relative aspect-[4/5] overflow-hidden mb-8 md:mb-12 ring-1 ring-burgundy/5 shadow-xl md:shadow-2xl transition-all group-hover:ring-burgundy/20"
+        >
+          <Image src={img} alt={title} fill className="object-cover transition-all duration-[3s] ease-out-expo group-hover:scale-110 group-hover:rotate-1" />
+          {/* Enhanced Dark Overlay - Stronger at bottom for maximum legibility */}
+          <div className="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity z-[5]"></div>
+          
+          {/* Label & Title Overlay (Mobile Friendly) */}
+          <div className="absolute inset-x-0 bottom-0 p-8 md:p-12 text-white z-10">
+             <div className="text-[10px] md:text-[11px] tracking-[0.6em] uppercase font-bold text-white/90 mb-3 drop-shadow-md">{sub}</div>
+             <h4 className="text-3xl md:text-4xl lg:text-5xl font-heading italic font-medium leading-tight text-white drop-shadow-2xl">{title}</h4>
+             
+             {/* Mobile Interaction Hint */}
+             <div className="flex md:hidden items-center gap-2 mt-6 text-white/90">
+                <span className="text-[9px] tracking-[0.8em] uppercase font-bold drop-shadow-sm">{isExpanded ? (lang === 'en' ? 'Close' : 'Đóng') : (lang === 'en' ? 'Learn More' : 'Xem thêm')}</span>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-500 shadow-sm ${isExpanded ? 'rotate-180' : ''}`} />
+             </div>
+          </div>
+          
+          <div className="absolute inset-8 md:inset-12 border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-1000 scale-95 group-hover:scale-100"></div>
+        </div>
+
+        <div className={`space-y-6 md:space-y-8 transition-all duration-700 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[500px] opacity-100 mt-4' : 'max-h-0 md:max-h-[500px] opacity-0 md:opacity-100'}`}>
+          <div className="flex items-center gap-6">
+            <span className="text-[10px] text-olive font-serif italic opacity-40 pr-4 border-r border-olive/10 tracking-[0.2em] font-medium leading-none">{refLabel}</span>
+            <h4 className="hidden md:block text-3xl md:text-4xl font-heading text-burgundy italic font-medium leading-none">{title}</h4>
+          </div>
+          <div className="text-[14px] md:text-[15px] text-ink/70 font-light leading-relaxed italic pr-10 border-l border-olive/10 pl-8 group-hover:border-olive/30 transition-colors py-1 whitespace-pre-line">
+            {desc}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const DayTripCard = ({ trip, idx }: { trip: any, idx: number }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+    
+    return (
+      <div 
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="group/trip relative flex flex-col lg:flex-row gap-8 lg:gap-12 lg:items-center cursor-pointer md:cursor-default"
+      >
+        {/* Cinematic Image Frame */}
+        <div className="relative w-full lg:w-96 aspect-[3/2] overflow-hidden ring-1 ring-olive/10 shadow-none transition-all group-hover/trip:ring-burgundy/20">
+          <Image src={trip.src} alt={trip.name} fill className="object-cover grayscale-[0.2] transition-all duration-[3s] group-hover/trip:scale-110 group-hover/trip:grayscale-0" />
+          <div className="absolute inset-0 bg-gradient-to-t from-burgundy/60 to-transparent opacity-30 md:opacity-0 group-hover/trip:opacity-40 transition-opacity"></div>
+          
+          {/* Mobile Overlay Label */}
+          <div className="absolute bottom-6 left-6 text-white/90 text-[9px] md:text-[10px] tracking-[0.4em] uppercase font-bold opacity-100 md:opacity-0 group-hover/trip:opacity-100 transition-all duration-700 translate-y-0 md:translate-y-2 group-hover/trip:translate-y-0">
+            ADVENTURE {idx + 1}
+          </div>
+
+          {/* Mobile Collapse Hint */}
+          <div className="absolute bottom-6 right-6 flex md:hidden items-center gap-1.5 text-white/80 opacity-80">
+            <span className="text-[8px] tracking-widest uppercase">{isExpanded ? (lang === 'en' ? 'Hide' : 'Ẩn') : (lang === 'en' ? 'Learn more' : 'Xem thêm')}</span>
+            <ChevronDown className={`w-3 h-3 transition-transform duration-500 ${isExpanded ? 'rotate-180' : ''}`} />
+          </div>
+        </div>
+
+        <div className="flex-grow space-y-4 md:space-y-6 lg:pl-4">
+          <div className="flex items-center gap-6 text-burgundy/30 font-serif italic text-2xl md:text-3xl">
+            <span>0{idx+1}</span>
+            <div className="w-12 h-[0.5px] bg-olive/10 group-hover/trip:w-20 transition-all duration-700 group-hover/trip:bg-burgundy/30"></div>
+          </div>
+          <div className="space-y-4">
+            <h4 className="text-xl md:text-3xl font-heading text-burgundy italic leading-tight group-hover/trip:translate-x-3 transition-transform duration-700">{trip.name}</h4>
+            {trip.desc && (
+              <div className={`transition-all duration-700 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[300px] opacity-100' : 'max-h-0 md:max-h-[300px] opacity-0 md:opacity-100'}`}>
+                <p className="text-[14px] md:text-[16px] text-ink/70 font-light leading-relaxed italic max-w-3xl whitespace-pre-line border-l border-olive/5 pl-8 group-hover/trip:border-olive/20 transition-colors mt-2">
+                    {trip.desc}
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   const t = {
     en: {
@@ -531,63 +616,31 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
              <p className="text-olive/70 font-light mt-12 italic leading-loose font-serif text-xl border-x border-olive/5 px-12">{t.exploreSub}</p>
           </div>
 
-          <div className="gallery-reveal grid grid-cols-1 md:grid-cols-3 gap-20 lg:gap-32 pb-16">
-            {/* Hanoi */}
-            <div className="travel-card group">
-              <div className="relative aspect-[4/5] overflow-hidden mb-12 ring-1 ring-burgundy/5 shadow-2xl transition-all group-hover:ring-burgundy/20">
-                <Image src="/hanoi.jpg" alt="Hanoi" fill className="object-cover transition-all duration-[3s] ease-out-expo group-hover:scale-110 group-hover:rotate-1" />
-                <div className="absolute inset-0 bg-gradient-to-t from-burgundy/60 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity"></div>
-                <div className="absolute inset-12 border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-1000 scale-95 group-hover:scale-100"></div>
-                <div className="absolute inset-x-8 bottom-12 text-white text-[10px] tracking-[0.6em] uppercase opacity-0 group-hover:opacity-100 transition-all duration-1000 translate-y-4 group-hover:translate-y-0 text-center font-bold">HERITAGE HEART</div>
-              </div>
-              <div className="space-y-8">
-                <div className="flex items-center gap-6">
-                  <span className="text-[10px] text-olive font-serif italic opacity-40 pr-4 border-r border-olive/10 tracking-[0.2em] font-medium leading-none">REF. 01</span>
-                  <h4 className="text-3xl md:text-4xl font-heading text-burgundy italic font-medium leading-none">{t.hanoi.split('—')[0]}</h4>
-                </div>
-                <div className="text-[15px] text-ink/70 font-light leading-relaxed italic pr-10 border-l border-olive/10 pl-8 group-hover:border-olive/30 transition-colors py-1 whitespace-pre-line">
-                  {t.hanoiDesc}
-                </div>
-              </div>
-            </div>
-
-            {/* Ha Long Bay */}
-            <div className="travel-card group md:translate-y-24 lg:translate-y-36">
-              <div className="relative aspect-[4/5] overflow-hidden mb-12 ring-1 ring-burgundy/5 shadow-2xl transition-all group-hover:ring-burgundy/20">
-                <Image src="/halong.jpg" alt="Ha Long Bay" fill className="object-cover transition-all duration-[3s] ease-out-expo group-hover:scale-110 group-hover:-rotate-1" />
-                <div className="absolute inset-0 bg-gradient-to-t from-burgundy/60 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity"></div>
-                <div className="absolute inset-12 border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-1000 scale-95 group-hover:scale-100"></div>
-                <div className="absolute inset-x-8 bottom-12 text-white text-[10px] tracking-[0.6em] uppercase opacity-0 group-hover:opacity-100 transition-all duration-1000 translate-y-4 group-hover:translate-y-0 text-center font-bold">EMERALD DREAM</div>
-              </div>
-              <div className="space-y-8">
-                <div className="flex items-center gap-6">
-                  <span className="text-[10px] text-olive font-serif italic opacity-40 pr-4 border-r border-olive/10 tracking-[0.2em] font-medium leading-none">REF. 02</span>
-                  <h4 className="text-3xl md:text-4xl font-heading text-burgundy italic font-medium leading-none">{t.halong.split('—')[0]}</h4>
-                </div>
-                <div className="text-[15px] text-ink/70 font-light leading-relaxed italic pr-10 border-l border-olive/10 pl-8 group-hover:border-olive/30 transition-colors py-1 whitespace-pre-line">
-                  {t.halongDesc}
-                </div>
-              </div>
-            </div>
-
-            {/* Ninh Binh */}
-            <div className="travel-card group">
-              <div className="relative aspect-[4/5] overflow-hidden mb-12 ring-1 ring-burgundy/5 shadow-2xl transition-all group-hover:ring-burgundy/20">
-                <Image src="/ninhbinh.jpg" alt="Ninh Binh" fill className="object-cover transition-all duration-[3s] ease-out-expo group-hover:scale-110 group-hover:rotate-1" />
-                <div className="absolute inset-0 bg-gradient-to-t from-burgundy/60 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity"></div>
-                <div className="absolute inset-12 border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-1000 scale-95 group-hover:scale-100"></div>
-                <div className="absolute inset-x-8 bottom-12 text-white text-[10px] tracking-[0.6em] uppercase opacity-0 group-hover:opacity-100 transition-all duration-1000 translate-y-4 group-hover:translate-y-0 text-center font-bold">INLAND MAJESTY</div>
-              </div>
-              <div className="space-y-8">
-                <div className="flex items-center gap-6">
-                  <span className="text-[10px] text-olive font-serif italic opacity-40 pr-4 border-r border-olive/10 tracking-[0.2em] font-medium leading-none">REF. 03</span>
-                  <h4 className="text-3xl md:text-4xl font-heading text-burgundy italic font-medium leading-none">{t.ninhbinh.split('—')[0]}</h4>
-                </div>
-                <div className="text-[15px] text-ink/70 font-light leading-relaxed italic pr-10 border-l border-olive/10 pl-8 group-hover:border-olive/30 transition-colors py-1 whitespace-pre-line">
-                  {t.ninhbinhDesc}
-                </div>
-              </div>
-            </div>
+          <div className="gallery-reveal grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-20 lg:gap-32 pb-16">
+            <DestinationCard 
+              id="hanoi"
+              title={t.hanoi.split('—')[0]}
+              desc={t.hanoiDesc}
+              img="/hanoi.jpg"
+              sub="HERITAGE HEART"
+              refLabel="REF. 01"
+            />
+            <DestinationCard 
+              id="halong"
+              title={t.halong.split('—')[0]}
+              desc={t.halongDesc}
+              img="/halong.jpg"
+              sub="EMERALD DREAM"
+              refLabel="REF. 02"
+            />
+            <DestinationCard 
+              id="ninhbinh"
+              title={t.ninhbinh.split('—')[0]}
+              desc={t.ninhbinhDesc}
+              img="/ninhbinh.jpg"
+              sub="INLAND MAJESTY"
+              refLabel="REF. 03"
+            />
           </div>
 
           {/* Day Trips Section - Descriptive Registry */}
@@ -600,31 +653,9 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                   </div>
                </div>
 
-               <div className="grid grid-cols-1 gap-12">
+               <div className="grid grid-cols-1 gap-16 md:gap-12">
                   {t.dayTripList.map((trip: any, idx: number) => (
-                    <div key={idx} className="group/trip relative flex flex-col lg:flex-row gap-12 lg:items-center">
-                       {/* Cinematic Image Frame */}
-                       <div className="relative w-full lg:w-96 aspect-[3/2] overflow-hidden ring-1 ring-olive/10 shadow-xl transition-all group-hover/trip:ring-burgundy/20 group-hover/trip:shadow-2xl">
-                          <Image src={trip.src} alt={trip.name} fill className="object-cover grayscale-[0.2] transition-all duration-[3s] group-hover/trip:scale-110 group-hover/trip:grayscale-0" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-burgundy/40 to-transparent opacity-0 group-hover/trip:opacity-40 transition-opacity"></div>
-                          <div className="absolute bottom-6 left-6 text-white/90 text-[10px] tracking-[0.4em] uppercase font-bold opacity-0 group-hover/trip:opacity-100 transition-all duration-700 translate-y-2 group-hover/trip:translate-y-0">ADVENTURE {idx + 1}</div>
-                       </div>
-
-                       <div className="flex-grow space-y-6 lg:pl-4">
-                          <div className="flex items-center gap-6 text-burgundy/30 font-serif italic text-3xl">
-                             <span>0{idx+1}</span>
-                             <div className="w-12 h-[0.5px] bg-olive/10 group-hover/trip:w-20 transition-all duration-700 group-hover/trip:bg-burgundy/30"></div>
-                          </div>
-                          <div className="space-y-4">
-                             <h4 className="text-2xl md:text-3xl font-heading text-burgundy italic leading-tight group-hover/trip:translate-x-3 transition-transform duration-700">{trip.name}</h4>
-                             {trip.desc && (
-                               <p className="text-[16px] text-ink/70 font-light leading-relaxed italic max-w-3xl whitespace-pre-line border-l border-olive/5 pl-8 group-hover/trip:border-olive/20 transition-colors">
-                                  {trip.desc}
-                               </p>
-                             )}
-                          </div>
-                       </div>
-                    </div>
+                    <DayTripCard key={idx} trip={trip} idx={idx} />
                   ))}
                </div>
             </div>
