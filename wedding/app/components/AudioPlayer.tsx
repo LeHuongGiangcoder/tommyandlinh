@@ -31,7 +31,7 @@ const AudioPlayer: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-14 right-14 z-50 flex items-center gap-3">
+    <div className="fixed bottom-8 right-6 md:right-12 z-[120] flex items-center gap-2.5">
       {/* Visualizer / Playing Indicator */}
       {isPlaying && (
         <div className="flex items-end gap-0.5 h-2.5 mb-0.5">

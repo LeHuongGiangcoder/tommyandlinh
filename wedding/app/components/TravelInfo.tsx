@@ -343,7 +343,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 </div>
 
                 {/* Checklists Section */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-16 pt-16 border-t border-olive/10">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 pt-16 border-t border-olive/10">
                   <div className="space-y-8">
                     <h4 className="text-[11px] tracking-[0.5em] uppercase text-olive font-bold">{t.need}</h4>
                     <ul className="space-y-6">
@@ -356,7 +356,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                     </ul>
                   </div>
 
-                  <div className="space-y-8 border-l-[0.5px] border-olive/5 pl-8 md:pl-12">
+                  <div className="space-y-8">
                     <h4 className="text-[11px] tracking-[0.5em] uppercase text-olive font-bold">{t.afterApproval}</h4>
                     <ul className="space-y-6">
                       {t.afterApprovalItems.map((item, i) => (
@@ -368,7 +368,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                     </ul>
                   </div>
 
-                  <div className="space-y-8 border-l-[0.5px] border-olive/5 pl-8 md:pl-12">
+                  <div className="space-y-8">
                     <h4 className="text-[11px] tracking-[0.5em] uppercase text-olive font-bold">{t.arrivalTips}</h4>
                     <ul className="space-y-6">
                       {t.arrivalTipsItems.map((item, i) => (

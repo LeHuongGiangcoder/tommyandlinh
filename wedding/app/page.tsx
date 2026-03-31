@@ -64,8 +64,8 @@ export default function Home() {
       // 0. Cinematic Camera Focus (Lấy Nét)
       tl.fromTo(
         ".hero-image",
-        { filter: "blur(40px) brightness(0.6)", scale: 1.15 },
-        { filter: "blur(0px) brightness(1)", scale: 1, duration: 2.8, ease: "power2.inOut" }
+        { filter: "blur(40px) brightness(0.6)" },
+        { filter: "blur(0px) brightness(1)", duration: 2.8, ease: "power2.inOut" }
       )
       // Focus Brackets Pulse
       .fromTo(
@@ -339,8 +339,8 @@ export default function Home() {
           alt="Tommy & Linh Wedding"
           fill
           priority
-          className="hero-image object-cover object-center md:object-[80%_50%]"
-          style={{ filter: "blur(40px) brightness(0.6)", transform: "scale(1.15)" }}
+          className="hero-image object-cover object-center md:object-[80%_50%] will-change-transform translate-z-0"
+          style={{ filter: "blur(40px) brightness(0.6)" }}
         />
         {/* Cinematic gradient overlay sweeping right */}
         <div className="absolute inset-0 bg-gradient-to-r from-surface/95 via-surface/60 to-transparent w-full md:w-[85%]" />
@@ -409,14 +409,14 @@ export default function Home() {
             </p>
           </div>
 
-          <button className="fade-up opacity-0 mt-8 ml-6 px-12 py-5 bg-transparent text-burgundy hover:bg-burgundy hover:text-surface transition-all duration-700 tracking-[0.3em] uppercase text-xs font-light border border-burgundy/40 shadow-sm rounded-none">
+          <button className="fade-up opacity-0 mt-8 mb-20 md:mb-0 ml-6 px-12 py-5 bg-transparent text-burgundy hover:bg-burgundy hover:text-surface transition-all duration-700 tracking-[0.3em] uppercase text-xs font-light border border-burgundy/40 shadow-sm rounded-none">
             RSVP
           </button>
         </div>
 
         {/* Ultra-Minimal Scroll Hint - Just a breathing line */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center fade-up opacity-0 pointer-events-none">
-          <div className="w-[1px] h-12 bg-gradient-to-b from-olive/40 via-olive/10 to-transparent relative overflow-hidden">
+        <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center fade-up opacity-0 pointer-events-none z-30">
+          <div className="w-[1px] h-10 md:h-12 bg-gradient-to-b from-olive/40 via-olive/10 to-transparent relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1/2 bg-burgundy/40 animate-scroll-line" />
           </div>
         </div>
