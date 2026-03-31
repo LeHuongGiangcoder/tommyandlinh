@@ -42,8 +42,8 @@ const Navbar: React.FC<{ lang?: 'en' | 'vi' }> = ({ lang = 'en' }) => {
 
   return (
     <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-in-out ${
-        scrolled 
+      className={`fixed top-0 left-0 right-0 z-[140] transition-all duration-700 ease-in-out ${
+        scrolled && !isOpen
           ? 'bg-surface/80 backdrop-blur-md py-4 border-b border-olive/10' 
           : 'bg-transparent py-10 md:py-12'
       }`}
@@ -79,7 +79,7 @@ const Navbar: React.FC<{ lang?: 'en' | 'vi' }> = ({ lang = 'en' }) => {
         {/* Mobile Toggle */}
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden relative z-50 w-8 h-8 flex flex-col justify-center gap-1.5 focus:outline-none"
+          className="lg:hidden relative z-[160] w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none"
           aria-label="Toggle Menu"
         >
           <div className={`h-[1px] bg-burgundy transition-all duration-500 ${isOpen ? 'rotate-45 translate-y-2 w-8' : 'w-8'}`} />
@@ -88,14 +88,14 @@ const Navbar: React.FC<{ lang?: 'en' | 'vi' }> = ({ lang = 'en' }) => {
         </button>
 
         {/* Mobile Overlay */}
-        <div className={`fixed inset-0 bg-surface z-40 flex flex-col items-center justify-center transition-all duration-700 ease-in-out lg:hidden ${
-          isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full'
+        <div className={`fixed inset-0 bg-surface/98 backdrop-blur-xl z-[150] flex flex-col items-center justify-center transition-all duration-700 ease-in-out lg:hidden ${
+          isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full'
         }`}>
           {/* Subtle patterns for overlay background */}
-          <div className="absolute inset-0 opacity-[0.03] pointer-events-none overflow-hidden">
+          <div className="absolute inset-0 opacity-[0.05] pointer-events-none overflow-hidden">
              {/* Repeat ornamental divider icon as a backsplash */}
-             {[...Array(20)].map((_, i) => (
-                <svg key={i} className="absolute w-24 h-24 text-olive" 
+             {[...Array(15)].map((_, i) => (
+                <svg key={i} className="absolute w-32 h-32 text-olive" 
                      style={{ 
                         top: `${Math.random() * 100}%`, 
                         left: `${Math.random() * 100}%`,
@@ -107,23 +107,23 @@ const Navbar: React.FC<{ lang?: 'en' | 'vi' }> = ({ lang = 'en' }) => {
              ))}
           </div>
 
-          <div className="flex flex-col items-center gap-8 relative z-50">
+          <div className="flex flex-col items-center gap-10 relative z-50">
             {navItems.map((item, idx) => (
               <a
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="group flex flex-col items-center overflow-hidden no-underline"
+                className="group flex flex-col items-center no-underline"
               >
                 <span 
-                  className={`text-xs tracking-[0.4em] uppercase text-ink/70 group-hover:text-burgundy transition-all duration-700 ${
+                  className={`text-sm tracking-[0.5em] uppercase text-burgundy transition-all duration-700 ${
                     isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
                   }`}
-                  style={{ transitionDelay: `${idx * 50}ms` }}
+                  style={{ transitionDelay: `${idx * 60}ms` }}
                 >
                   {item.name}
                 </span>
-                <div className="w-0 h-[1px] bg-burgundy/20 group-hover:w-full transition-all duration-500 mt-2" />
+                <div className="w-0 h-[1.5px] bg-burgundy/20 group-hover:w-full transition-all duration-500 mt-3" />
               </a>
             ))}
           </div>
