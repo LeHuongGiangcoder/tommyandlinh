@@ -339,7 +339,7 @@ export default function Home() {
           alt="Tommy & Linh Wedding"
           fill
           priority
-          className="hero-image object-cover object-center md:object-[80%_50%] will-change-transform translate-z-0"
+          className="hero-image object-cover object-[75%_center] md:object-[80%_50%] will-change-transform translate-z-0"
           style={{ filter: "blur(40px) brightness(0.6)" }}
         />
         {/* Cinematic gradient overlay sweeping right */}
