@@ -230,7 +230,7 @@ export default function Home() {
       ref={containerRef} 
       className={`min-h-screen w-full relative flex flex-col bg-surface ${lang === 'vi' ? 'font-vi' : ''} ${!isStarted ? 'overflow-hidden h-screen' : ''}`}
     >
-      <Navbar lang={lang} />
+      {isStarted && <Navbar lang={lang} />}
       {/* Landing Envelope Ritual */}
       {!isStarted && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-olive overflow-hidden envelope-ritual-container">
