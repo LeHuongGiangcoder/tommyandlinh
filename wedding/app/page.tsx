@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import Countdown from "./components/Countdown";
 import OurStory from "./components/OurStory";
 import TravelInfo from "./components/TravelInfo";
@@ -12,8 +13,13 @@ import SnowEffect from "./components/SnowEffect";
 
 export default function Home() {
   const [isStarted, setIsStarted] = useState(false);
+  const [isEnvelopeOpening, setIsEnvelopeOpening] = useState(false);
   const [lang, setLang] = useState<'en' | 'vi'>('en');
   const containerRef = useRef<HTMLElement>(null);
+  
+  useEffect(() => {
+    gsap.registerPlugin(MotionPathPlugin);
+  }, []);
   
   // Translation dictionary for current page content
   const t = {
@@ -52,20 +58,20 @@ export default function Home() {
 
     const ctx = gsap.context(() => {
       // Small Delay before sequence to catch early interactions
-      const tl = gsap.timeline({ delay: 0.8 });
+      const tl = gsap.timeline({ delay: 0.1 });
 
       // 0. Cinematic Camera Focus (Lấy Nét)
       tl.fromTo(
         ".hero-image",
-        { filter: "blur(20px) brightness(0.8)", scale: 1.1 },
-        { filter: "blur(0px) brightness(1)", scale: 1, duration: 2.2, ease: "power2.inOut" }
+        { filter: "blur(40px) brightness(0.6)", scale: 1.15 },
+        { filter: "blur(0px) brightness(1)", scale: 1, duration: 2.8, ease: "power2.inOut" }
       )
       // Focus Brackets Pulse
       .fromTo(
         ".focus-brackets",
         { opacity: 0, scale: 1.2 },
         { opacity: 1, scale: 1, duration: 1.2, ease: "back.out(1.7)" },
-        "-=2"
+        "-=2.4"
       )
       .to(".focus-brackets", { 
         opacity: 0, 
@@ -107,13 +113,108 @@ export default function Home() {
         ".fade-up",
         { opacity: 0, y: 15 },
         { opacity: 1, y: 0, duration: 1.2, ease: "power2.out", stagger: 0.2 },
-        "-=0.4"
+        "-=0.6"
       );
 
     }, containerRef);
 
     return () => ctx.revert();
   }, [isStarted]);
+
+  const handleOpenEnvelope = () => {
+    if (isEnvelopeOpening) return;
+    setIsEnvelopeOpening(true);
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        // Complete the sequence by starting the cinematic transition
+        setIsStarted(true);
+      }
+    });
+
+    // 1. Envelope Flap Opens (0-0.8s)
+    tl.to(".envelope-flap", {
+      rotateX: -180,
+      duration: 0.8,
+      ease: "power3.inOut"
+    }, 0);
+
+    // Swap Z-index at halfway point (0.4s) so flap falls behind letter
+    tl.set(".top-flap-wrapper", { zIndex: 5 }, 0.3);
+
+    // Deepen inner shadow of flap as it opens
+    tl.to(".envelope-flap-shadow", {
+      opacity: 0.1,
+      duration: 0.4
+    }, 0.4);
+
+    // Fade out button
+    tl.to(".envelope-button", {
+      opacity: 0,
+      scale: 0.8,
+      duration: 0.4,
+      ease: "power2.inOut"
+    }, 0);
+
+    // 2. Corner Shapes Morph to Leaves (0.4-1.2s)
+    tl.to(".corner-shape-path", {
+      opacity: 0,
+      duration: 0.4,
+      ease: "power1.inOut",
+      stagger: 0.2
+    }, 0.4);
+    tl.to(".leaf-path", {
+      opacity: 0.8,
+      duration: 0.4,
+      ease: "power1.inOut",
+      stagger: 0.2
+    }, 0.4);
+
+    // 3. Leaves Float Away (1.0-2.5s)
+    tl.to(".leaf-container-1", {
+      motionPath: {
+        path: [{x: 0, y: 0}, {x: 80, y: -150}, {x: 120, y: -250}, {x: 200, y: -400}],
+        curviness: 1.5
+      },
+      scale: 1.1,
+      rotation: 360,
+      opacity: 0,
+      duration: 1.5,
+      ease: "power1.in",
+    }, 1.0);
+    
+    tl.to(".leaf-container-2", {
+      motionPath: {
+        path: [{x: 0, y: 0}, {x: -80, y: -150}, {x: -120, y: -250}, {x: -200, y: -400}],
+        curviness: 1.5
+      },
+      scale: 1.1,
+      rotation: -360,
+      opacity: 0,
+      duration: 1.5,
+      ease: "power1.in",
+    }, 1.2);
+
+    // 4. Letter Content Reveals (1.5-2.0s)
+    // First, show the hidden wrapper
+    tl.set(".letter-content", { display: "flex" }, 1.5);
+    tl.fromTo(".letter-content", 
+      { yPercent: 0, opacity: 0, scale: 0.95 },
+      { yPercent: -45, opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.4)" },
+      1.5
+    );
+    
+    // Smooth transition to main content
+    tl.to(".envelope-ritual-container", {
+      opacity: 0,
+      duration: 1.2,
+      ease: "power2.inOut"
+    }, "+=0.5");
+    
+    tl.set({}, { 
+      onComplete: () => setIsStarted(true)
+    });
+  };
 
   return (
     <main 
@@ -123,7 +224,7 @@ export default function Home() {
       <Navbar lang={lang} />
       {/* Landing Envelope Ritual */}
       {!isStarted && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-olive overflow-hidden">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-olive overflow-hidden envelope-ritual-container">
           {/* Backdrop: Textural Retro Vintage Paper (Olive Tone) */}
           <div className="absolute inset-0 opacity-80 pointer-events-none" 
             style={{ 
@@ -149,41 +250,55 @@ export default function Home() {
               />
 
               {/* Envelope Construction: Side and Bottom Flaps */}
-              <div className="absolute inset-0 pointer-events-none">
-                {/* Left Flap */}
-                <div className="absolute inset-0 bg-surface/50 border-r border-burgundy/5" style={{ clipPath: 'polygon(0 0, 50% 50%, 0 100%)' }}></div>
-                {/* Right Flap */}
-                <div className="absolute inset-0 bg-surface/50 border-l border-burgundy/5" style={{ clipPath: 'polygon(100% 0, 100% 100%, 50% 50%)' }}></div>
-                {/* Bottom Flap */}
-                <div className="absolute inset-0 bg-[#f8f6f0] border-t border-burgundy/5 shadow-inner" style={{ clipPath: 'polygon(0 100%, 100% 100%, 50% 50%)' }}></div>
+              <div className="absolute inset-0 pointer-events-none z-20">
+                <svg className="w-full h-full drop-shadow-[0_-4px_12px_rgba(0,0,0,0.08)]" preserveAspectRatio="none" viewBox="0 0 100 100">
+                  {/* Left Flap */}
+                  <polygon points="0,0 50,50 0,100" fill="#f0ebe1" stroke="rgba(86,40,50,0.12)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+                  {/* Right Flap */}
+                  <polygon points="100,0 50,50 100,100" fill="#eae5db" stroke="rgba(86,40,50,0.12)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+                  {/* Bottom Flap */}
+                  <polygon points="0,100 100,100 50,50" fill="#fcfbf7" stroke="rgba(86,40,50,0.08)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+                </svg>
               </div>
 
               {/* THE TOP FLAP (Overlapping others) */}
-              <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-20">
-                <div className="absolute top-0 left-0 w-full h-[55%] bg-[#fcfbf7] shadow-[0_4px_10px_rgba(0,0,0,0.1)] flex items-center justify-center border-b border-burgundy/5" 
-                     style={{ clipPath: 'polygon(0 0, 100% 0, 50% 100%)' }}>
+              <div className="absolute top-0 left-0 w-full h-[55%] pointer-events-none z-30 top-flap-wrapper" style={{ perspective: '1000px' }}>
+                <div className="absolute top-0 left-0 w-full h-full origin-top will-change-transform envelope-flap" style={{ transformStyle: 'preserve-3d' }}>
+                  <svg className="w-full h-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.08)]" preserveAspectRatio="none" viewBox="0 0 100 100">
+                    <polygon points="0,0 100,0 50,100" fill="#fcfbf7" stroke="rgba(86,40,50,0.15)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+                  </svg>
+                  {/* Add inner shadow for flap flip realism */}
+                  <div className="absolute inset-0 bg-burgundy/5 opacity-0 envelope-flap-shadow" style={{ clipPath: 'polygon(0 0, 100% 0, 50% 100%)' }}></div>
                 </div>
               </div>
 
               {/* BOTANICAL ELEMENTS (Enhanced placement) */}
-              <div className="absolute -top-16 -right-16 w-48 h-48 md:w-64 md:h-64 z-40 pointer-events-none drop-shadow-lg opacity-90 scale-90 translate-x-4">
+              <div className="absolute -top-16 -right-16 w-48 h-48 md:w-64 md:h-64 z-[60] pointer-events-none drop-shadow-lg opacity-90 scale-90 translate-x-4 leaf-container-1 will-change-transform">
                  <svg viewBox="0 0 200 200" className="w-full h-full text-white fill-current">
-                   <path d="M100,60 Q130,20 160,60 T200,60 Q180,100 160,90 T100,130" opacity="0.9" />
-                   <path className="text-olive/30" d="M120,80 Q100,40 80,80 T40,80 Q60,110 80,100 T120,130" opacity="0.6" />
-                   <circle cx="103" cy="65" r="4" className="text-burgundy/20" />
+                   <path className="corner-shape-path" d="M100,60 Q130,20 160,60 T200,60 Q180,100 160,90 T100,130" opacity="0.9" />
+                   <path className="corner-shape-path text-olive/30" d="M120,80 Q100,40 80,80 T40,80 Q60,110 80,100 T120,130" opacity="0.6" />
+                   <circle cx="103" cy="65" r="4" className="corner-shape-path text-burgundy/20" />
+                   {/* Authentic Maple Leaf shape (initially hidden) */}
+                   <g className="leaf-path opacity-0 text-[#562832]" transform="scale(0.32) translate(50, 50)">
+                     <path d="M383.8 351.7c2.5-2.5 105.2-92.4 105.2-92.4l-17.5-7.5c-10-4.9-7.4-11.5-5-17.4 2.4-7.6 20.1-67.3 20.1-67.3s-47.7 10-57.7 12.5c-7.5 2.4-10-2.5-12.5-7.5s-15-32.4-15-32.4-52.6 59.9-55.1 62.3c-10 7.5-20.1 0-17.6-10 0-10 27.6-129.6 27.6-129.6s-30.1 17.4-40.1 22.4c-7.5 5-12.6 5-17.6-5C293.5 72.3 255.9 0 255.9 0s-37.5 72.3-42.5 79.8c-5 10-10 10-17.6 5-10-5-40.1-22.4-40.1-22.4S183.3 182 183.3 192c2.5 10-7.5 17.5-17.6 10-2.5-2.5-55.1-62.3-55.1-62.3S98.1 167 95.6 172s-5 9.9-12.5 7.5C73 177 25.4 167 25.4 167s17.6 59.7 20.1 67.3c2.4 6 5 12.5-5 17.4L23 259.3s102.6 89.9 105.2 92.4c5.1 5 10 7.5 5.1 22.5-5.1 15-10.1 35.1-10.1 35.1s95.2-20.1 105.3-22.6c8.7-.9 18.3 2.5 18.3 12.5S241 512 241 512h30s-5.8-102.7-5.8-112.8 9.5-13.4 18.4-12.5c10 2.5 105.2 22.6 105.2 22.6s-5-20.1-10-35.1 0-17.5 5-22.5z"/>
+                   </g>
                  </svg>
               </div>
-              <div className="absolute -bottom-16 -left-16 w-48 h-48 md:w-64 md:h-64 z-10 pointer-events-none drop-shadow-lg opacity-80 scale-110">
+              <div className="absolute -bottom-16 -left-16 w-48 h-48 md:w-64 md:h-64 z-[60] pointer-events-none drop-shadow-lg opacity-80 scale-110 leaf-container-2 will-change-transform">
                  <svg viewBox="0 0 200 200" className="w-full h-full text-white fill-current">
-                   <path d="M40,140 Q10,120 40,100 T40,60 Q70,80 60,100 T90,130" />
-                   <path className="text-olive/10" d="M60,160 Q30,140 60,120 T60,80 Q90,100 80,120 T110,150" opacity="0.4" />
+                   <path className="corner-shape-path" d="M40,140 Q10,120 40,100 T40,60 Q70,80 60,100 T90,130" />
+                   <path className="corner-shape-path text-olive/10" d="M60,160 Q30,140 60,120 T60,80 Q90,100 80,120 T110,150" opacity="0.4" />
+                   {/* Authentic Maple Leaf shape (initially hidden) */}
+                   <g className="leaf-path opacity-0 text-[#562832]" transform="rotate(180 100 100) scale(0.32) translate(50, 50)">
+                     <path d="M383.8 351.7c2.5-2.5 105.2-92.4 105.2-92.4l-17.5-7.5c-10-4.9-7.4-11.5-5-17.4 2.4-7.6 20.1-67.3 20.1-67.3s-47.7 10-57.7 12.5c-7.5 2.4-10-2.5-12.5-7.5s-15-32.4-15-32.4-52.6 59.9-55.1 62.3c-10 7.5-20.1 0-17.6-10 0-10 27.6-129.6 27.6-129.6s-30.1 17.4-40.1 22.4c-7.5 5-12.6 5-17.6-5C293.5 72.3 255.9 0 255.9 0s-37.5 72.3-42.5 79.8c-5 10-10 10-17.6 5-10-5-40.1-22.4-40.1-22.4S183.3 182 183.3 192c2.5 10-7.5 17.5-17.6 10-2.5-2.5-55.1-62.3-55.1-62.3S98.1 167 95.6 172s-5 9.9-12.5 7.5C73 177 25.4 167 25.4 167s17.6 59.7 20.1 67.3c2.4 6 5 12.5-5 17.4L23 259.3s102.6 89.9 105.2 92.4c5.1 5 10 7.5 5.1 22.5-5.1 15-10.1 35.1-10.1 35.1s95.2-20.1 105.3-22.6c8.7-.9 18.3 2.5 18.3 12.5S241 512 241 512h30s-5.8-102.7-5.8-112.8 9.5-13.4 18.4-12.5c10 2.5 105.2 22.6 105.2 22.6s-5-20.1-10-35.1 0-17.5 5-22.5z"/>
+                   </g>
                  </svg>
               </div>
 
               {/* The Wax Seal Button */}
               <button 
-                onClick={() => setIsStarted(true)}
-                className="relative z-50 w-24 h-24 md:w-28 md:h-28 rounded-full bg-burgundy transition-all duration-700 flex flex-col items-center justify-center group active:scale-95 hover:scale-105"
+                onClick={handleOpenEnvelope}
+                className="relative z-50 w-24 h-24 md:w-28 md:h-28 rounded-full bg-burgundy transition-all duration-700 flex flex-col items-center justify-center group active:scale-95 hover:scale-105 envelope-button will-change-transform"
               >
                 <div className="absolute inset-1.5 rounded-full border border-white/20 opacity-30"></div>
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent opacity-30 pointer-events-none"></div>
@@ -191,9 +306,13 @@ export default function Home() {
                 <div className="w-6 h-[0.5px] bg-white/40" />
               </button>
 
-              {/* Inner Letter Detail (Barely visible) */}
-              <div className="absolute bottom-12 left-0 right-0 flex justify-center opacity-40 z-30">
-                 <span className="text-[10px] font-heading font-light tracking-[1em] uppercase text-olive">T & L</span>
+              {/* Inner Letter Detail */}
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-2 sm:pb-4 letter-content hidden will-change-transform">
+                <div className="w-[85%] h-[85%] bg-[#fdfbf7] shadow-[0_-5px_15px_rgba(0,0,0,0.06)] border border-burgundy/10 flex flex-col items-center justify-center pt-10 pb-4 text-center px-6">
+                  <span className="text-[14px] md:text-[18px] font-heading font-light tracking-[0.2em] italic text-olive/80 mb-3 block">Together, we begin</span>
+                  <div className="w-12 h-[1px] bg-olive/20 mb-4 mx-auto" />
+                  <span className="text-[20px] md:text-[28px] font-heading font-medium tracking-[0.3em] text-burgundy uppercase drop-shadow-sm">OUR FOREVER</span>
+                </div>
               </div>
             </div>
 
@@ -212,6 +331,7 @@ export default function Home() {
           fill
           priority
           className="hero-image object-cover object-center md:object-[80%_50%]"
+          style={{ filter: "blur(40px) brightness(0.6)", transform: "scale(1.15)" }}
         />
         {/* Cinematic gradient overlay sweeping right */}
         <div className="absolute inset-0 bg-gradient-to-r from-surface/95 via-surface/60 to-transparent w-full md:w-[85%]" />
@@ -257,16 +377,16 @@ export default function Home() {
               </p>
             </div>
 
-            <h1 ref={tommyRef} className="text-7xl md:text-[110px] lg:text-[140px] font-heading font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md">
+            <h1 ref={tommyRef} className="text-7xl md:text-[110px] lg:text-[140px] font-heading font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md opacity-0" style={{ clipPath: "inset(0 100% 0 0)" }}>
               Tommy
             </h1>
           </div>
           
           <div className="flex w-full items-center my-0 pl-24 md:pl-44 -mt-2">
-            <span ref={ampRef} className="text-5xl md:text-7xl font-heading font-light italic text-olive/80 drop-shadow-md">&amp;</span>
+            <span ref={ampRef} className="text-5xl md:text-7xl font-heading font-light italic text-olive/80 drop-shadow-md opacity-0" style={{ clipPath: "inset(0 100% 0 0)" }}>&amp;</span>
           </div>
 
-          <h1 ref={linhRef} className="text-7xl md:text-[110px] lg:text-[140px] font-heading font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md ml-12 md:ml-32 -mt-2">
+          <h1 ref={linhRef} className="text-7xl md:text-[110px] lg:text-[140px] font-heading font-medium italic text-burgundy leading-none tracking-tight drop-shadow-md ml-12 md:ml-32 -mt-2 opacity-0" style={{ clipPath: "inset(0 100% 0 0)" }}>
             Linh
           </h1>
 
