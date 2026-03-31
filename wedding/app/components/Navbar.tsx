@@ -76,12 +76,12 @@ const Navbar: React.FC<{ lang: 'en' | 'vi', setLang: (l: 'en' | 'vi') => void }>
           ))}
         </div>
 
-        {/* Mobile Actions: Language + Toggle */}
-        <div className="lg:hidden flex items-center gap-4 relative z-[160]">
-          {/* Language Switcher (Mobile) */}
+        {/* Actions: Language (Always) + Menu (Mobile) */}
+        <div className="flex items-center gap-4 lg:gap-8 relative z-[160]">
+          {/* Language Switcher */}
           <button 
             onClick={() => setLang(lang === 'en' ? 'vi' : 'en')}
-            className={`px-3 py-1.5 rounded-full border border-burgundy/10 text-[9px] tracking-widest font-medium transition-all duration-500 ${
+            className={`px-3 py-1.5 rounded-full border border-burgundy/10 text-[9px] md:text-[10px] tracking-widest font-medium transition-all duration-500 hover:border-burgundy/30 ${
               scrolled || isOpen ? 'bg-white/40 backdrop-blur-md text-burgundy' : 'bg-white/20 text-burgundy'
             }`}
           >
@@ -89,11 +89,11 @@ const Navbar: React.FC<{ lang: 'en' | 'vi', setLang: (l: 'en' | 'vi') => void }>
             <span className="mx-1.5 opacity-20">|</span>
             <span className={lang === 'vi' ? 'font-bold' : 'opacity-40'}>VI</span>
           </button>
-
-          {/* Toggle Menu Button */}
+          
+          {/* Toggle Menu Button (Visible only on mobile) */}
           <button 
             onClick={() => setIsOpen(!isOpen)}
-            className="w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none"
+            className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none"
             aria-label="Toggle Menu"
           >
             <div className={`h-[1px] bg-burgundy transition-all duration-500 ${isOpen ? 'rotate-45 translate-y-2 w-8' : 'w-8'}`} />

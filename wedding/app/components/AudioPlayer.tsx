@@ -17,7 +17,19 @@ const AudioPlayer: React.FC = () => {
 
     const handleWarmupAudio = () => {
       if (audioRef.current) {
-        audioRef.current.load(); // Prime the audio element on high-priority user interaction
+        // iOS Safari critical: must call play() during a user gesture to "unlock" the audio element
+        // for later automated playback (even with a delay).
+        const playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              // Immediately pause so it doesn't actually start yet, but is now "unlocked"
+              audioRef.current?.pause();
+            })
+            .catch((error) => {
+              console.warn("Audio warmup failed:", error);
+            });
+        }
       }
     };
 

@@ -11,7 +11,6 @@ import FAQ from "./components/FAQ";
 import RSVP from "./components/RSVP";
 import Navbar from "./components/Navbar";
 import SnowEffect from "./components/SnowEffect";
-import AudioPlayer from "./components/AudioPlayer";
 
 export default function Home() {
   const [isStarted, setIsStarted] = useState(false);
@@ -462,7 +461,6 @@ export default function Home() {
       <RSVP key={`rsvp-${lang}`} lang={lang} />
       <FAQ key={`faq-${lang}`} lang={lang} />
 
-      <AudioPlayer />
     </main>
   );
 }
