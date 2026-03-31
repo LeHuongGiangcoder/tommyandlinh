@@ -196,9 +196,17 @@ export default function Home() {
       ease: "power1.in",
     }, 1.2);
 
-    // 4. Letter Content Reveals (1.5-2.0s)
+    // Letter Content Reveals (1.5-2.0s)
     // First, show the hidden wrapper
     tl.set(".letter-content", { display: "flex" }, 1.5);
+    
+    // Shift envelope slightly down to accommodate the top flap on small viewports
+    tl.to(".envelope-ritual-container > div:last-child", {
+      y: 60,
+      duration: 1,
+      ease: "power2.inOut"
+    }, 0.1);
+
     tl.fromTo(".letter-content", 
       { yPercent: 0, opacity: 0, scale: 0.95 },
       { yPercent: -45, opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.4)" },
