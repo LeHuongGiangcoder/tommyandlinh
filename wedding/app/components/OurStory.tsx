@@ -205,13 +205,13 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 <div className="flex-1 h-[0.5px] bg-olive/10"></div>
              </div>
              <h3 className="text-3xl md:text-4xl font-heading text-burgundy">{t.metTitle}</h3>
-             <p className="text-ink/80 leading-relaxed font-light text-lg md:text-xl md:leading-loose max-w-2xl">
+             <p className="text-ink/90 leading-relaxed font-normal text-lg md:text-xl md:leading-loose max-w-2xl">
                 {content.meetingParas[0]}
              </p>
-             <p className="text-ink/80 leading-relaxed font-light text-lg md:text-xl md:leading-loose italic border-l border-olive/20 pl-6 py-2">
+             <p className="text-ink/90 leading-relaxed font-normal text-lg md:text-xl md:leading-loose italic border-l border-olive/30 pl-6 py-2">
                 &ldquo;{content.meetingQuote}&rdquo;
              </p>
-             <p className="text-ink/80 leading-relaxed font-light text-lg md:text-xl md:leading-loose max-w-2xl">
+             <p className="text-ink/90 leading-relaxed font-normal text-lg md:text-xl md:leading-loose max-w-2xl">
                 {content.meetingParas[1]}
              </p>
           </div>
@@ -225,13 +225,13 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 <span className="text-[10px] tracking-[0.4em] uppercase text-olive/60 font-medium">{t.chapter2}</span>
              </div>
              <h3 className="text-3xl md:text-4xl font-heading text-burgundy">{t.proposalTitle}</h3>
-             <p className="text-ink/80 leading-relaxed font-light text-lg md:text-xl md:leading-loose">
+             <p className="text-ink/90 leading-relaxed font-normal text-lg md:text-xl md:leading-loose">
                 {content.proposalParas[0]}
              </p>
-             <p className="text-ink/80 leading-relaxed font-light text-lg md:text-xl md:leading-loose italic border-l border-olive/20 pl-6 py-2">
+             <p className="text-ink/90 leading-relaxed font-normal text-lg md:text-xl md:leading-loose italic border-l border-olive/30 pl-6 py-2">
                 &ldquo;{content.proposalQuote}&rdquo;
              </p>
-             <p className="text-ink/80 leading-relaxed font-light text-lg md:text-xl md:leading-loose">
+             <p className="text-ink/90 leading-relaxed font-normal text-lg md:text-xl md:leading-loose">
                 {content.proposalParas[1]}
              </p>
              <div className="pt-16 mt-16 border-t border-olive/10 text-center space-y-10 group/conclusion relative">
