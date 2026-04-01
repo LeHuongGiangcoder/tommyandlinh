@@ -161,26 +161,29 @@ const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(".faq-header-reveal", {
-        opacity: 0,
-        y: 30,
-        duration: 1.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-        }
-      });
-
-      // Using fromTo for high reliability as seen in other stable components
-      gsap.fromTo(".faq-item-reveal", 
-        { opacity: 0, y: 30 },
+      gsap.fromTo(".faq-header-reveal", 
+        { opacity: 0, y: 20 },
         {
           opacity: 1,
           y: 0,
-          stagger: 0.1,
-          duration: 1.2,
+          duration: 1,
           ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 85%",
+            toggleActions: "play none none none"
+          }
+        }
+      );
+
+      // Simple, high-performance fade reveal for FAQ items
+      gsap.fromTo(".faq-item-reveal", 
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.05,
+          ease: "none", // Linear fade is most performant
           scrollTrigger: {
             trigger: ".faq-list",
             start: "top 90%",
@@ -189,30 +192,21 @@ const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         }
       );
 
-      // Parallax Background Accents
-      gsap.to(".faq-parallax-1", {
-        y: -150,
-        rotation: 45,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
+      // Simple entry for botanical accents instead of complex scrubbing
+      gsap.fromTo([".faq-parallax-1", ".faq-parallax-2"], 
+        { opacity: 0, scale: 0.95 },
+        { 
+          opacity: 0.03, 
+          scale: 1,
+          duration: 2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 70%",
+            toggleActions: "play none none none"
+          }
         }
-      });
-
-      gsap.to(".faq-parallax-2", {
-        y: -250,
-        rotation: -30,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
-        }
-      });
+      );
     }, sectionRef);
 
     return () => ctx.revert();
