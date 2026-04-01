@@ -176,17 +176,18 @@ const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         }
       );
 
-      // Simple, high-performance fade reveal for FAQ items
+      // Immediate, high-performance fade reveal for FAQ items
       gsap.fromTo(".faq-item-reveal", 
-        { opacity: 0 },
+        { opacity: 0, y: 10 },
         {
           opacity: 1,
-          duration: 0.8,
-          stagger: 0.05,
-          ease: "none", // Linear fade is most performant
+          y: 0,
+          duration: 0.5,
+          stagger: 0.04,
+          ease: "power1.out",
           scrollTrigger: {
             trigger: ".faq-list",
-            start: "top 90%",
+            start: "top bottom", // Starts as soon as the top of list enters the bottom of viewport
             toggleActions: "play none none none"
           }
         }

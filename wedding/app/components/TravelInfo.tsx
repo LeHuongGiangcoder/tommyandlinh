@@ -207,7 +207,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       explore: "Let's Explore",
       exploreSub: "A curated collection of destinations to discover during your stay in Vietnam",
       hanoi: "Hanoi — Culture & Cuisine",
-      hanoiDesc: "No trip to Hanoi is complete without experiencing its incredible food and history. From iconic landmarks like the Temple of Literature, Hoan Kiem Lake, and Ho Chi Minh Mausoleum, to the lively Old Quarter, the city is full of culture, charm, and unforgettable flavors. Even a short 2-day, 1-night visit is enough to experience the highlights and enjoy some of the best food in Vietnam. We can organize a group experience—please RSVP if you’re interested!",
+      hanoiDesc: "No trip to Hanoi is complete without experiencing its incredible food and history. From iconic landmarks like the Temple of Literature, Hoan Kiem Lake, and Ho Chi Minh Mausoleum, to the lively Old Quarter, the city is full of culture, charm, and unforgettable flavors. We can organize a group experience—please RSVP if you’re interested!",
       halong: "Ha Long Bay — Overnight Cruise",
       halongDesc: "Ha Long Bay is one of the New Seven Wonders of Nature and a true highlight of northern Vietnam. A 2-day, 1-night cruise takes you through thousands of limestone islands, with opportunities for kayaking, swimming, and relaxing on a beautiful boat. A once-in-a-lifetime experience we highly recommend!",
       ninhbinh: "Ninh Binh — Nature & History",
