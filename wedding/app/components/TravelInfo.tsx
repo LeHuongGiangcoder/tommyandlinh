@@ -63,9 +63,9 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 </div>
 
                 <div className="max-h-[350px] overflow-y-auto custom-scrollbar pr-4">
-                  <p className="text-[16px] md:text-[17px] text-ink/90 font-normal leading-relaxed italic whitespace-pre-line font-serif">
-                    {desc}
-                  </p>
+                   <p className="text-[16px] md:text-[17px] text-ink/80 font-light leading-relaxed italic whitespace-pre-line font-serif">
+                      {desc}
+                   </p>
                 </div>
 
                 <div className="pt-6 border-t border-burgundy/10 flex justify-between items-center text-[9px] tracking-[0.4em] uppercase text-olive/60 font-bold">
@@ -129,9 +129,9 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 </div>
 
                 <div className="max-h-[300px] overflow-y-auto custom-scrollbar pr-2">
-                  <p className="text-[15px] md:text-[16px] text-ink/90 font-normal leading-relaxed italic whitespace-pre-line font-serif">
-                    {trip.desc}
-                  </p>
+                   <p className="text-[15px] md:text-[16px] text-ink/80 font-light leading-relaxed italic whitespace-pre-line font-serif">
+                      {trip.desc}
+                   </p>
                 </div>
 
                 <div className="pt-4 border-t border-burgundy/5 flex justify-between items-center text-[8px] tracking-[0.4em] uppercase text-olive/50 font-bold">
