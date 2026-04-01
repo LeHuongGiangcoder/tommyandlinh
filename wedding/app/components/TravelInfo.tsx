@@ -62,11 +62,13 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
     
     return (
       <div 
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="group/trip relative flex flex-col lg:flex-row gap-8 lg:gap-12 lg:items-center cursor-pointer md:cursor-default"
+        className="group/trip relative flex flex-col lg:flex-row gap-8 lg:gap-12 lg:items-center cursor-pointer lg:cursor-default"
       >
         {/* Cinematic Image Frame */}
-        <div className="relative w-full lg:w-96 aspect-[3/2] overflow-hidden ring-1 ring-olive/10 shadow-none transition-all group-hover/trip:ring-burgundy/20">
+        <div 
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="relative w-full lg:w-96 aspect-[3/2] overflow-hidden ring-1 ring-olive/10 shadow-none transition-all group-hover/trip:ring-burgundy/20"
+        >
           <Image 
             src={trip.src} 
             alt={trip.name} 
@@ -81,9 +83,9 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             ADVENTURE {idx + 1}
           </div>
 
-          {/* Mobile Collapse Hint */}
-          <div className="absolute bottom-6 right-6 flex md:hidden items-center gap-1.5 text-white/80 opacity-80">
-            <span className="text-[8px] tracking-widest uppercase">{isExpanded ? (lang === 'en' ? 'Hide' : 'Ẩn') : (lang === 'en' ? 'Learn more' : 'Xem thêm')}</span>
+          {/* Mobile/Tablet Collapse Hint */}
+          <div className="absolute bottom-6 right-6 flex lg:hidden items-center gap-1.5 text-white/80 opacity-80">
+            <span className="text-[8px] tracking-widest uppercase">{isExpanded ? (lang === 'en' ? 'Close' : 'Đóng') : (lang === 'en' ? 'Learn More' : 'Xem thêm')}</span>
             <ChevronDown className={`w-3 h-3 transition-transform duration-500 ${isExpanded ? 'rotate-180' : ''}`} />
           </div>
         </div>
@@ -94,9 +96,14 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             <div className="w-12 h-[0.5px] bg-olive/10 group-hover/trip:w-20 transition-all duration-700 group-hover/trip:bg-burgundy/30"></div>
           </div>
           <div className="space-y-4">
-            <h4 className="text-xl md:text-3xl font-heading text-burgundy italic leading-tight group-hover/trip:translate-x-3 transition-transform duration-700">{trip.name}</h4>
+            <h4 
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="text-xl md:text-3xl font-heading text-burgundy italic leading-tight group-hover/trip:translate-x-3 transition-transform duration-700 cursor-pointer lg:cursor-text"
+            >
+              {trip.name}
+            </h4>
             {trip.desc && (
-              <div className={`transition-all duration-700 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[300px] opacity-100' : 'max-h-0 md:max-h-[300px] opacity-0 md:opacity-100'}`}>
+              <div className={`transition-all duration-700 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[300px] opacity-100' : 'max-h-0 lg:max-h-[300px] opacity-0 lg:opacity-100'}`}>
                 <p className="text-[14px] md:text-[16px] text-ink/70 font-light leading-relaxed italic max-w-3xl whitespace-pre-line border-l border-olive/5 pl-8 group-hover/trip:border-olive/20 transition-colors mt-2">
                     {trip.desc}
                 </p>
