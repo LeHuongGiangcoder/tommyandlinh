@@ -34,8 +34,8 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
              <div className="text-[10px] md:text-[11px] tracking-[0.6em] uppercase font-bold text-white/90 mb-3 drop-shadow-md">{sub}</div>
              <h4 className="text-3xl md:text-4xl lg:text-5xl font-heading italic font-medium leading-tight text-white drop-shadow-2xl">{title}</h4>
              
-             {/* Mobile Interaction Hint */}
-             <div className="flex lg:hidden items-center gap-2 mt-6 text-white/90">
+             {/* Interaction Hint (Simplified) */}
+             <div className="flex items-center gap-2 mt-6 text-white/90">
                 <span className="text-[9px] tracking-[0.8em] uppercase font-bold drop-shadow-sm">{isExpanded ? (lang === 'en' ? 'Close' : 'Đóng') : (lang === 'en' ? 'Learn More' : 'Xem thêm')}</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-500 shadow-sm ${isExpanded ? 'rotate-180' : ''}`} />
              </div>
@@ -44,10 +44,10 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           <div className="absolute inset-8 md:inset-12 border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-1000 scale-95 group-hover:scale-100"></div>
         </div>
 
-        <div className={`space-y-6 md:space-y-8 transition-all duration-700 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[500px] opacity-100 mt-4' : 'max-h-0 lg:max-h-[500px] opacity-0 lg:opacity-100'}`}>
+        <div className={`space-y-6 md:space-y-8 transition-all duration-700 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[600px] opacity-100 mt-12' : 'max-h-0 opacity-0'}`}>
           <div className="flex items-center gap-6">
             <span className="text-[10px] text-olive font-serif italic opacity-40 pr-4 border-r border-olive/10 tracking-[0.2em] font-medium leading-none">{refLabel}</span>
-            <h4 className="hidden lg:block text-3xl md:text-4xl font-heading text-burgundy italic font-medium leading-none">{title}</h4>
+            <h4 className="text-3xl md:text-4xl font-heading text-burgundy italic font-medium leading-none">{title}</h4>
           </div>
           <div className="text-[14px] md:text-[15px] text-ink/70 font-light leading-relaxed italic pr-10 border-l border-olive/10 pl-8 group-hover:border-olive/30 transition-colors py-1 whitespace-pre-line">
             {desc}
@@ -62,12 +62,12 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
     
     return (
       <div 
-        className="group/trip relative flex flex-col lg:flex-row gap-8 lg:gap-12 lg:items-center cursor-pointer lg:cursor-default"
+        className="group/trip relative flex flex-col gap-8 cursor-pointer"
       >
         {/* Cinematic Image Frame */}
         <div 
           onClick={() => setIsExpanded(!isExpanded)}
-          className="relative w-full lg:w-96 aspect-[3/2] overflow-hidden ring-1 ring-olive/10 shadow-none transition-all group-hover/trip:ring-burgundy/20"
+          className="relative w-full aspect-[3/2] overflow-hidden ring-1 ring-olive/10 shadow-none transition-all group-hover/trip:ring-burgundy/20"
         >
           <Image 
             src={trip.src} 
@@ -83,14 +83,14 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             ADVENTURE {idx + 1}
           </div>
 
-          {/* Mobile/Tablet Collapse Hint */}
-          <div className="absolute bottom-6 right-6 flex lg:hidden items-center gap-1.5 text-white/80 opacity-80">
+          {/* Collapse Hint */}
+          <div className="absolute bottom-6 right-6 flex items-center gap-1.5 text-white/80 opacity-80">
             <span className="text-[8px] tracking-widest uppercase">{isExpanded ? (lang === 'en' ? 'Close' : 'Đóng') : (lang === 'en' ? 'Learn More' : 'Xem thêm')}</span>
             <ChevronDown className={`w-3 h-3 transition-transform duration-500 ${isExpanded ? 'rotate-180' : ''}`} />
           </div>
         </div>
 
-        <div className="flex-grow space-y-4 md:space-y-6 lg:pl-4">
+        <div className="flex-grow space-y-4 md:space-y-6">
           <div className="flex items-center gap-6 text-burgundy/30 font-serif italic text-2xl md:text-3xl">
             <span>0{idx+1}</span>
             <div className="w-12 h-[0.5px] bg-olive/10 group-hover/trip:w-20 transition-all duration-700 group-hover/trip:bg-burgundy/30"></div>
@@ -98,13 +98,13 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           <div className="space-y-4">
             <h4 
               onClick={() => setIsExpanded(!isExpanded)}
-              className="text-xl md:text-3xl font-heading text-burgundy italic leading-tight group-hover/trip:translate-x-3 transition-transform duration-700 cursor-pointer lg:cursor-text"
+              className="text-xl md:text-3xl font-heading text-burgundy italic leading-tight group-hover/trip:translate-x-3 transition-transform duration-700 cursor-pointer"
             >
               {trip.name}
             </h4>
             {trip.desc && (
-              <div className={`transition-all duration-700 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[300px] opacity-100' : 'max-h-0 lg:max-h-[300px] opacity-0 lg:opacity-100'}`}>
-                <p className="text-[14px] md:text-[16px] text-ink/70 font-light leading-relaxed italic max-w-3xl whitespace-pre-line border-l border-olive/5 pl-8 group-hover/trip:border-olive/20 transition-colors mt-2">
+              <div className={`transition-all duration-700 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[300px] opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
+                <p className="text-[14px] md:text-[15px] text-ink/70 font-light leading-relaxed italic max-w-3xl whitespace-pre-line border-l border-olive/5 pl-8 group-hover/trip:border-olive/20 transition-colors">
                     {trip.desc}
                 </p>
               </div>
@@ -669,7 +669,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
           {/* Day Trips Section - Descriptive Registry */}
           <div className="mt-16 pt-16 border-t border-olive/10">
-            <div className="max-w-4xl mx-auto space-y-20">
+            <div className="max-w-7xl mx-auto space-y-20">
                <div className="text-center space-y-8">
                   <h3 className="text-4xl md:text-6xl font-heading text-burgundy italic font-medium">{t.dayTrips}</h3>
                   <div className="px-8 py-4 bg-olive/[0.03] border-x border-olive/10 inline-block">
@@ -677,7 +677,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                   </div>
                </div>
 
-               <div className="grid grid-cols-1 gap-16 md:gap-12">
+               <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
                   {t.dayTripList.map((trip: any, idx: number) => (
                     <DayTripCard key={idx} trip={trip} idx={idx} />
                   ))}
