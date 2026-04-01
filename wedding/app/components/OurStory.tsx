@@ -48,7 +48,6 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         }
       });
 
-      // SEQUENTIAL CHARACTER-BY-CHARACTER reveal for Meeting Story
       if (meetingTextRef.current) {
         const paragraphs = meetingTextRef.current.querySelectorAll("p");
         const tl = gsap.timeline({
@@ -61,15 +60,16 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         });
 
         paragraphs.forEach((p) => {
-          const split = new SplitType(p, { types: 'words,chars' });
+          const split = new SplitType(p, { types: 'lines' });
           splits.push(split);
           
-          if (split.chars) {
-            tl.fromTo(split.chars, 
-              { opacity: 0.05 },
+          if (split.lines) {
+            tl.fromTo(split.lines, 
+              { opacity: 0.05, y: 10 },
               { 
                 opacity: 1, 
-                stagger: 0.03, // Slight stagger per char
+                y: 0,
+                stagger: 0.5, // Better staggering for lines
                 ease: "none",
               }
             );
@@ -77,7 +77,6 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         });
       }
 
-      // SEQUENTIAL CHARACTER-BY-CHARACTER reveal for Proposal Story
       if (proposalTextRef.current) {
         const paragraphs = proposalTextRef.current.querySelectorAll("p");
         const tl = gsap.timeline({
@@ -90,15 +89,16 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         });
 
         paragraphs.forEach((p) => {
-          const split = new SplitType(p, { types: 'words,chars' });
+          const split = new SplitType(p, { types: 'lines' });
           splits.push(split);
 
-          if (split.chars) {
-            tl.fromTo(split.chars, 
-              { opacity: 0.05 },
+          if (split.lines) {
+            tl.fromTo(split.lines, 
+              { opacity: 0.05, y: 10 },
               { 
                 opacity: 1, 
-                stagger: 0.02,
+                y: 0,
+                stagger: 0.5,
                 ease: "none",
               }
             );
@@ -120,7 +120,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
     }, sectionRef);
 
     const handleResize = () => {
-       splits.forEach(s => s.split({ types: 'words,chars' }));
+       splits.forEach(s => s.split({ types: 'lines' }));
     };
     window.addEventListener('resize', handleResize);
 

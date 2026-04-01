@@ -14,7 +14,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     
     return (
-      <div className={`travel-card group cursor-pointer transition-all duration-500 ${id === 'halong' ? 'md:translate-y-24 lg:translate-y-36' : ''}`}>
+      <div className={`travel-card group cursor-pointer transition-all duration-500 ${id === 'halong' ? 'lg:translate-y-24 xl:translate-y-36' : ''}`}>
         <div 
           onClick={() => setIsExpanded(!isExpanded)}
           className="relative aspect-[4/5] overflow-hidden mb-8 md:mb-12 ring-1 ring-burgundy/5 shadow-xl md:shadow-2xl transition-all group-hover:ring-burgundy/20"
@@ -35,7 +35,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
              <h4 className="text-3xl md:text-4xl lg:text-5xl font-heading italic font-medium leading-tight text-white drop-shadow-2xl">{title}</h4>
              
              {/* Mobile Interaction Hint */}
-             <div className="flex md:hidden items-center gap-2 mt-6 text-white/90">
+             <div className="flex lg:hidden items-center gap-2 mt-6 text-white/90">
                 <span className="text-[9px] tracking-[0.8em] uppercase font-bold drop-shadow-sm">{isExpanded ? (lang === 'en' ? 'Close' : 'Đóng') : (lang === 'en' ? 'Learn More' : 'Xem thêm')}</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-500 shadow-sm ${isExpanded ? 'rotate-180' : ''}`} />
              </div>
@@ -44,10 +44,10 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           <div className="absolute inset-8 md:inset-12 border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-1000 scale-95 group-hover:scale-100"></div>
         </div>
 
-        <div className={`space-y-6 md:space-y-8 transition-all duration-700 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[500px] opacity-100 mt-4' : 'max-h-0 md:max-h-[500px] opacity-0 md:opacity-100'}`}>
+        <div className={`space-y-6 md:space-y-8 transition-all duration-700 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[500px] opacity-100 mt-4' : 'max-h-0 lg:max-h-[500px] opacity-0 lg:opacity-100'}`}>
           <div className="flex items-center gap-6">
             <span className="text-[10px] text-olive font-serif italic opacity-40 pr-4 border-r border-olive/10 tracking-[0.2em] font-medium leading-none">{refLabel}</span>
-            <h4 className="hidden md:block text-3xl md:text-4xl font-heading text-burgundy italic font-medium leading-none">{title}</h4>
+            <h4 className="hidden lg:block text-3xl md:text-4xl font-heading text-burgundy italic font-medium leading-none">{title}</h4>
           </div>
           <div className="text-[14px] md:text-[15px] text-ink/70 font-light leading-relaxed italic pr-10 border-l border-olive/10 pl-8 group-hover:border-olive/30 transition-colors py-1 whitespace-pre-line">
             {desc}
@@ -315,17 +315,22 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       );
 
       // Gallery Grid reveal (Section 3: Destinations)
-      gsap.from(".gallery-reveal .travel-card", {
-        opacity: 0,
-        y: 60,
-        stagger: 0.2,
-        duration: 1.5,
-        ease: "expo.out",
-        scrollTrigger: {
-          trigger: ".gallery-reveal",
-          start: "top 75%",
+      gsap.fromTo(".gallery-reveal .travel-card", 
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.15,
+          duration: 1.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".gallery-reveal",
+            start: "top 85%",
+            // Refresh triggers once this section is in view to account for conditional rendering height
+            onEnter: () => ScrollTrigger.refresh()
+          }
         }
-      });
+      );
     }, sectionRef);
 
     return () => ctx.revert();
@@ -628,7 +633,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
              <p className="text-olive/70 font-light mt-12 italic leading-loose font-serif text-xl border-x border-olive/5 px-12">{t.exploreSub}</p>
           </div>
 
-          <div className="gallery-reveal grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-20 lg:gap-32 pb-16">
+          <div className="gallery-reveal grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-32 pb-16">
             <DestinationCard 
               id="hanoi"
               title={t.hanoi.split('—')[0]}

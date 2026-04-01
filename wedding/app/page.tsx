@@ -457,10 +457,14 @@ export default function Home() {
         <Countdown lang={lang} />
       </div>
 
-      <OurStory key={`story-${lang}`} lang={lang} />
-      <TravelInfo key={`travel-${lang}`} lang={lang} />
-      <RSVP key={`rsvp-${lang}`} lang={lang} />
-      <FAQ key={`faq-${lang}`} lang={lang} />
+      {isStarted && (
+        <>
+          <OurStory key={`story-${lang}`} lang={lang} />
+          <TravelInfo key={`travel-${lang}`} lang={lang} />
+          <RSVP key={`rsvp-${lang}`} lang={lang} />
+          <FAQ key={`faq-${lang}`} lang={lang} />
+        </>
+      )}
 
     </main>
   );
