@@ -426,7 +426,7 @@ export default function Home() {
           </div>
 
           <a href="#rsvp" className="fade-up opacity-0 mt-8 mb-20 md:mb-0 ml-4 md:ml-6 inline-block">
-            <button className="px-10 md:px-12 py-4 md:py-5 bg-transparent text-burgundy hover:bg-burgundy hover:text-surface transition-all duration-700 tracking-[0.3em] uppercase text-[10px] md:text-xs font-light border border-burgundy/40 shadow-sm rounded-none">
+            <button className="px-10 md:px-12 py-4 md:py-5 bg-white/10 backdrop-blur-[2px] text-burgundy hover:bg-burgundy hover:text-surface transition-all duration-700 tracking-[0.3em] uppercase text-[11px] md:text-xs font-medium border border-burgundy/60 shadow-sm rounded-none">
               RSVP
             </button>
           </a>
