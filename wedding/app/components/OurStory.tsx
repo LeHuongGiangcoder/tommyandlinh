@@ -50,28 +50,30 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
       if (meetingTextRef.current) {
         const paragraphs = meetingTextRef.current.querySelectorAll("p");
+        // No scrub - just a reliable one-shot reveal animation
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: meetingTextRef.current,
-            start: "top 85%",
-            end: "bottom 30%",
-            scrub: 1,
+            start: "top 85%", 
+            toggleActions: "play none none none", // Only play when entering, never reverse
           }
         });
 
-        paragraphs.forEach((p) => {
+        paragraphs.forEach((p, pIdx) => {
           const split = new SplitType(p, { types: 'lines' });
           splits.push(split);
           
           if (split.lines) {
             tl.fromTo(split.lines, 
-              { opacity: 0.05, y: 10 },
+              { opacity: 0, y: 20 }, 
               { 
                 opacity: 1, 
                 y: 0,
-                stagger: 0.5, // Better staggering for lines
-                ease: "none",
-              }
+                duration: 0.8,
+                stagger: 0.15,
+                ease: "power2.out",
+              },
+              pIdx === 0 ? 0 : "-=0.4" // Slight overlap between paragraphs for flow
             );
           }
         });
@@ -82,25 +84,26 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: proposalTextRef.current,
-            start: "top 80%",
-            end: "bottom 80%", // Finish earlier so it reveals before reaching the page floor
-            scrub: 1,
+            start: "top 85%",
+            toggleActions: "play none none none",
           }
         });
 
-        paragraphs.forEach((p) => {
+        paragraphs.forEach((p, pIdx) => {
           const split = new SplitType(p, { types: 'lines' });
           splits.push(split);
 
           if (split.lines) {
             tl.fromTo(split.lines, 
-              { opacity: 0.05, y: 10 },
+              { opacity: 0, y: 20 },
               { 
                 opacity: 1, 
                 y: 0,
-                stagger: 0.5,
-                ease: "none",
-              }
+                duration: 0.8,
+                stagger: 0.15,
+                ease: "power2.out",
+              },
+              pIdx === 0 ? 0 : "-=0.4"
             );
           }
         });
