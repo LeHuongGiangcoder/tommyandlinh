@@ -18,7 +18,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         className="travel-card group [perspective:1000px] cursor-pointer h-[500px] md:h-[600px] w-full"
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        <div className={`relative w-full h-full transition-all duration-700 [transform-style:preserve-3d] ${isExpanded ? '[transform:rotateY(180deg)]' : ''}`}>
+        <div className={`relative w-full h-full transition-all duration-[800ms] [transform-style:preserve-3d] [will-change:transform] ${isExpanded ? '[transform:rotateY(180deg)]' : ''}`}>
           
           {/* Front Side: Cinematic Image */}
           <div className="absolute inset-0 [backface-visibility:hidden] w-full h-full">
@@ -88,7 +88,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         className="group/trip [perspective:1000px] cursor-pointer h-[450px] md:h-[550px] w-full"
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        <div className={`relative w-full h-full transition-all duration-700 [transform-style:preserve-3d] ${isExpanded ? '[transform:rotateY(180deg)]' : ''}`}>
+        <div className={`relative w-full h-full transition-all duration-[800ms] [transform-style:preserve-3d] [will-change:transform] ${isExpanded ? '[transform:rotateY(180deg)]' : ''}`}>
           
           {/* Front Side: Journey Image */}
           <div className="absolute inset-0 [backface-visibility:hidden] w-full h-full">
@@ -207,11 +207,11 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       explore: "Let's Explore",
       exploreSub: "A curated collection of destinations to discover during your stay in Vietnam",
       hanoi: "Hanoi — Culture & Cuisine",
-      hanoiDesc: "No trip to Hanoi is complete without experiencing its incredible food and history. From iconic landmarks like the Temple of Literature, Hoan Kiem Lake, and Ho Chi Minh Mausoleum, to the lively Old Quarter, the city is full of culture, charm, and unforgettable flavors.\\n\\nEven a short 2-day, 1-night visit is enough to experience the highlights and enjoy some of the best food in Vietnam.\\n\\nWe can organize a group experience—please RSVP if you’re interested!",
+      hanoiDesc: "No trip to Hanoi is complete without experiencing its incredible food and history. From iconic landmarks like the Temple of Literature, Hoan Kiem Lake, and Ho Chi Minh Mausoleum, to the lively Old Quarter, the city is full of culture, charm, and unforgettable flavors. Even a short 2-day, 1-night visit is enough to experience the highlights and enjoy some of the best food in Vietnam. We can organize a group experience—please RSVP if you’re interested!",
       halong: "Ha Long Bay — Overnight Cruise",
-      halongDesc: "Ha Long Bay is one of the New Seven Wonders of Nature and a true highlight of northern Vietnam.\\n\\nA 2-day, 1-night cruise takes you through thousands of limestone islands, with opportunities for kayaking, swimming, and relaxing on a beautiful boat.\\n\\nA once-in-a-lifetime experience we highly recommend!",
+      halongDesc: "Ha Long Bay is one of the New Seven Wonders of Nature and a true highlight of northern Vietnam. A 2-day, 1-night cruise takes you through thousands of limestone islands, with opportunities for kayaking, swimming, and relaxing on a beautiful boat. A once-in-a-lifetime experience we highly recommend!",
       ninhbinh: "Ninh Binh — Nature & History",
-      ninhbinhDesc: "Ninh Binh is known for its breathtaking landscapes of limestone mountains, peaceful rivers, and lush rice fields—often called “Ha Long Bay on land.”\\n\\nHighlights include boat rides through caves, ancient temples like Bai Dinh Pagoda, and historic sites from Vietnam’s early capital.",
+      ninhbinhDesc: "Ninh Binh is known for its breathtaking landscapes of limestone mountains, peaceful rivers, and lush rice fields—often called “Ha Long Bay on land.” Highlights include boat rides through caves, ancient temples like Bai Dinh Pagoda, and historic sites from Vietnam’s early capital.",
       dayTrips: "Easy Day Trips from Hanoi",
       dayTripsSub: "If you have extra time, these are great half- or full-day excursions near Hanoi:",
       dayTripList: [
