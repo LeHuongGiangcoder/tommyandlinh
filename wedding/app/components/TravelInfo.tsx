@@ -19,7 +19,13 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           onClick={() => setIsExpanded(!isExpanded)}
           className="relative aspect-[4/5] overflow-hidden mb-8 md:mb-12 ring-1 ring-burgundy/5 shadow-xl md:shadow-2xl transition-all group-hover:ring-burgundy/20"
         >
-          <Image src={img} alt={title} fill className="object-cover transition-all duration-[3s] ease-out-expo group-hover:scale-110 group-hover:rotate-1" />
+          <Image 
+            src={img} 
+            alt={title} 
+            fill 
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-all duration-[3s] ease-out-expo group-hover:scale-110 group-hover:rotate-1" 
+          />
           {/* Enhanced Dark Overlay - Stronger at bottom for maximum legibility */}
           <div className="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity z-[5]"></div>
           
@@ -61,7 +67,13 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       >
         {/* Cinematic Image Frame */}
         <div className="relative w-full lg:w-96 aspect-[3/2] overflow-hidden ring-1 ring-olive/10 shadow-none transition-all group-hover/trip:ring-burgundy/20">
-          <Image src={trip.src} alt={trip.name} fill className="object-cover grayscale-[0.2] transition-all duration-[3s] group-hover/trip:scale-110 group-hover/trip:grayscale-0" />
+          <Image 
+            src={trip.src} 
+            alt={trip.name} 
+            fill 
+            sizes="(max-width: 768px) 100vw, 384px"
+            className="object-cover grayscale-[0.2] transition-all duration-[3s] group-hover/trip:scale-110 group-hover/trip:grayscale-0" 
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-burgundy/60 to-transparent opacity-30 md:opacity-0 group-hover/trip:opacity-40 transition-opacity"></div>
           
           {/* Mobile Overlay Label */}
@@ -166,9 +178,9 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       dayTrips: "Easy Day Trips from Hanoi",
       dayTripsSub: "If you have extra time, these are great half- or full-day excursions near Hanoi:",
       dayTripList: [
-        { name: "Bat Trang Ceramic Village – Get Hands-On with Pottery", desc: "Bat Trang Ceramic Village is a fun and interactive day trip, especially if you enjoy creative activities. Located just 30 minutes from Hanoi, this village has been producing ceramics for centuries. You can try your hand at making pottery, browse markets filled with colorful bowls and vases, and watch skilled artisans at work. It’s an easy and rewarding half-day excursion.", src: "/langgom.jpg" },
-        { name: "Ham Lon Mountain – A Mini Adventure Close to the City", desc: "If you’re craving a bit of adventure, Ham Lon Mountain is the closest hiking spot to Hanoi. Just about an hour away, it offers forest trails, a manageable climb, and rewarding views from the summit. Many locals come here for day hikes or overnight camping by the nearby lake. It’s a great option if you want a quick nature fix without traveling far.", src: "/hamlon.jpg" },
-        { name: "Van Phuc Silk Village – Vietnam’s Silk Heritage", desc: "Only about 30–40 minutes from Hanoi, Van Phuc Silk Village is one of the oldest silk-making communities in Vietnam. Walking through its narrow streets, you’ll see vibrant fabrics hanging overhead and hear the rhythmic clatter of weaving looms. It’s a great place to learn about traditional craftsmanship and pick up high-quality silk scarves or garments directly from local artisans.", src: "/vanphuc.jpg" }
+        { name: "Bat Trang Ceramic Village – Get Hands-On with Pottery", desc: "Bat Trang Ceramic Village is a fun and interactive day trip, especially if you enjoy creative activities. Located just 30 minutes from Hanoi, this village has been producing ceramics for centuries. You can try your hand at making pottery, browse markets filled with colorful bowls and vases, and watch skilled artisans at work. It’s an easy and rewarding half-day excursion.", src: "/langgom.webp" },
+        { name: "Ham Lon Mountain – A Mini Adventure Close to the City", desc: "If you’re craving a bit of adventure, Ham Lon Mountain is the closest hiking spot to Hanoi. Just about an hour away, it offers forest trails, a manageable climb, and rewarding views from the summit. Many locals come here for day hikes or overnight camping by the nearby lake. It’s a great option if you want a quick nature fix without traveling far.", src: "/hamlon.webp" },
+        { name: "Van Phuc Silk Village – Vietnam’s Silk Heritage", desc: "Only about 30–40 minutes from Hanoi, Van Phuc Silk Village is one of the oldest silk-making communities in Vietnam. Walking through its narrow streets, you’ll see vibrant fabrics hanging overhead and hear the rhythmic clatter of weaving looms. It’s a great place to learn about traditional craftsmanship and pick up high-quality silk scarves or garments directly from local artisans.", src: "/vanphuc.webp" }
       ],
       rsvpTravel: "Please RSVP if you are interested in any of the activities so we can coordinate with a local travel agency."
     },
@@ -244,17 +256,17 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         { 
           name: "Làng gốm Bát Tràng – trải nghiệm làm gốm", 
           desc: "Làng gốm Bát Tràng là một điểm đến thú vị và đầy tính tương tác, đặc biệt dành cho những ai yêu thích các hoạt động sáng tạo. Chỉ cách Hà Nội 30 phút di chuyển, ngôi làng này đã có truyền thống làm gốm từ hàng thế kỷ. Bạn có thể tự tay nhào nặn gốm, dạo quanh các gian hàng rực rỡ sắc màu và tận mắt chiêm ngưỡng các nghệ nhân tài hoa làm việc. Đây là một chuyến đi nửa ngày nhẹ nhàng nhưng đầy ý nghĩa.", 
-          src: "/langgom.jpg" 
+          src: "/langgom.webp" 
         },
         { 
           name: "Núi Hàm Lợn – trekking nhẹ gần Hà Nội", 
           desc: "Nếu bạn đang tìm kiếm một chút phiêu lưu, Núi Hàm Lợn là địa điểm trekking gần Hà Nội nhất. Chỉ mất khoảng một giờ di chuyển, nơi đây đón bạn bằng những con đường mòn xuyên rừng, dốc leo vừa sức và tầm nhìn tuyệt đẹp từ đỉnh núi. Nhiều người dân địa phương thường đến đây để đi bộ đường dài trong ngày hoặc cắm trại qua đêm bên hồ nước thơ mộng. Một lựa chọn tuyệt vời để 'đổi gió' giữa thiên nhiên mà không cần đi quá xa.", 
-          src: "/hamlon.jpg" 
+          src: "/hamlon.webp" 
         },
         { 
           name: "Làng lụa Vạn Phúc – tìm hiểu nghề dệt truyền thống", 
           desc: "Cách Hà Nội chỉ 30–40 phút, Làng lụa Vạn Phúc là một trong những làng nghề dệt lụa lâu đời nhất Việt Nam. Sải bước trên những con ngõ nhỏ, bạn sẽ thấy những dải lụa rực rỡ sắc màu treo cao và lắng nghe tiếng khung cửi lách cách nhịp nhàng. Đây là nơi lý tưởng để tìm hiểu về nghề thủ công truyền thống và chọn mua những món quà lụa cao cấp trực tiếp từ các nghệ nhân.", 
-          src: "/vanphuc.jpg" 
+          src: "/vanphuc.webp" 
         }
       ],
       rsvpTravel: "Nếu bạn muốn tham gia hoạt động nào, nhớ RSVP để tụi mình sắp xếp nha!"
@@ -575,15 +587,15 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                        <h4 className="text-[11px] uppercase tracking-[0.4em] text-olive font-bold">{t.apps}</h4>
                        <div className="grid grid-cols-1 gap-4 flex-grow">
                           {[
-                            { src: "/grab.jpg", name: "Grab", desc: lang === 'en' ? "Rides, Food & Delivery" : "Di chuyển, Giao đồ ăn", url: "https://www.grab.com/vn/en/" },
-                            { src: "/xanhsm.png", name: "Xanh SM", desc: lang === 'en' ? "Electric Taxi & Bikes" : "Taxi điện & Xe máy điện", url: "https://www.xanhsm.com/" },
-                            { src: "/be.jpeg", name: "Be", desc: lang === 'en' ? "Local Ride-sharing" : "Ứng dụng gọi xe đa dịch vụ", url: "https://be.com.vn/#intro" },
-                            { src: "/zalo.jpg", name: "Zalo", desc: lang === 'en' ? "Primary Local Messaging" : "Liên lạc & Nhắn tin chính", url: "https://zalo.me/vi/" }
+                            { src: "/grab.webp", name: "Grab", desc: lang === 'en' ? "Rides, Food & Delivery" : "Di chuyển, Giao đồ ăn", url: "https://www.grab.com/vn/en/" },
+                            { src: "/xanhsm.webp", name: "Xanh SM", desc: lang === 'en' ? "Electric Taxi & Bikes" : "Taxi điện & Xe máy điện", url: "https://www.xanhsm.com/" },
+                            { src: "/be.webp", name: "Be", desc: lang === 'en' ? "Local Ride-sharing" : "Ứng dụng gọi xe đa dịch vụ", url: "https://be.com.vn/#intro" },
+                            { src: "/zalo.webp", name: "Zalo", desc: lang === 'en' ? "Primary Local Messaging" : "Liên lạc & Nhắn tin chính", url: "https://zalo.me/vi/" }
                           ].map((app, idx) => (
                             <a key={idx} href={app.url} target="_blank" rel="noopener noreferrer" className="group/appitem flex items-center gap-5 p-4 bg-white/20 border border-transparent transition-all hover:bg-white/50 hover:border-olive/10 hover:translate-x-2 no-underline">
                                <div className="relative w-14 h-14 bg-white rounded-sm p-3 border border-olive/5 shadow-sm group-hover/appitem:shadow-md transition-all">
                                   <div className="relative w-full h-full grayscale group-hover/appitem:grayscale-0 transition-transform duration-500 group-hover/appitem:scale-110">
-                                     <Image src={app.src} alt={app.name} fill className="object-contain" />
+                                     <Image src={app.src} alt={app.name} fill sizes="56px" className="object-contain" />
                                   </div>
                                </div>
                                <div className="flex-grow">
@@ -621,7 +633,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
               id="hanoi"
               title={t.hanoi.split('—')[0]}
               desc={t.hanoiDesc}
-              img="/hanoi.jpg"
+              img="/hanoi.webp"
               sub="HERITAGE HEART"
               refLabel="REF. 01"
             />
@@ -629,7 +641,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
               id="halong"
               title={t.halong.split('—')[0]}
               desc={t.halongDesc}
-              img="/halong.jpg"
+              img="/halong.webp"
               sub="EMERALD DREAM"
               refLabel="REF. 02"
             />
@@ -637,7 +649,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
               id="ninhbinh"
               title={t.ninhbinh.split('—')[0]}
               desc={t.ninhbinhDesc}
-              img="/ninhbinh.jpg"
+              img="/ninhbinh.webp"
               sub="INLAND MAJESTY"
               refLabel="REF. 03"
             />

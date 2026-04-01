@@ -348,10 +348,11 @@ export default function Home() {
         {/* Immersive Hero Image */}
         <div className="absolute inset-0 z-0">
         <Image
-          src="/1.jpg"
+          src="/1.webp"
           alt="Tommy & Linh Wedding"
           fill
           priority
+          sizes="100vw"
           className="hero-image object-cover object-[75%_center] md:object-[80%_50%] will-change-transform translate-z-0"
           style={{ filter: "blur(40px) brightness(0.6)" }}
         />

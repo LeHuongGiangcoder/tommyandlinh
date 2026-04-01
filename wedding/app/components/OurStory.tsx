@@ -182,9 +182,10 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           <div className="lg:col-span-5 relative story-image">
             <div className="relative aspect-[4/5] w-full overflow-hidden group">
               <Image 
-                src="/2.jpg" 
+                src="/2.webp" 
                 alt="Our first meeting" 
                 fill 
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 ring-1 ring-inset ring-black/5"></div>
@@ -253,9 +254,10 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           <div className="lg:col-span-5 lg:order-3 order-1 relative story-image">
             <div className="relative aspect-[4/5] w-full overflow-hidden group">
               <Image 
-                src="/3.jpg" 
+                src="/3.webp" 
                 alt="The proposal moment" 
                 fill 
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 ring-1 ring-inset ring-black/5"></div>
@@ -264,7 +266,13 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             <div className="absolute -bottom-10 -right-10 w-40 h-40 hidden md:block">
               <div className="relative w-full h-full bg-surface p-2 border border-burgundy/5 rotate-3">
                  <div className="relative w-full h-full overflow-hidden">
-                   <Image src="/4.jpg" alt="Detail" fill className="object-cover" />
+                   <Image 
+                     src="/4.webp" 
+                     alt="Detail" 
+                     fill 
+                     sizes="160px"
+                     className="object-cover" 
+                   />
                  </div>
               </div>
             </div>
