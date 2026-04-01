@@ -21,7 +21,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         <div className={`relative w-full h-full transition-all duration-[800ms] [transform-style:preserve-3d] [will-change:transform] ${isExpanded ? '[transform:rotateY(180deg)]' : ''}`}>
           
           {/* Front Side: Cinematic Image */}
-          <div className="absolute inset-0 [backface-visibility:hidden] w-full h-full">
+          <div className={`absolute inset-0 [backface-visibility:hidden] w-full h-full ${isExpanded ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
             <div className="relative w-full h-full overflow-hidden ring-1 ring-burgundy/5 shadow-xl md:shadow-2xl">
               <Image 
                 src={img} 
@@ -91,7 +91,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         <div className={`relative w-full h-full transition-all duration-[800ms] [transform-style:preserve-3d] [will-change:transform] ${isExpanded ? '[transform:rotateY(180deg)]' : ''}`}>
           
           {/* Front Side: Journey Image */}
-          <div className="absolute inset-0 [backface-visibility:hidden] w-full h-full">
+          <div className={`absolute inset-0 [backface-visibility:hidden] w-full h-full ${isExpanded ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
             <div className="relative w-full h-full overflow-hidden ring-1 ring-burgundy/5 shadow-lg">
               <Image 
                 src={trip.src} 
