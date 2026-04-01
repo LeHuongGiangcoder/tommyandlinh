@@ -285,7 +285,7 @@ const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                   }`}
                 >
                   <div className="pt-2 border-t border-olive/5">
-                    <p className="text-ink/70 font-serif italic text-base md:text-lg leading-relaxed pt-6">
+                    <p className="text-ink/80 font-serif font-light italic text-base md:text-lg leading-relaxed pt-6">
                       {item.answer}
                     </p>
                   </div>

@@ -520,7 +520,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                         <h3 className="text-3xl font-heading italic font-medium tracking-tight">{t.stay}</h3>
                     </div>
                   </div>
-                  <p className="text-ink/90 font-normal leading-[1.8] mb-12 text-[19px] md:text-[21px] font-serif italic max-w-xl">
+                  <p className="text-ink/80 font-light leading-[1.8] mb-12 text-[19px] md:text-[21px] font-serif italic max-w-xl">
                     {t.stayDesc} <strong className="text-burgundy font-semibold border-b border-burgundy/20 pb-1">{t.stayHighlight}</strong> {t.staySuffix}
                   </p>
                   <div className="space-y-14 flex-grow flex flex-col">
@@ -593,7 +593,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                           <p className="text-5xl font-heading text-burgundy italic">5GB</p>
                           <p className="text-[10px] uppercase tracking-widest text-olive/60 font-bold border-l border-olive/10 pl-4">/ {lang === 'en' ? 'Day' : 'Ngày'}</p>
                        </div>
-                       <p className="text-[15px] md:text-[17px] text-ink/90 leading-relaxed font-serif italic max-w-xs">{t.esimDesc}</p>
+                       <p className="text-[15px] md:text-[17px] text-ink/80 leading-relaxed font-serif font-light italic max-w-xs">{t.esimDesc}</p>
                     </div>
                     <div className="space-y-8 flex-grow flex flex-col">
                        <h4 className="text-[11px] uppercase tracking-[0.4em] text-olive font-bold">{t.apps}</h4>
