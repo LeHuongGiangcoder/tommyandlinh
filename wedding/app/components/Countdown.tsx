@@ -85,7 +85,7 @@ const Countdown = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       <div className="text-4xl md:text-6xl font-heading text-surface mb-2 leading-none">
         {String(value).padStart(2, '0')}
       </div>
-      <div className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-surface/50 font-light text-center">
+      <div className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-[#d4af37] font-medium text-center">
         {label}
       </div>
     </div>
@@ -120,7 +120,7 @@ const Countdown = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           <TimeBlock value={timeLeft.seconds} label={t.seconds} />
         </div>
 
-        <p className="mt-16 text-[10px] md:text-xs tracking-[0.5em] uppercase text-surface/40 font-light countdown-reveal">
+        <p className="mt-16 text-[10px] md:text-xs tracking-[0.5em] uppercase text-[#d4af37] font-medium countdown-reveal">
           {t.subtitle}
         </p>
       </div>
