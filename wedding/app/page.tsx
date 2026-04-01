@@ -11,6 +11,7 @@ import FAQ from "./components/FAQ";
 import RSVP from "./components/RSVP";
 import Navbar from "./components/Navbar";
 import SnowEffect from "./components/SnowEffect";
+import ThankYou from "./components/ThankYou";
 
 export default function Home() {
   const [isStarted, setIsStarted] = useState(false);
@@ -463,6 +464,7 @@ export default function Home() {
           <TravelInfo key={`travel-${lang}`} lang={lang} />
           <RSVP key={`rsvp-${lang}`} lang={lang} />
           <FAQ key={`faq-${lang}`} lang={lang} />
+          <ThankYou key={`thank-${lang}`} lang={lang} />
         </>
       )}
 
