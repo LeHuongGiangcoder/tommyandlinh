@@ -213,7 +213,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       ninhbinh: "Ninh Binh — Nature & History",
       ninhbinhDesc: "Ninh Binh is known for its breathtaking landscapes of limestone mountains, peaceful rivers, and lush rice fields—often called “Ha Long Bay on land.” Highlights include boat rides through caves, ancient temples like Bai Dinh Pagoda, and historic sites from Vietnam’s early capital.",
       dayTrips: "Easy Day Trips from Hanoi",
-      dayTripsSub: "If you have extra time, these are great half- or full-day excursions near Hanoi:",
+      dayTripsSub: "If you have extra time, these are great half- or full-day excursions near Hanoi",
       dayTripList: [
         { name: "Bat Trang Ceramic Village – Get Hands-On with Pottery", desc: "Bat Trang Ceramic Village is a fun and interactive day trip, especially if you enjoy creative activities. Located just 30 minutes from Hanoi, this village has been producing ceramics for centuries. You can try your hand at making pottery, browse markets filled with colorful bowls and vases, and watch skilled artisans at work. It’s an easy and rewarding half-day excursion.", src: "/langgom.webp" },
         { name: "Ham Lon Mountain – A Mini Adventure Close to the City", desc: "If you’re craving a bit of adventure, Ham Lon Mountain is the closest hiking spot to Hanoi. Just about an hour away, it offers forest trails, a manageable climb, and rewarding views from the summit. Many locals come here for day hikes or overnight camping by the nearby lake. It’s a great option if you want a quick nature fix without traveling far.", src: "/hamlon.webp" },
@@ -636,7 +636,9 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 <div className="w-1.5 h-1.5 rounded-full bg-burgundy"></div>
                 <div className="w-8 h-[0.5px] bg-olive"></div>
              </div>
-             <p className="text-olive/95 font-normal mt-12 italic leading-loose font-serif text-[1.4rem] border-x border-olive/10 px-12">{t.exploreSub}</p>
+             <p className="text-olive/95 font-normal mt-8 md:mt-12 italic leading-relaxed md:leading-loose font-serif text-lg md:text-[1.3rem] lg:text-[1.4rem] border-x border-olive/10 px-6 md:px-12 mx-auto max-w-2xl">
+                {t.exploreSub}
+             </p>
           </div>
 
           <div className="gallery-reveal grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-32 pb-24">
@@ -668,12 +670,17 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
           <div className="mt-24 pt-16 border-t border-olive/10">
             <div className="max-w-7xl mx-auto space-y-20">
-               <div className="text-center space-y-8">
-                  <h3 className="text-4xl md:text-6xl font-heading text-burgundy italic font-medium">{t.dayTrips}</h3>
-                  <div className="px-8 py-4 bg-olive/[0.03] border-x border-olive/10 inline-block">
-                    <p className="text-olive/70 font-serif italic text-lg leading-relaxed">{t.dayTripsSub}</p>
-                  </div>
-               </div>
+                <div className="text-center max-w-4xl mx-auto px-6">
+                   <h3 className="text-4xl md:text-6xl font-heading text-burgundy italic font-medium leading-tight">{t.dayTrips}</h3>
+                   <div className="flex items-center justify-center gap-4 mt-8 opacity-30">
+                      <div className="w-1.5 h-1.5 rounded-full bg-burgundy/40"></div>
+                      <div className="w-8 h-[0.5px] bg-olive"></div>
+                      <div className="w-1.5 h-1.5 rounded-full bg-burgundy/40"></div>
+                   </div>
+                   <p className="text-olive/95 font-normal mt-8 italic leading-relaxed font-serif text-lg md:text-[1.3rem] border-x border-olive/10 px-6 py-2 inline-block lg:block lg:max-w-3xl lg:mx-auto">
+                      {t.dayTripsSub}
+                   </p>
+                </div>
 
                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
                   {t.dayTripList.map((trip: any, idx: number) => (
