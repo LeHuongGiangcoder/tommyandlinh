@@ -262,7 +262,7 @@ const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             {items.map((item, index) => (
               <div 
                 key={index}
-                className="faq-item-reveal group bg-white/40 backdrop-blur-sm border border-olive/10 shadow-sm hover:border-olive/30 transition-all duration-500 overflow-hidden"
+                className="faq-item-reveal group bg-white border border-olive/10 shadow-sm transition-colors duration-300 hover:border-olive/30 overflow-hidden"
               >
                 <button
                   onClick={() => setOpenIndex(openIndex === index ? null : index)}
@@ -276,12 +276,12 @@ const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                       {item.question}
                     </h3>
                   </div>
-                  <ChevronDown className={`w-5 h-5 text-olive/40 transition-transform duration-500 ease-out-expo ${openIndex === index ? 'rotate-180 text-burgundy' : ''}`} />
+                  <ChevronDown className={`w-5 h-5 text-olive/40 transition-transform duration-300 ease-in-out ${openIndex === index ? 'rotate-180 text-burgundy' : ''}`} />
                 </button>
                 
                 <div 
-                  className={`transition-all duration-700 ease-in-out-expo px-10 md:px-[88px] overflow-hidden ${
-                    openIndex === index ? 'max-h-[500px] pb-8 md:pb-12 opacity-100' : 'max-h-0 opacity-0'
+                  className={`transition-all duration-500 ease-in-out px-10 md:px-[88px] overflow-hidden ${
+                    openIndex === index ? 'max-h-[500px] opacity-100 pb-8 md:pb-12' : 'max-h-0 opacity-0 pb-0'
                   }`}
                 >
                   <div className="pt-2 border-t border-olive/5">
