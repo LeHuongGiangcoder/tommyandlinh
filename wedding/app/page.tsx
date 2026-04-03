@@ -332,9 +332,9 @@ export default function Home() {
               {/* Inner Letter Detail */}
               <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-2 sm:pb-4 letter-content hidden will-change-transform">
                 <div className="w-[90%] h-[85%] bg-[#fdfbf7] shadow-[0_-5px_15px_rgba(0,0,0,0.06)] border border-burgundy/10 flex flex-col items-center justify-center pt-10 pb-4 text-center px-4">
-                  <span className="text-[13px] md:text-[18px] font-heading font-light tracking-[0.15em] md:tracking-[0.2em] italic text-olive/80 mb-3 block">Together, we begin</span>
+                  <span className="text-[13px] md:text-[18px] font-heading font-light tracking-[0.15em] md:tracking-[0.2em] italic text-olive/80 mb-3 block">We can't wait to see you!</span>
                   <div className="w-12 h-[1px] bg-olive/20 mb-4 mx-auto" />
-                  <span className="text-[17px] md:text-[28px] font-heading font-medium tracking-[0.25em] md:tracking-[0.3em] text-burgundy uppercase drop-shadow-sm">OUR FOREVER</span>
+                  <span className="text-[17px] md:text-[28px] font-heading font-medium tracking-[0.25em] md:tracking-[0.3em] text-burgundy uppercase drop-shadow-sm">TOMMY & LINH</span>
                 </div>
               </div>
             </div>

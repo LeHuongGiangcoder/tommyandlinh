@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://tommylinh.giangle.site"),
   title: "Tommy & Linh Wedding",
   description:
-    "Join us in celebrating our wedding with a blend of tradition, minimalism, and elegance.",
+    "We're getting married! Come celebrate our big day with us. We're so excited to have you there.",
   icons: {
     icon: "/icon.png",
     apple: "/apple-icon.png",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Tommy & Linh Wedding",
     description:
-      "Join us in celebrating our wedding with a blend of tradition, minimalism, and elegance.",
+      "We're getting married! Come celebrate our big day with us. We're so excited to have you there.",
     url: "https://tommylinh.giangle.site",
     siteName: "Tommy & Linh Wedding",
     images: [
@@ -68,10 +68,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tommy & Linh Wedding",
     description:
-      "Join us in celebrating our wedding with a blend of tradition, minimalism, and elegance.",
+      "We're getting married! Come celebrate our big day with us. We're so excited to have you there.",
     images: ["https://tommylinh.giangle.site/1.jpg"],
   },
 };
+
 
 
 
