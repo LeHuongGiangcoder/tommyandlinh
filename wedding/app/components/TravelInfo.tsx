@@ -15,7 +15,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
     
     return (
       <div 
-        className="travel-card group [perspective:1000px] cursor-pointer h-[500px] md:h-[600px] w-full"
+        className="travel-card group [perspective:1000px] cursor-pointer w-full aspect-[2/3] min-h-[400px] max-h-[700px]"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <div className={`relative w-full h-full transition-all duration-[800ms] [transform-style:preserve-3d] [will-change:transform] ${isExpanded ? '[transform:rotateY(180deg)]' : ''}`}>
@@ -85,7 +85,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
     return (
       <div 
-        className="group/trip [perspective:1000px] cursor-pointer h-[450px] md:h-[550px] w-full"
+        className="group/trip [perspective:1000px] cursor-pointer w-full aspect-[2/3] min-h-[380px] max-h-[650px]"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <div className={`relative w-full h-full transition-all duration-[800ms] [transform-style:preserve-3d] [will-change:transform] ${isExpanded ? '[transform:rotateY(180deg)]' : ''}`}>
@@ -641,7 +641,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
              </p>
           </div>
 
-          <div className="gallery-reveal grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-32 pb-24">
+          <div className="gallery-reveal grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 lg:gap-16 pb-24">
             <DestinationCard 
               id="hanoi"
               title={t.hanoi.split('—')[0]}
@@ -682,7 +682,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                    </p>
                 </div>
 
-               <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 lg:gap-16">
                   {t.dayTripList.map((trip: any, idx: number) => (
                     <DayTripCard key={idx} trip={trip} idx={idx} />
                   ))}
