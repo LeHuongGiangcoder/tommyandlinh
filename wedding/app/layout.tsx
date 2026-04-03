@@ -43,6 +43,10 @@ export const metadata: Metadata = {
   title: "Tommy & Linh Wedding",
   description:
     "Join us in celebrating our wedding with a blend of tradition, minimalism, and elegance.",
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     title: "Tommy & Linh Wedding",
     description:
@@ -68,6 +72,7 @@ export const metadata: Metadata = {
     images: ["https://tommylinh.giangle.site/1.jpg"],
   },
 };
+
 
 
 
