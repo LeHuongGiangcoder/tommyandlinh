@@ -44,14 +44,14 @@ export const metadata: Metadata = {
   description:
     "Join us in celebrating our wedding with a blend of tradition, minimalism, and elegance.",
   openGraph: {
-    title: "Tommy & Linh Wedding",
+    title: "Tommy & Linh Wedding | Neo-Vietnamese Formalism",
     description:
       "Join us in celebrating our wedding with a blend of tradition, minimalism, and elegance.",
     url: "https://tommylinh.giangle.site",
     siteName: "Tommy & Linh Wedding",
     images: [
       {
-        url: "/1.jpg",
+        url: "https://tommylinh.giangle.site/1.jpg",
         width: 1200,
         height: 800,
         alt: "Tommy & Linh Wedding Preview Image",
@@ -62,12 +62,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tommy & Linh Wedding",
+    title: "Tommy & Linh Wedding | Neo-Vietnamese Formalism",
     description:
       "Join us in celebrating our wedding with a blend of tradition, minimalism, and elegance.",
-    images: ["/1.jpg"],
+    images: ["https://tommylinh.giangle.site/1.jpg"],
   },
 };
+
 
 
 export default function RootLayout({
