@@ -35,7 +35,7 @@ const AudioPlayer: React.FC = () => {
 
     window.addEventListener("play_wedding_music", handleStartAudio);
     window.addEventListener("warmup_audio", handleWarmupAudio);
-    
+
     return () => {
       window.removeEventListener("play_wedding_music", handleStartAudio);
       window.removeEventListener("warmup_audio", handleWarmupAudio);
@@ -89,7 +89,7 @@ const AudioPlayer: React.FC = () => {
             </svg>
           )}
         </div>
-        
+
         {/* Subtle hover pulse */}
         <div className="absolute inset-0 rounded-full bg-burgundy/5 scale-0 group-hover:scale-110 transition-transform duration-700" />
       </button>
@@ -97,7 +97,7 @@ const AudioPlayer: React.FC = () => {
       {/* Hidden Audio Element */}
       <audio
         ref={audioRef}
-        src="/Norah Jones - Don't Know Why.mp4"
+        src="/Justin Bieber - Lifetime.mp4"
         loop
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
