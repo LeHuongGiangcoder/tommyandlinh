@@ -39,9 +39,36 @@ const lato = localFont({
 import AudioPlayer from "./components/AudioPlayer";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://tommylinh.giangle.site"),
   title: "Tommy & Linh Wedding | Neo-Vietnamese Formalism",
-  description: "Join us in celebrating our wedding with a blend of tradition, minimalism, and elegance.",
+  description:
+    "Join us in celebrating our wedding with a blend of tradition, minimalism, and elegance.",
+  openGraph: {
+    title: "Tommy & Linh Wedding",
+    description:
+      "Join us in celebrating our wedding with a blend of tradition, minimalism, and elegance.",
+    url: "https://tommylinh.giangle.site",
+    siteName: "Tommy & Linh Wedding",
+    images: [
+      {
+        url: "/1.jpg",
+        width: 1200,
+        height: 800,
+        alt: "Tommy & Linh Wedding Preview Image",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tommy & Linh Wedding",
+    description:
+      "Join us in celebrating our wedding with a blend of tradition, minimalism, and elegance.",
+    images: ["/1.jpg"],
+  },
 };
+
 
 export default function RootLayout({
   children,
