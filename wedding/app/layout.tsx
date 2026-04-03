@@ -40,11 +40,11 @@ import AudioPlayer from "./components/AudioPlayer";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tommylinh.giangle.site"),
-  title: "Tommy & Linh Wedding | Neo-Vietnamese Formalism",
+  title: "Tommy & Linh Wedding",
   description:
     "Join us in celebrating our wedding with a blend of tradition, minimalism, and elegance.",
   openGraph: {
-    title: "Tommy & Linh Wedding | Neo-Vietnamese Formalism",
+    title: "Tommy & Linh Wedding",
     description:
       "Join us in celebrating our wedding with a blend of tradition, minimalism, and elegance.",
     url: "https://tommylinh.giangle.site",
@@ -62,12 +62,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tommy & Linh Wedding | Neo-Vietnamese Formalism",
+    title: "Tommy & Linh Wedding",
     description:
       "Join us in celebrating our wedding with a blend of tradition, minimalism, and elegance.",
     images: ["https://tommylinh.giangle.site/1.jpg"],
   },
 };
+
 
 
 
