@@ -120,7 +120,7 @@ const Countdown = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           <TimeBlock value={timeLeft.seconds} label={t.seconds} />
         </div>
 
-        <p className="mt-16 text-[10px] md:text-xs tracking-[0.5em] uppercase text-[#d4af37] font-medium countdown-reveal">
+        <p className="mt-16 text-[10px] md:text-xs tracking-[0.5em] uppercase text-[#d4af37] font-medium text-center countdown-reveal">
           {t.subtitle}
         </p>
       </div>
