@@ -114,8 +114,8 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
               start: "top top",
               end: "+=800%",
               scrub: 1, 
-              pin: true, 
-              anticipatePin: 1
+              pin: true,
+              pinType: "fixed"
             }
           });
 
@@ -125,11 +125,11 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
             // Initialize states
             if (i > 0) {
-              gsap.set(slide, { zIndex: slides.length - i, autoAlpha: 0 });
+              gsap.set(slide, { zIndex: slides.length - i, opacity: 0, pointerEvents: "none" });
               gsap.set(content, { opacity: 0, y: 50 });
               gsap.set(images, { opacity: 0, scale: 0.9, y: 30 });
             } else {
-              gsap.set(slide, { opacity: 1, zIndex: slides.length, autoAlpha: 1 });
+              gsap.set(slide, { opacity: 1, zIndex: slides.length, pointerEvents: "auto" });
             }
 
             const readingStep = "read" + i;
@@ -165,12 +165,14 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
               const transStep = "trans" + i;
               tl.add(transStep, readingStep + "+=" + accumulatedDuration);
 
-              tl.set(nextSlide, { autoAlpha: 1, pointerEvents: "auto" }, transStep)
+              tl.set(nextSlide, { opacity: 1 }, transStep)
+                .set(nextSlide, { pointerEvents: "auto" }, transStep)
                 .to(content, { opacity: 0, y: -40, duration: 1.5 }, transStep)
                 .to(images, { opacity: 0, scale: 0.95, y: -20, duration: 1.5 }, transStep)
                 .to(nextContent, { opacity: 1, y: 0, duration: 1.5 }, transStep)
                 .to(nextImages, { opacity: 1, scale: 1, y: 0, duration: 1.5, stagger: 0.1 }, transStep)
-                .set(slide, { autoAlpha: 0, pointerEvents: "none" }, transStep + "+=1.5");
+                .set(slide, { pointerEvents: "none" }, transStep + "+=1.5")
+                .set(slide, { opacity: 0 }, transStep + "+=1.5");
             }
           });
         }
@@ -236,7 +238,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
   }, [lang]);
 
   return (
-    <section id="story" ref={sectionRef} className="relative bg-surface overflow-visible">
+    <section id="story" ref={sectionRef} className="relative bg-surface overflow-clip">
       {/* Signature Grain Overlay cho Section (Bị cuộn đi theo thông thường) */}
       <div className="absolute inset-0 opacity-[0.08] texture-grain pointer-events-none mix-blend-multiply transition-opacity duration-1000" />
       <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-multiply"
@@ -253,14 +255,14 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       </div>
 
       {/* GSAP Pin Container for Chapters - Gói trọn Background để khóa chặt */}
-      <div className="story-pin-wrapper relative w-full h-screen flex items-center justify-center overflow-hidden bg-surface">
+      <div className="story-pin-wrapper relative w-full h-[100svh] flex items-center justify-center bg-surface" style={{ WebkitTransform: "translate3d(0,0,0)", willChange: "transform" }}>
           {/* Static Backgrounds for the Pin Container to prevent sliding parity */}
           <div className="absolute inset-0 opacity-[0.08] texture-grain pointer-events-none mix-blend-multiply" />
           <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-multiply"
             style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }}
           />
           
-          <div className="container mx-auto px-6 md:px-12 relative z-10 w-full h-full">
+          <div className="container mx-auto px-0 md:px-6 relative z-10 w-full h-full">
             
             {/* Global Progress Grid Overlay */}
             <div className="absolute inset-0 w-full h-full pointer-events-none z-30 flex items-center justify-center">
@@ -278,30 +280,30 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             {chapters.map((chap, idx) => (
               <div 
                 key={chap.id} 
-                className="chapter-slide absolute inset-0 w-full h-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+                className="chapter-slide absolute inset-0 w-full h-full flex flex-col md:grid md:grid-cols-12 gap-0 md:gap-8 lg:gap-12 items-center justify-center pt-16 md:pt-0"
                 style={{ opacity: idx === 0 ? 1 : 0, pointerEvents: idx === 0 ? 'auto' : 'none' }}
               >
                 
                 {/* Left Column: Semantic Storytelling */}
-                <div className="chapter-content lg:col-span-5 h-full flex flex-col justify-center space-y-10 py-12 lg:py-0 px-6 md:px-0 lg:pl-12 z-20">
-                  <div className="flex items-center gap-6">
-                    <span className="text-5xl md:text-8xl font-heading text-olive/10 italic select-none">{chap.num}</span>
+                <div className="chapter-content w-full md:col-span-6 lg:col-span-5 h-[auto] md:h-full flex flex-col justify-center space-y-4 md:space-y-6 lg:space-y-10 px-6 md:px-0 lg:pl-12 z-20 order-2 md:order-1 mt-auto md:mt-0 pb-16 md:pb-0">
+                  <div className="flex items-center gap-4 md:gap-6">
+                    <span className="text-4xl md:text-6xl lg:text-8xl font-heading text-olive/10 italic select-none">{chap.num}</span>
                     <div className="flex-1 h-[0.5px] bg-olive/10"></div>
                   </div>
                   
-                  <div className="space-y-8">
-                    <span className="text-[10px] tracking-[0.5em] uppercase text-olive/50 font-semibold block">
+                  <div className="space-y-4 md:space-y-6 lg:space-y-8">
+                    <span className="text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.5em] uppercase text-olive/50 font-semibold block">
                       {chap.chapter}
                     </span>
-                    <h3 className="text-4xl md:text-6xl font-heading text-burgundy leading-tight">
+                    <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading text-burgundy leading-tight">
                       {chap.title}
                     </h3>
-                    <p className="text-ink/80 leading-relaxed font-normal text-lg md:text-2xl md:leading-relaxed max-w-lg">
+                    <p className="text-ink/80 leading-snug md:leading-relaxed font-normal text-[0.95rem] md:text-lg lg:text-2xl max-w-lg">
                       {chap.content}
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 pt-2 lg:pt-0">
                      <div className="w-12 h-[0.5px] bg-olive/20"></div>
                      <div className="w-1.5 h-1.5 rounded-full border border-olive/20" />
                   </div>
@@ -310,14 +312,15 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 <div className="lg:col-span-1 hidden lg:block"></div>
 
                 {/* Right Column: Layered Cinematic Gallery */}
-                <div className="chapter-images lg:col-span-6 relative h-[50vh] lg:h-full flex items-center justify-center pointer-events-none">
-                  <div className="relative w-full aspect-[4/5] flex items-center justify-center pointer-events-auto">
+                <div className="chapter-images w-full md:col-span-6 lg:col-span-6 relative h-[45vh] sm:h-[50vh] md:h-full flex items-center justify-center pointer-events-none order-1 md:order-2">
+                  <div className="relative w-full h-[90%] md:h-auto md:aspect-[4/5] flex items-center justify-center pointer-events-auto">
                     {chap.images.map((img, i) => (
                       <div 
                         key={img} 
-                        className="chapter-image-item absolute w-[70%] md:w-[65%] aspect-[3/4] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] bg-surface"
+                        className="chapter-image-item absolute h-full md:h-auto w-[auto] md:w-[75%] lg:w-[65%] aspect-[3/4] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] bg-surface"
                         style={{ 
-                          left: i === 0 ? "5%" : i === 1 ? "20%" : "35%", 
+                          // Apply dynamic calculation using calc() so CSS handles responsive offsets elegantly
+                          left: `calc(${i * 12}% + 5%)`, 
                           top: i === 0 ? "5%" : i === 1 ? "15%" : "25%",
                           zIndex: 10 + i,
                           transform: `rotate(${i === 0 ? '-2deg' : i === 1 ? '3deg' : '-1deg'})`
