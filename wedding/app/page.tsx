@@ -27,7 +27,7 @@ export default function Home() {
   const t = {
     en: {
       celebration: "The Wedding Celebration of",
-      date: "17 . 01 . 2027",
+      date: "01 . 17 . 2027",
       location: "Ha Noi • Vietnam",
       open: "Open",
       scroll: "Scroll to explore",
