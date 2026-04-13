@@ -1,0 +1,11 @@
+{
+  "name": "tommyandlinh-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix wedding",
+    "build": "npm run build --prefix wedding",
+    "start": "npm run start --prefix wedding",
+    "install-all": "npm install --prefix wedding"
+  }
+}
