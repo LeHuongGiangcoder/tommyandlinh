@@ -190,9 +190,49 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         }
       });
 
+      // Conclusion Cinematic Animation
+      const conclusionText = sectionRef.current?.querySelector('.story-conclusion-text');
+      if (conclusionText) {
+        const textSplit = new SplitType(conclusionText as HTMLElement, { types: 'lines, words' });
+        splits.push(textSplit);
+        
+        const tlConclusion = gsap.timeline({
+          scrollTrigger: {
+            trigger: conclusionText,
+            start: "top 80%",
+          }
+        });
+
+        // 1. Deco fade & expand in
+        tlConclusion.from(".story-conclusion-deco", { 
+           opacity: 0, 
+           scale: 0.5, 
+           duration: 1, 
+           ease: "power2.out" 
+        })
+        // 2. Beautiful word by word 3D unfold
+        .from(textSplit.words, {
+          y: 40,
+          opacity: 0,
+          rotateX: -50,
+          stagger: 0.08,
+          duration: 1.2,
+          ease: "back.out(1.5)"
+        }, "-=0.5")
+        // 3. Bottom line draws down
+        .from(".story-conclusion-line-inner", {
+           scaleY: 0,
+           duration: 1,
+           ease: "power2.inOut"
+        }, "-=0.8");
+      }
+
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      splits.forEach(s => s.revert());
+    };
   }, [lang]);
 
   return (
@@ -305,20 +345,20 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         </div>
 
         {/* Conclusion / Transition to next section */}
-        <div className="container mx-auto px-6 md:px-12 relative z-10 w-full">
+        <div className="container mx-auto px-6 md:px-12 relative z-10 w-full mb-20">
           <div className="min-h-screen flex flex-col items-center justify-center text-center space-y-12">
-              <div className="flex items-center justify-center gap-6 opacity-20">
-                  <div className="w-12 h-[0.5px] bg-olive"></div>
+              <div className="story-conclusion-deco flex items-center justify-center gap-6 opacity-30">
+                  <div className="w-16 h-[0.5px] bg-olive"></div>
                   <div className="w-2 h-2 rotate-45 border border-olive"></div>
-                  <div className="w-12 h-[0.5px] bg-olive"></div>
+                  <div className="w-16 h-[0.5px] bg-olive"></div>
               </div>
 
-              <p className="text-3xl md:text-5xl font-heading text-burgundy italic leading-tight max-w-4xl mx-auto drop-shadow-sm px-4">
-                 “Five years later, we celebrate where the journey brought us.”
+              <p className="story-conclusion-text text-3xl md:text-5xl lg:text-6xl font-heading text-burgundy italic leading-relaxed max-w-4xl mx-auto drop-shadow-sm px-4" style={{ perspective: "400px" }}>
+                 {lang === 'en' ? "“Five years later, we celebrate where the journey brought us.”" : "“Năm năm sau, tụi mình cùng nhìn lại và ăn mừng nơi hành trình này đã đưa hai đứa đến.”"}
               </p>
 
-              <div className="pt-8">
-                 <div className="w-[0.5px] h-24 bg-gradient-to-b from-olive/40 to-transparent mx-auto"></div>
+              <div className="pt-12 story-conclusion-line">
+                 <div className="story-conclusion-line-inner w-[0.5px] h-32 bg-gradient-to-b from-olive/60 to-transparent mx-auto origin-top"></div>
               </div>
           </div>
         </div>
