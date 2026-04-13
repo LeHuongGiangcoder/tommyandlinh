@@ -31,6 +31,7 @@ export default function Home() {
       location: "Ha Noi • Vietnam",
       open: "Open",
       scroll: "Scroll to explore",
+      hint: "Kindly open the invitation",
       toggle: "VI"
     },
     vi: {
@@ -39,6 +40,7 @@ export default function Home() {
       location: "Hà Nội • Việt Nam",
       open: "Mở",
       scroll: "Cuộn để xem tiếp",
+      hint: "Trân trọng mời mở thiệp",
       toggle: "EN"
     }
   };
@@ -163,8 +165,8 @@ export default function Home() {
       duration: 0.4
     }, 0.4);
 
-    // Fade out button
-    tl.to(".envelope-button", {
+    // Fade out button and visual hints
+    tl.to([".envelope-button", ".leaf-guide"], {
       opacity: 0,
       scale: 0.8,
       duration: 0.4,
@@ -318,16 +320,29 @@ export default function Home() {
                  </svg>
               </div>
 
-              {/* The Wax Seal Button */}
-              <button 
-                onClick={handleOpenEnvelope}
-                className="relative z-50 w-24 h-24 md:w-28 md:h-28 rounded-full bg-burgundy transition-all duration-700 flex flex-col items-center justify-center group active:scale-95 hover:scale-105 envelope-button will-change-transform"
-              >
-                <div className="absolute inset-1.5 rounded-full border border-white/20 opacity-30"></div>
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent opacity-30 pointer-events-none"></div>
-                <span className="text-[11px] md:text-xs font-heading text-surface tracking-[0.4em] uppercase mb-1 drop-shadow-lg italic">{currentT.open}</span>
-                <div className="w-6 h-[0.5px] bg-white/40" />
-              </button>
+              {/* The Wax Seal Button Assembly */}
+              <div className="relative z-50 flex flex-col items-center">
+                
+                {/* Visual Guide: (Simplified per user request: No rings, just pulsing leaf) */}
+
+                <button 
+                  onClick={handleOpenEnvelope}
+                  className="relative w-24 h-24 md:w-28 md:h-28 rounded-full bg-burgundy transition-all duration-700 flex flex-col items-center justify-center group active:scale-95 hover:scale-105 envelope-button shadow-[0_15px_35px_-5px_rgba(86,40,50,0.5)]"
+                >
+                  <div className="absolute inset-1.5 rounded-full border border-white/20 opacity-30"></div>
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent opacity-20 pointer-events-none"></div>
+                  
+                  {/* Maple Leaf Ritual Guide (Blinking/Pulsing) */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none leaf-guide animate-touch-pulse">
+                    <svg className="w-12 h-12 md:w-16 md:h-16 text-white fill-current opacity-40 translate-y-[-2px]" viewBox="0 0 512 512">
+                      <path d="M383.8 351.7c2.5-2.5 105.2-92.4 105.2-92.4l-17.5-7.5c-10-4.9-7.4-11.5-5-17.4 2.4-7.6 20.1-67.3 20.1-67.3s-47.7 10-57.7 12.5c-7.5 2.4-10-2.5-12.5-7.5s-15-32.4-15-32.4-52.6 59.9-55.1 62.3c-10 7.5-20.1 0-17.6-10 0-10 27.6-129.6 27.6-129.6s-30.1 17.4-40.1 22.4c-7.5 5-12.6 5-17.6-5C293.5 72.3 255.9 0 255.9 0s-37.5 72.3-42.5 79.8c-5 10-10 10-17.6 5-10-5-40.1-22.4-40.1-22.4S183.3 182 183.3 192c2.5 10-7.5 17.5-17.6 10-2.5-2.5-55.1-62.3-55.1-62.3S98.1 167 95.6 172s-5 9.9-12.5 7.5C73 177 25.4 167 25.4 167s17.6 59.7 20.1 67.3c2.4 6 5 12.5-5 17.4L23 259.3s102.6 89.9 105.2 92.4c5.1 5 10 7.5 5.1 22.5-5.1 15-10.1 35.1-10.1 35.1s95.2-20.1 105.3-22.6c8.7-.9 18.3 2.5 18.3 12.5S241 512 241 512h30s-5.8-102.7-5.8-112.8 9.5-13.4 18.4-12.5c10 2.5 105.2 22.6 105.2 22.6s-5-20.1-10-35.1 0-17.5 5-22.5z"/>
+                    </svg>
+                  </div>
+
+                  <span className="text-[11px] md:text-xs font-heading text-surface tracking-[0.4em] uppercase mb-1 drop-shadow-lg italic">{currentT.open}</span>
+                  <div className="w-6 h-[0.5px] bg-white/40" />
+                </button>
+              </div>
 
               {/* Inner Letter Detail */}
               <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-2 sm:pb-4 letter-content hidden will-change-transform">
