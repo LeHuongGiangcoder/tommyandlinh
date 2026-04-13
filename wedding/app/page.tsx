@@ -32,6 +32,7 @@ export default function Home() {
       open: "Open",
       scroll: "Scroll to explore",
       hint: "Kindly open the invitation",
+      visaGuide: "Visa guide",
       toggle: "VI"
     },
     vi: {
@@ -41,6 +42,7 @@ export default function Home() {
       open: "Mở",
       scroll: "Cuộn để xem tiếp",
       hint: "Trân trọng mời mở thiệp",
+      visaGuide: "Hướng dẫn Visa",
       toggle: "EN"
     }
   };
@@ -441,9 +443,9 @@ export default function Home() {
             </p>
           </div>
 
-          <a href="#rsvp" className="fade-up opacity-0 mt-8 mb-20 md:mb-0 ml-4 md:ml-6 inline-block">
+          <a href="#travel" className="fade-up opacity-0 mt-8 mb-20 md:mb-0 ml-4 md:ml-6 inline-block">
             <button className="px-10 md:px-12 py-4 md:py-5 bg-white/10 backdrop-blur-[2px] text-burgundy hover:bg-burgundy hover:text-surface transition-all duration-700 tracking-[0.3em] uppercase text-[11px] md:text-xs font-medium border border-burgundy/60 shadow-sm rounded-none">
-              RSVP
+              {currentT.visaGuide}
             </button>
           </a>
         </div>
