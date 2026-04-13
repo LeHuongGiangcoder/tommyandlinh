@@ -13,7 +13,7 @@ const Navbar: React.FC<{ lang: 'en' | 'vi', setLang: (l: 'en' | 'vi') => void }>
       { name: 'Our story', href: '#story' },
       { name: 'Wedding details', href: '#details' },
       { name: 'Gallery', href: '#gallery' },
-      { name: 'RSVP', href: '#rsvp' },
+      /* { name: 'RSVP', href: '#rsvp' }, */
       { name: 'Visa & Flight', href: '#travel' },
       { name: 'FAQ', href: '#faq' },
       { name: 'Contact', href: '#contact' },
@@ -23,7 +23,7 @@ const Navbar: React.FC<{ lang: 'en' | 'vi', setLang: (l: 'en' | 'vi') => void }>
       { name: 'Câu chuyện', href: '#story' },
       { name: 'Sự kiện', href: '#details' },
       { name: 'Bộ sưu tập', href: '#gallery' },
-      { name: 'RSVP', href: '#rsvp' },
+      /* { name: 'RSVP', href: '#rsvp' }, */
       { name: 'Thị thực & Di chuyển', href: '#travel' },
       { name: 'FAQ', href: '#faq' },
       { name: 'Liên hệ', href: '#contact' },

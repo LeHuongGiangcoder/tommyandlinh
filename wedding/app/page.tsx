@@ -479,7 +479,7 @@ export default function Home() {
         <>
           <OurStory key={`story-${lang}`} lang={lang} />
           <TravelInfo key={`travel-${lang}`} lang={lang} />
-          <RSVP key={`rsvp-${lang}`} lang={lang} />
+          {/* <RSVP key={`rsvp-${lang}`} lang={lang} /> */}
           <FAQ key={`faq-${lang}`} lang={lang} />
           <ThankYou key={`thank-${lang}`} lang={lang} />
         </>
