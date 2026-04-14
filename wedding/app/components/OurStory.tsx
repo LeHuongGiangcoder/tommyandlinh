@@ -209,7 +209,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             const tl = gsap.timeline({
                scrollTrigger: {
                  trigger: slide, // Pin the ENTIRE slide so text & images freeze together properly!
-                 start: "center center", // Lock precisely when the slide centers in viewport
+                 start: "top top", // 'top top' handles mobile Safari dynamic address bar bounds better
                  end: `+=${scrollDistance}`,
                  pin: true,
                  scrub: 1,
@@ -335,29 +335,29 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             {chapters.map((chap, idx) => (
               <div 
                 key={chap.id} 
-                className="chapter-slide relative md:absolute md:inset-0 w-full h-auto md:h-full flex flex-col md:grid md:grid-cols-12 gap-6 md:gap-8 lg:gap-12 items-center justify-center py-16 md:py-0"
+                className="chapter-slide relative md:absolute md:inset-0 w-full min-h-[100svh] md:h-full flex flex-col md:grid md:grid-cols-12 gap-2 md:gap-8 lg:gap-12 items-center justify-center py-6 md:py-0"
               >
                 
                 {/* Left Column: Semantic Storytelling */}
-                <div className="chapter-content w-full md:col-span-6 lg:col-span-5 flex flex-col justify-center space-y-4 md:space-y-6 lg:space-y-10 px-6 md:px-0 lg:pl-12 z-20 order-1 md:order-1 pt-4 md:pt-0">
+                <div className="chapter-content w-full md:col-span-6 lg:col-span-5 flex flex-col justify-center space-y-3 md:space-y-6 lg:space-y-10 px-6 md:px-0 lg:pl-12 z-20 order-1 md:order-1 pt-0 md:pt-0">
                   <div className="flex items-center gap-4 md:gap-6">
-                    <span className="text-4xl md:text-6xl lg:text-8xl font-heading text-olive/10 italic select-none">{chap.num}</span>
+                    <span className="text-[2rem] md:text-6xl lg:text-8xl font-heading text-olive/10 italic select-none leading-none">{chap.num}</span>
                     <div className="flex-1 h-[0.5px] bg-olive/10"></div>
                   </div>
                   
-                  <div className="space-y-4 md:space-y-6 lg:space-y-8">
+                  <div className="space-y-3 md:space-y-6 lg:space-y-8">
                     <span className="text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.5em] uppercase text-olive/50 font-semibold block">
                       {chap.chapter}
                     </span>
-                    <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading text-burgundy leading-tight">
+                    <h3 className="text-[1.75rem] sm:text-4xl md:text-5xl lg:text-6xl font-heading text-burgundy leading-tight">
                       {chap.title}
                     </h3>
-                    <p className="text-ink/80 leading-relaxed font-normal text-[0.95rem] md:text-lg lg:text-2xl max-w-lg">
+                    <p className="text-ink/80 leading-relaxed font-normal text-[0.875rem] md:text-lg lg:text-2xl max-w-lg">
                       {chap.content}
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-4 pt-2 lg:pt-0">
+                  <div className="flex items-center gap-4 pt-1 lg:pt-0 hidden md:flex">
                      <div className="w-12 h-[0.5px] bg-olive/20"></div>
                      <div className="w-1.5 h-1.5 rounded-full border border-olive/20" />
                   </div>
@@ -366,8 +366,8 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 <div className="lg:col-span-1 hidden lg:block"></div>
 
                 {/* Right Column: Layered Cinematic Gallery */}
-                <div className="chapter-images w-full md:col-span-6 lg:col-span-6 relative flex items-center justify-center pointer-events-none order-2 md:order-2 mt-6 md:mt-0 px-4 md:px-0">
-                  <div className="chapter-images-wrapper relative w-[85%] md:w-full aspect-[4/5] block items-center justify-center pointer-events-auto mx-auto max-w-[360px] md:max-w-none">
+                <div className="chapter-images w-full md:col-span-6 lg:col-span-6 relative flex items-center justify-center pointer-events-none order-2 md:order-2 mt-4 md:mt-0 px-4 md:px-0">
+                  <div className="chapter-images-wrapper relative h-[40svh] sm:h-[45svh] md:h-auto md:w-full aspect-[4/5] block items-center justify-center pointer-events-auto mx-auto max-w-full md:max-w-none">
                     {chap.images.map((img, i) => (
                       <div 
                         key={img} 
