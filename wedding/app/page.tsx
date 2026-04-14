@@ -8,7 +8,7 @@ import Countdown from "./components/Countdown";
 import OurStory from "./components/OurStory";
 import TravelInfo from "./components/TravelInfo";
 import FAQ from "./components/FAQ";
-import RSVP from "./components/RSVP";
+
 import Navbar from "./components/Navbar";
 import SnowEffect from "./components/SnowEffect";
 import ThankYou from "./components/ThankYou";
@@ -56,10 +56,10 @@ export default function Home() {
     if (!isStarted) return;
     // Real Camera Shutter Sound (Tách)
     const playShutterSound = () => {
-      // @ts-ignore
+      // @ts-expect-error - Global window object augmentation for shutter sound
       const audio = window._shutter;
       if (audio) {
-        audio.play().catch((err: any) => {
+        audio.play().catch((err: unknown) => {
           console.warn("Shutter sound blocked by browser:", err);
         });
       }
@@ -138,7 +138,7 @@ export default function Home() {
     // iOS blocks any audio not started by a direct user action.
     const shutter = new Audio(encodeURI("/camera shutter.mp4"));
     shutter.load(); // Pre-load
-    // @ts-ignore
+    // @ts-expect-error - Adding shutter to global window object
     window._shutter = shutter;
 
     // Dispatch a "pre-warm" event for the music player too
@@ -349,7 +349,7 @@ export default function Home() {
               {/* Inner Letter Detail */}
               <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-2 sm:pb-4 letter-content hidden will-change-transform">
                 <div className="w-[90%] h-[85%] bg-[#fdfbf7] shadow-[0_-5px_15px_rgba(0,0,0,0.06)] border border-burgundy/10 flex flex-col items-center justify-center pt-10 pb-4 text-center px-4">
-                  <span className="text-[13px] md:text-[18px] font-heading font-light tracking-[0.15em] md:tracking-[0.2em] italic text-olive/80 mb-3 block">We can't wait to see you!</span>
+                  <span className="text-[13px] md:text-[18px] font-heading font-light tracking-[0.15em] md:tracking-[0.2em] italic text-olive/80 mb-3 block">We can&apos;t wait to see you!</span>
                   <div className="w-12 h-[1px] bg-olive/20 mb-4 mx-auto" />
                   <span className="text-[17px] md:text-[28px] font-heading font-medium tracking-[0.25em] md:tracking-[0.3em] text-burgundy uppercase drop-shadow-sm">TOMMY & LINH</span>
                 </div>

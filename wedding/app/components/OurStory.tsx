@@ -10,8 +10,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
   const sectionRef = useRef<HTMLElement>(null);
-  const meetingTextRef = useRef<HTMLDivElement>(null);
-  const proposalTextRef = useRef<HTMLDivElement>(null);
 
   const t = {
     en: {
@@ -68,7 +66,10 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
   ];
 
   useEffect(() => {
-    let splits: SplitType[] = [];
+    // Prevent layout thrashing on mobile browsers when address bar hides/shows
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
+    const splits: SplitType[] = [];
 
     const ctx = gsap.context(() => {
       
@@ -186,7 +187,6 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
         slides.forEach((slide) => {
           const content = slide.querySelector('.chapter-content');
-          const imageWrapper = slide.querySelector('.chapter-images-wrapper');
           const images = gsap.utils.toArray(slide.querySelectorAll('.chapter-image-item')) as HTMLElement[];
 
           // Guarantee visibility locally to prevent FOUC side-effects
@@ -213,7 +213,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                  end: `+=${scrollDistance}`,
                  pin: true,
                  anticipatePin: 1, 
-                 // Removed pinType: "fixed" to fix Chrome Mobile overlap and scrolling lag
+                 pinType: "fixed", // Restored pinType fixed because overlap persists
                  scrub: 1,
                }
             });

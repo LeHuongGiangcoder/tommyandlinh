@@ -82,7 +82,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
   };
 
   // Interaction Component for Day Trips (3D Flip Journal)
-  const DayTripCard = ({ trip, idx }: { trip: any; idx: number }) => {
+  const DayTripCard = ({ trip, idx }: { trip: { src: string; name: string; desc: string; }; idx: number }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (
@@ -543,7 +543,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                   <div className="pt-10 border-t border-olive/10">
                     <h4 className="text-[11px] tracking-[0.5em] uppercase text-olive font-bold mb-10">{t.priceRange}</h4>
                     <div className="grid grid-cols-3 gap-8">
-                      {t.prices && t.prices.map((p: any, i: number) => (
+                      {t.prices && t.prices.map((p: { label: string; value: string }, i: number) => (
                         <div key={i} className="space-y-3">
                           <p className="text-[12px] text-olive/80 uppercase tracking-widest leading-none font-semibold">{p.label}</p>
                           <p className="text-2xl font-heading text-burgundy italic leading-none">{p.value}</p>
@@ -685,7 +685,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 lg:gap-16">
-                {t.dayTripList.map((trip: any, idx: number) => (
+                {t.dayTripList.map((trip: { src: string; name: string; desc: string; }, idx: number) => (
                   <DayTripCard key={idx} trip={trip} idx={idx} />
                 ))}
               </div>
@@ -701,7 +701,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 <div className="w-1 h-1 rounded-full bg-burgundy"></div>
               </div>
               <p className="text-burgundy/80 italic font-heading text-lg md:text-xl leading-relaxed px-4 md:px-8">
-                "{t.rsvpTravel}"
+                &quot;{t.rsvpTravel}&quot;
               </p>
               <div className="pt-2">
                 <div className="w-[0.5px] h-8 bg-gradient-to-b from-burgundy/20 to-transparent mx-auto"></div>

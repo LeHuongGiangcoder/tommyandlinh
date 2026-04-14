@@ -66,7 +66,7 @@ const ThankYou = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
            <div className="w-1.5 h-1.5 rounded-full bg-[#d4af37] mb-12 shadow-[0_0_10px_#d4af37]" />
            
            <h2 className="text-3xl md:text-5xl lg:text-6xl font-heading text-surface italic leading-tight max-w-4xl mb-16 drop-shadow-lg">
-             "{t.message}"
+             &quot;{t.message}&quot;
            </h2>
 
            <div className="space-y-6">

@@ -7,11 +7,7 @@ import { ChevronDown, HelpCircle, Info, MapPin, Wind, Briefcase, CreditCard, Pla
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface FAQItem {
-  question: string;
-  answer: string;
-  icon?: React.ReactNode;
-}
+
 
 const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
   const sectionRef = useRef<HTMLElement>(null);
