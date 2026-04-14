@@ -208,12 +208,12 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
             const tl = gsap.timeline({
                scrollTrigger: {
-                 trigger: slide, // Pin the ENTIRE slide so text & images freeze together properly!
-                 start: "top top", // 'top top' handles mobile Safari dynamic address bar bounds better
+                 trigger: slide, 
+                 start: "top top",
                  end: `+=${scrollDistance}`,
                  pin: true,
-                 anticipatePin: 1, // Smooths out initialization jumps
-                 pinType: "fixed", // Enforces strict screen locking without transform jumps
+                 anticipatePin: 1, 
+                 // Removed pinType: "fixed" to fix Chrome Mobile overlap and scrolling lag
                  scrub: 1,
                }
             });
@@ -337,7 +337,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             {chapters.map((chap, idx) => (
               <div 
                 key={chap.id} 
-                className="chapter-slide relative md:absolute md:inset-0 w-full min-h-[100svh] md:h-full flex flex-col md:grid md:grid-cols-12 gap-2 md:gap-8 lg:gap-12 items-center justify-center py-6 md:py-0"
+                className="chapter-slide relative md:absolute md:inset-0 w-full min-h-[100svh] md:h-full flex flex-col md:grid md:grid-cols-12 gap-4 md:gap-8 lg:gap-12 items-center justify-center pt-8 pb-20 md:py-0 overflow-hidden md:overflow-visible"
               >
                 
                 {/* Left Column: Semantic Storytelling */}
@@ -369,14 +369,14 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
                 {/* Right Column: Layered Cinematic Gallery */}
                 <div className="chapter-images w-full md:col-span-6 lg:col-span-6 relative flex items-center justify-center pointer-events-none order-2 md:order-2 mt-4 md:mt-0 px-0 md:px-0">
-                  <div className="chapter-images-wrapper relative w-[88%] sm:w-[80%] md:w-full aspect-[4/5] max-h-[50svh] md:max-h-none block items-center justify-center pointer-events-auto mx-auto max-w-[420px] md:max-w-none">
+                  <div className="chapter-images-wrapper relative w-[80%] sm:w-[75%] md:w-full aspect-[4/5] max-h-[40svh] md:max-h-none block items-center justify-center pointer-events-auto mx-auto max-w-[360px] md:max-w-none">
                     {chap.images.map((img, i) => (
                       <div 
                         key={img} 
-                        className={`chapter-image-item absolute w-[82%] sm:w-[80%] md:w-[75%] lg:w-[65%] aspect-[3/4] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] bg-surface ${
-                          i === 0 ? '-rotate-2 left-[2%] md:left-[5%] top-[2%] md:top-[5%]' : 
-                          i === 1 ? 'rotate-3 left-[8%] md:left-[17%] top-[8%] md:top-[15%]' : 
-                          '-rotate-1 left-[14%] md:left-[29%] top-[14%] md:top-[25%]'
+                        className={`chapter-image-item absolute w-[80%] sm:w-[80%] md:w-[75%] lg:w-[65%] aspect-[3/4] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] bg-surface ${
+                          i === 0 ? '-rotate-2 left-[4%] md:left-[5%] top-[4%] md:top-[5%]' : 
+                          i === 1 ? 'rotate-3 left-[10%] md:left-[17%] top-[10%] md:top-[15%]' : 
+                          '-rotate-1 left-[16%] md:left-[29%] top-[16%] md:top-[25%]'
                         }`}
                         style={{ zIndex: 10 + i }}
                       >
