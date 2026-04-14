@@ -71,8 +71,6 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
     let splits: SplitType[] = [];
 
     const ctx = gsap.context(() => {
-      // Main Pinning Logic
-      const sections = gsap.utils.toArray(".chapter-section");
       
       // Reveal Title initially
       gsap.from(".story-header-reveal", {
@@ -86,97 +84,157 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         }
       });
 
-      // Sticky Story Scroll Logic (Elyse Residence Style)
+      // Sticky Story Scroll Logic Settings
       const pinWrapper = sectionRef.current?.querySelector('.story-pin-wrapper');
       const slides = gsap.utils.toArray('.chapter-slide') as HTMLElement[];
       
-      if (pinWrapper) {
-        // Reset transform origin and initial scale safely
-        gsap.set('.story-progress-fill', { transformOrigin: 'top center', scaleY: 0 });
+      const mm = gsap.matchMedia();
 
-        // 1. Global Progress Line Animation
-        gsap.to('.story-progress-fill', {
-          scaleY: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: pinWrapper,
-            start: "top top",
-            end: "+=800%", 
-            scrub: 1,
-          }
-        });
+      // DESKTOP: Complex pinned cross-fade
+      mm.add("(min-width: 768px)", () => {
+        if (pinWrapper) {
+          gsap.set('.story-progress-fill', { transformOrigin: 'top center', scaleY: 0 });
 
-        // 2. Cross-fade Chapter Animation & Image Reveal
-        if (slides.length > 0) {
-          const tl = gsap.timeline({
+          gsap.to('.story-progress-fill', {
+            scaleY: 1,
+            ease: "none",
             scrollTrigger: {
               trigger: pinWrapper,
               start: "top top",
-              end: "+=800%",
-              scrub: 1, 
-              pin: true,
-              pinType: "fixed"
+              end: "+=800%", 
+              scrub: 1,
             }
           });
 
-          slides.forEach((slide, i) => {
-            const content = slide.querySelector('.chapter-content');
-            const images = gsap.utils.toArray(slide.querySelectorAll('.chapter-image-item')) as HTMLElement[];
+          if (slides.length > 0) {
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: pinWrapper,
+                start: "top top",
+                end: "+=800%",
+                scrub: 1, 
+                pin: true,
+                pinType: "fixed"
+              }
+            });
 
-            // Initialize states
-            if (i > 0) {
-              gsap.set(slide, { zIndex: slides.length - i, opacity: 0, pointerEvents: "none" });
-              gsap.set(content, { opacity: 0, y: 50 });
-              gsap.set(images, { opacity: 0, scale: 0.9, y: 30 });
-            } else {
-              gsap.set(slide, { opacity: 1, zIndex: slides.length, pointerEvents: "auto" });
-            }
+            slides.forEach((slide, i) => {
+              const content = slide.querySelector('.chapter-content');
+              const images = gsap.utils.toArray(slide.querySelectorAll('.chapter-image-item')) as HTMLElement[];
 
-            const readingStep = "read" + i;
-            tl.add(readingStep);
+              // Initialize states for desktop
+              if (i > 0) {
+                gsap.set(slide, { zIndex: slides.length - i, opacity: 0, pointerEvents: "none" });
+                gsap.set(content, { opacity: 0, y: 50 });
+                gsap.set(images, { opacity: 0, scale: 0.9, y: 30 });
+              } else {
+                gsap.set(slide, { opacity: 1, zIndex: slides.length, pointerEvents: "auto" });
+                gsap.set(images, { opacity: 1, scale: 1, y: 0 }); // ensure first images are visible
+              }
 
-            // Phase 1: Scroll to Read & Discard Top Images 
-            let accumulatedDuration = 0;
-            // Loop from the top image down, leaving the bottom-most image (j=0)
-            for (let j = images.length - 1; j > 0; j--) {
-               const img = images[j];
-               tl.to(img, { 
-                   xPercent: 120, // Slide out to the right
-                   yPercent: 20, 
-                   rotation: (j % 2 === 0 ? 15 : -15),
-                   opacity: 0, 
-                   scale: 1.2, 
-                   duration: 1.5, 
-                   ease: "power2.inOut" 
-               }, readingStep + "+=" + accumulatedDuration);
-               accumulatedDuration += 1.5;
-            }
-            
-            // Give the last image a pause to be admired
-            tl.to({}, { duration: 1 }, readingStep + "+=" + accumulatedDuration);
-            accumulatedDuration += 1;
+              const readingStep = "read" + i;
+              tl.add(readingStep);
 
-            // Phase 2: Slide Transition
-            if (i < slides.length - 1) {
-              const nextSlide = slides[i + 1];
-              const nextContent = nextSlide.querySelector('.chapter-content');
-              const nextImages = nextSlide.querySelectorAll('.chapter-image-item');
+              // Phase 1: Scroll to Read & Discard Top Images 
+              let accumulatedDuration = 0;
+              for (let j = images.length - 1; j > 0; j--) {
+                 const img = images[j];
+                 tl.to(img, { 
+                     xPercent: 120, // Slide out to the right
+                     yPercent: 20, 
+                     rotation: (j % 2 === 0 ? 15 : -15),
+                     opacity: 0, 
+                     scale: 1.2, 
+                     duration: 1.5, 
+                     ease: "power2.inOut" 
+                 }, readingStep + "+=" + accumulatedDuration);
+                 accumulatedDuration += 1.5;
+              }
               
-              const transStep = "trans" + i;
-              tl.add(transStep, readingStep + "+=" + accumulatedDuration);
+              tl.to({}, { duration: 1 }, readingStep + "+=" + accumulatedDuration);
+              accumulatedDuration += 1;
 
-              tl.set(nextSlide, { opacity: 1 }, transStep)
-                .set(nextSlide, { pointerEvents: "auto" }, transStep)
-                .to(content, { opacity: 0, y: -40, duration: 1.5 }, transStep)
-                .to(images, { opacity: 0, scale: 0.95, y: -20, duration: 1.5 }, transStep)
-                .to(nextContent, { opacity: 1, y: 0, duration: 1.5 }, transStep)
-                .to(nextImages, { opacity: 1, scale: 1, y: 0, duration: 1.5, stagger: 0.1 }, transStep)
-                .set(slide, { pointerEvents: "none" }, transStep + "+=1.5")
-                .set(slide, { opacity: 0 }, transStep + "+=1.5");
-            }
-          });
+              // Phase 2: Slide Transition
+              if (i < slides.length - 1) {
+                const nextSlide = slides[i + 1];
+                const nextContent = nextSlide.querySelector('.chapter-content');
+                const nextImages = nextSlide.querySelectorAll('.chapter-image-item');
+                
+                const transStep = "trans" + i;
+                tl.add(transStep, readingStep + "+=" + accumulatedDuration);
+
+                tl.set(nextSlide, { opacity: 1 }, transStep)
+                  .set(nextSlide, { pointerEvents: "auto" }, transStep)
+                  .to(content, { opacity: 0, y: -40, duration: 1.5 }, transStep)
+                  .to(images, { opacity: 0, scale: 0.95, y: -20, duration: 1.5 }, transStep)
+                  .to(nextContent, { opacity: 1, y: 0, duration: 1.5 }, transStep)
+                  .to(nextImages, { opacity: 1, scale: 1, y: 0, duration: 1.5, stagger: 0.1 }, transStep)
+                  .set(slide, { pointerEvents: "none" }, transStep + "+=1.5")
+                  .set(slide, { opacity: 0 }, transStep + "+=1.5");
+              }
+            });
+          }
         }
-      }
+      });
+
+      // MOBILE: Pinned stack image reveals 
+      mm.add("(max-width: 767px)", () => {
+        // Clear desktop state
+        gsap.set(slides, { clearProps: "all" });
+        gsap.set('.chapter-content', { clearProps: "all" });
+        gsap.set('.chapter-image-item', { clearProps: "all" });
+
+        slides.forEach((slide) => {
+          const content = slide.querySelector('.chapter-content');
+          const imageWrapper = slide.querySelector('.chapter-images-wrapper');
+          const images = gsap.utils.toArray(slide.querySelectorAll('.chapter-image-item')) as HTMLElement[];
+
+          // Guarantee visibility locally to prevent FOUC side-effects
+          gsap.set(content, { opacity: 1, y: 0 });
+
+          // Frame-level Pinned Scrolling Image reveal stack
+          if (images.length > 0) {
+            // Initial setup: ensure all are visible
+            images.forEach((img) => {
+                gsap.set(img, { opacity: 1, scale: 1, xPercent: 0, yPercent: 0, rotation: 0 });
+            });
+            // Re-apply correct initial rotations manually for GSAP consistency
+            gsap.set(images[0], { rotation: -2 });
+            if(images[1]) gsap.set(images[1], { rotation: 3 });
+            if(images[2]) gsap.set(images[2], { rotation: -1 });
+
+            // Need enough distance so user can comfortably scroll through the cards
+            const scrollDistance = Math.max(1, images.length - 1) * window.innerHeight * 0.8;
+
+            const tl = gsap.timeline({
+               scrollTrigger: {
+                 trigger: slide, // Pin the ENTIRE slide so text & images freeze together properly!
+                 start: "top top", // Lock precisely when the slide hits top viewport
+                 end: `+=${scrollDistance}`,
+                 pin: true,
+                 scrub: 1,
+               }
+            });
+
+            let accumulated = 0;
+            // Slide out top images, revealing the bottom ones smoothly
+            for (let j = images.length - 1; j > 0; j--) {
+                 tl.to(images[j], {
+                   xPercent: 120, // Slide right
+                   yPercent: 20, // And slightly down
+                   rotation: j % 2 === 0 ? 15 : -15,
+                   opacity: 0, // Fade out softly
+                   scale: 1.05,
+                   duration: 1,
+                   ease: "power2.inOut"
+                 }, accumulated);
+                 accumulated += 1.2; 
+            }
+            // Add a small pause at the end to hold the final image perfectly
+            tl.to({}, { duration: 0.5 });
+          }
+        });
+      });
 
       // Background floral parallax
       gsap.to(".floral-bg", {
@@ -205,14 +263,12 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           }
         });
 
-        // 1. Deco fade & expand in
         tlConclusion.from(".story-conclusion-deco", { 
            opacity: 0, 
            scale: 0.5, 
            duration: 1, 
            ease: "power2.out" 
         })
-        // 2. Beautiful word by word 3D unfold
         .from(textSplit.words, {
           y: 40,
           opacity: 0,
@@ -221,7 +277,6 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           duration: 1.2,
           ease: "back.out(1.5)"
         }, "-=0.5")
-        // 3. Bottom line draws down
         .from(".story-conclusion-line-inner", {
            scaleY: 0,
            duration: 1,
@@ -255,17 +310,17 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       </div>
 
       {/* GSAP Pin Container for Chapters - Gói trọn Background để khóa chặt */}
-      <div className="story-pin-wrapper relative w-full h-[100svh] flex items-center justify-center bg-surface" style={{ WebkitTransform: "translate3d(0,0,0)", willChange: "transform" }}>
+      <div className="story-pin-wrapper relative w-full h-auto md:h-[100svh] block md:flex md:flex-row md:items-center md:justify-center bg-surface">
           {/* Static Backgrounds for the Pin Container to prevent sliding parity */}
-          <div className="absolute inset-0 opacity-[0.08] texture-grain pointer-events-none mix-blend-multiply" />
-          <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-multiply"
+          <div className="absolute inset-0 opacity-[0.08] texture-grain pointer-events-none mix-blend-multiply md:block hidden" />
+          <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-multiply md:block hidden"
             style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }}
           />
           
           <div className="container mx-auto px-0 md:px-6 relative z-10 w-full h-full">
             
             {/* Global Progress Grid Overlay */}
-            <div className="absolute inset-0 w-full h-full pointer-events-none z-30 flex items-center justify-center">
+            <div className="absolute inset-0 w-full h-full pointer-events-none z-30 hidden md:flex items-center justify-center">
                <div className="container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 h-full">
                   <div className="lg:col-span-5 h-full relative">
                      <div className="absolute left-0 top-1/2 -translate-y-1/2 h-[40vh] w-[1px] bg-olive/20 hidden lg:block overflow-hidden">
@@ -280,12 +335,11 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             {chapters.map((chap, idx) => (
               <div 
                 key={chap.id} 
-                className="chapter-slide absolute inset-0 w-full h-full flex flex-col md:grid md:grid-cols-12 gap-0 md:gap-8 lg:gap-12 items-center justify-center pt-16 md:pt-0"
-                style={{ opacity: idx === 0 ? 1 : 0, pointerEvents: idx === 0 ? 'auto' : 'none' }}
+                className="chapter-slide relative md:absolute md:inset-0 w-full min-h-[100svh] md:h-full flex flex-col md:grid md:grid-cols-12 gap-8 md:gap-8 lg:gap-12 items-center justify-center py-12 md:p-0"
               >
                 
                 {/* Left Column: Semantic Storytelling */}
-                <div className="chapter-content w-full md:col-span-6 lg:col-span-5 h-[auto] md:h-full flex flex-col justify-center space-y-4 md:space-y-6 lg:space-y-10 px-6 md:px-0 lg:pl-12 z-20 order-2 md:order-1 mt-auto md:mt-0 pb-16 md:pb-0">
+                <div className="chapter-content w-full md:col-span-6 lg:col-span-5 flex flex-col justify-center space-y-4 md:space-y-6 lg:space-y-10 px-6 md:px-0 lg:pl-12 z-20 order-1 md:order-1 mt-auto md:mt-0 pt-16 md:pt-0">
                   <div className="flex items-center gap-4 md:gap-6">
                     <span className="text-4xl md:text-6xl lg:text-8xl font-heading text-olive/10 italic select-none">{chap.num}</span>
                     <div className="flex-1 h-[0.5px] bg-olive/10"></div>
@@ -298,7 +352,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                     <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading text-burgundy leading-tight">
                       {chap.title}
                     </h3>
-                    <p className="text-ink/80 leading-snug md:leading-relaxed font-normal text-[0.95rem] md:text-lg lg:text-2xl max-w-lg">
+                    <p className="text-ink/80 leading-relaxed font-normal text-[0.95rem] md:text-lg lg:text-2xl max-w-lg">
                       {chap.content}
                     </p>
                   </div>
@@ -312,19 +366,17 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 <div className="lg:col-span-1 hidden lg:block"></div>
 
                 {/* Right Column: Layered Cinematic Gallery */}
-                <div className="chapter-images w-full md:col-span-6 lg:col-span-6 relative h-[45vh] sm:h-[50vh] md:h-full flex items-center justify-center pointer-events-none order-1 md:order-2">
-                  <div className="relative w-full h-[90%] md:h-auto md:aspect-[4/5] flex items-center justify-center pointer-events-auto">
+                <div className="chapter-images w-full md:col-span-6 lg:col-span-6 relative flex items-center justify-center pointer-events-none order-2 md:order-2 mt-6 mb-auto md:mt-0 md:mb-0 px-4 md:px-0">
+                  <div className="chapter-images-wrapper relative w-[85%] md:w-full aspect-[4/5] block items-center justify-center pointer-events-auto mx-auto max-w-[360px] md:max-w-none">
                     {chap.images.map((img, i) => (
                       <div 
                         key={img} 
-                        className="chapter-image-item absolute h-full md:h-auto w-[auto] md:w-[75%] lg:w-[65%] aspect-[3/4] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] bg-surface"
-                        style={{ 
-                          // Apply dynamic calculation using calc() so CSS handles responsive offsets elegantly
-                          left: `calc(${i * 12}% + 5%)`, 
-                          top: i === 0 ? "5%" : i === 1 ? "15%" : "25%",
-                          zIndex: 10 + i,
-                          transform: `rotate(${i === 0 ? '-2deg' : i === 1 ? '3deg' : '-1deg'})`
-                        }}
+                        className={`chapter-image-item absolute w-[65%] sm:w-[70%] md:w-[75%] lg:w-[65%] aspect-[3/4] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] bg-surface ${
+                          i === 0 ? '-rotate-2 left-[5%] top-[5%] md:top-[5%]' : 
+                          i === 1 ? 'rotate-3 left-[15%] md:left-[17%] top-[10%] md:top-[15%]' : 
+                          '-rotate-1 left-[25%] md:left-[29%] top-[15%] md:top-[25%]'
+                        }`}
+                        style={{ zIndex: 10 + i }}
                       >
                         <Image 
                           src={img} 
