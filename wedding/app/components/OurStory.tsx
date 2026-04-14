@@ -261,7 +261,9 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         const tlConclusion = gsap.timeline({
           scrollTrigger: {
             trigger: conclusionText,
-            start: "top 80%",
+            start: "top 95%",
+            end: "bottom 70%",
+            scrub: 1,
           }
         });
 

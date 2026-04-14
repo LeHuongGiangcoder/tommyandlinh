@@ -73,6 +73,11 @@ const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           icon: <Pill className="w-5 h-5" />
         },
         {
+          question: "what immunizations do i need for vietnam?",
+          answer: "For travel to Vietnam, the CDC and WHO recommend vaccinations for Hepatitis A, Typhoid, and Japanese Encephalitis (especially for rural stays or long trips). Ensure routine vaccines (MMR, Tdap) are up to date, and consider Hepatitis B, Rabies, and COVID-19 vaccinations.",
+          icon: <Pill className="w-5 h-5" />
+        },
+        {
           question: "Are there mosquitoes?",
           answer: "Yes—bring bug spray or wipes, especially for evenings.",
           icon: <Bug className="w-5 h-5" />
