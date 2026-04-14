@@ -180,10 +180,10 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
       // MOBILE: Pinned stack image reveals 
       mm.add("(max-width: 767px)", () => {
-        // Clear desktop state
-        gsap.set(slides, { clearProps: "all" });
-        gsap.set('.chapter-content', { clearProps: "all" });
-        gsap.set('.chapter-image-item', { clearProps: "all" });
+        // Preserve inline React styles like zIndex, but clear GSAP-specific opacity/transform
+        gsap.set(slides, { clearProps: "opacity,transform,pointerEvents" });
+        gsap.set('.chapter-content', { clearProps: "opacity,transform,y" });
+        gsap.set('.chapter-image-item', { clearProps: "opacity,transform,scale,y,x" });
 
         slides.forEach((slide) => {
           const content = slide.querySelector('.chapter-content');
@@ -210,15 +210,15 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                  start: "top top",
                  end: "bottom bottom",
                  pin: false,
-                 scrub: true,
+                 scrub: 1,
                }
             });
 
             let accumulated = 0;
             
-            // Hold the first frame for a moment so the user can read the chapter text!
-            tl.to({}, { duration: 1.5 });
-            accumulated += 1.5;
+            // Short hold so the user begins reading text before image slides away
+            tl.to({}, { duration: 0.5 });
+            accumulated += 0.5;
 
             // Slide out top images, revealing the bottom ones smoothly
             for (let j = images.length - 1; j > 0; j--) {
@@ -340,7 +340,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             {chapters.map((chap, idx) => (
               <div 
                 key={chap.id} 
-                className="chapter-slide relative md:absolute md:inset-0 w-full h-[275svh] md:h-full block md:grid md:grid-cols-12 md:items-center md:justify-center p-0 md:py-0 overflow-clip md:overflow-visible"
+                className="chapter-slide relative md:absolute md:inset-0 w-full h-[150vh] md:h-full block md:grid md:grid-cols-12 md:items-center md:justify-center p-0 md:py-0 overflow-clip md:overflow-visible"
                 style={{ zIndex: chapters.length - idx }}
               >
                 {/* CSS STICKY WRAPPER: Avoids GSAP pin overlap bugs on Mobile */}
