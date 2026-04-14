@@ -215,6 +215,11 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             });
 
             let accumulated = 0;
+            
+            // Hold the first frame for a moment so the user can read the chapter text!
+            tl.to({}, { duration: 1.5 });
+            accumulated += 1.5;
+
             // Slide out top images, revealing the bottom ones smoothly
             for (let j = images.length - 1; j > 0; j--) {
                  tl.to(images[j], {
@@ -335,7 +340,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             {chapters.map((chap, idx) => (
               <div 
                 key={chap.id} 
-                className="chapter-slide relative md:absolute md:inset-0 w-full h-[175svh] md:h-full block md:grid md:grid-cols-12 md:items-center md:justify-center p-0 md:py-0 overflow-clip md:overflow-visible"
+                className="chapter-slide relative md:absolute md:inset-0 w-full h-[275svh] md:h-full block md:grid md:grid-cols-12 md:items-center md:justify-center p-0 md:py-0 overflow-clip md:overflow-visible"
                 style={{ zIndex: chapters.length - idx }}
               >
                 {/* CSS STICKY WRAPPER: Avoids GSAP pin overlap bugs on Mobile */}
