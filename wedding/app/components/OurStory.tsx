@@ -203,16 +203,13 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             if(images[1]) gsap.set(images[1], { rotation: 3 });
             if(images[2]) gsap.set(images[2], { rotation: -1 });
 
-            // Need enough distance so user can comfortably scroll through the cards
-            const scrollDistance = Math.max(1, images.length - 1) * window.innerHeight * 0.7;
-
+            // CSS Sticky natively replaces GSAP pinning on Mobile!
             const tl = gsap.timeline({
                scrollTrigger: {
                  trigger: slide, 
                  start: "top top",
-                 end: `+=${scrollDistance}`,
-                 pin: true,
-                 pinSpacing: "margin",
+                 end: "bottom bottom",
+                 pin: false,
                  scrub: true,
                }
             });
@@ -338,8 +335,11 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             {chapters.map((chap, idx) => (
               <div 
                 key={chap.id} 
-                className="chapter-slide relative md:absolute md:inset-0 w-full min-h-[100svh] md:h-full flex flex-col md:grid md:grid-cols-12 gap-4 md:gap-8 lg:gap-12 items-center justify-center pt-8 pb-20 md:py-0 overflow-hidden md:overflow-visible"
+                className="chapter-slide relative md:absolute md:inset-0 w-full h-[175svh] md:h-full block md:grid md:grid-cols-12 md:items-center md:justify-center p-0 md:py-0 overflow-clip md:overflow-visible"
+                style={{ zIndex: chapters.length - idx }}
               >
+                {/* CSS STICKY WRAPPER: Avoids GSAP pin overlap bugs on Mobile */}
+                <div className="md:relative sticky top-0 h-[100svh] w-full flex flex-col md:grid md:grid-cols-12 md:col-span-12 gap-4 md:gap-8 lg:gap-12 items-center justify-center pt-8 pb-12 md:py-0 overflow-visible md:overflow-visible bg-surface md:bg-transparent">
                 
                 {/* Left Column: Semantic Storytelling */}
                 <div className="chapter-content w-full md:col-span-6 lg:col-span-5 flex flex-col justify-center space-y-3 md:space-y-6 lg:space-y-10 px-6 md:px-0 lg:pl-12 z-20 order-1 md:order-1 pt-0 md:pt-0">
@@ -395,6 +395,8 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                       </div>
                     ))}
                   </div>
+                </div>
+                {/* END STICKY WRAPPER */}
                 </div>
 
               </div>
