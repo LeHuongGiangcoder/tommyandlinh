@@ -253,7 +253,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       // Conclusion Cinematic Animation
       const conclusionText = sectionRef.current?.querySelector('.story-conclusion-text');
       if (conclusionText) {
-        const textSplit = new SplitType(conclusionText as HTMLElement, { types: 'lines, words' });
+        const textSplit = new SplitType(conclusionText as HTMLElement, { types: 'lines,words' });
         splits.push(textSplit);
         
         const tlConclusion = gsap.timeline({
