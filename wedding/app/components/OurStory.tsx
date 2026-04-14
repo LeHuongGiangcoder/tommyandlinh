@@ -101,7 +101,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             scrollTrigger: {
               trigger: pinWrapper,
               start: "top top",
-              end: "+=800%", 
+              end: "+=500%", // Reduced from 800% for tighter pacing
               scrub: 1,
             }
           });
@@ -111,7 +111,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
               scrollTrigger: {
                 trigger: pinWrapper,
                 start: "top top",
-                end: "+=800%",
+                end: "+=500%", // Tighter pacing
                 scrub: 1, 
                 pin: true,
                 pinType: "fixed"
@@ -204,12 +204,12 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             if(images[2]) gsap.set(images[2], { rotation: -1 });
 
             // Need enough distance so user can comfortably scroll through the cards
-            const scrollDistance = Math.max(1, images.length - 1) * window.innerHeight * 0.8;
+            const scrollDistance = Math.max(1, images.length - 1) * window.innerHeight * 0.7;
 
             const tl = gsap.timeline({
                scrollTrigger: {
                  trigger: slide, // Pin the ENTIRE slide so text & images freeze together properly!
-                 start: "top top", // Lock precisely when the slide hits top viewport
+                 start: "center center", // Lock precisely when the slide centers in viewport
                  end: `+=${scrollDistance}`,
                  pin: true,
                  scrub: 1,
@@ -302,10 +302,10 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
       {/* Intro Header */}
       <div className="container mx-auto px-6 md:px-12 relative z-10 w-full">
-        <div className="flex flex-col items-center pt-32 pb-20 story-header-reveal text-center h-[60vh] justify-center">
-           <span className="text-[10px] md:text-xs tracking-[0.6em] uppercase text-olive font-medium mb-6 animate-fade-in">{t.journey}</span>
+        <div className="flex flex-col items-center pt-24 pb-12 md:pt-28 md:pb-16 story-header-reveal text-center min-h-[40vh] md:min-h-[30vh] justify-center">
+           <span className="text-[10px] md:text-xs tracking-[0.6em] uppercase text-olive font-medium mb-4 md:mb-6 animate-fade-in">{t.journey}</span>
            <h2 className="text-4xl md:text-8xl font-heading text-burgundy italic leading-tight max-w-4xl drop-shadow-sm">{t.storyTitle}</h2>
-           <div className="w-20 h-[0.5px] bg-olive/30 mt-12 mx-auto"></div>
+           <div className="w-20 h-[0.5px] bg-olive/30 mt-8 md:mt-12 mx-auto"></div>
         </div>
       </div>
 
@@ -335,11 +335,11 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             {chapters.map((chap, idx) => (
               <div 
                 key={chap.id} 
-                className="chapter-slide relative md:absolute md:inset-0 w-full min-h-[100svh] md:h-full flex flex-col md:grid md:grid-cols-12 gap-8 md:gap-8 lg:gap-12 items-center justify-center py-12 md:p-0"
+                className="chapter-slide relative md:absolute md:inset-0 w-full h-auto md:h-full flex flex-col md:grid md:grid-cols-12 gap-6 md:gap-8 lg:gap-12 items-center justify-center py-16 md:py-0"
               >
                 
                 {/* Left Column: Semantic Storytelling */}
-                <div className="chapter-content w-full md:col-span-6 lg:col-span-5 flex flex-col justify-center space-y-4 md:space-y-6 lg:space-y-10 px-6 md:px-0 lg:pl-12 z-20 order-1 md:order-1 mt-auto md:mt-0 pt-16 md:pt-0">
+                <div className="chapter-content w-full md:col-span-6 lg:col-span-5 flex flex-col justify-center space-y-4 md:space-y-6 lg:space-y-10 px-6 md:px-0 lg:pl-12 z-20 order-1 md:order-1 pt-4 md:pt-0">
                   <div className="flex items-center gap-4 md:gap-6">
                     <span className="text-4xl md:text-6xl lg:text-8xl font-heading text-olive/10 italic select-none">{chap.num}</span>
                     <div className="flex-1 h-[0.5px] bg-olive/10"></div>
@@ -366,7 +366,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 <div className="lg:col-span-1 hidden lg:block"></div>
 
                 {/* Right Column: Layered Cinematic Gallery */}
-                <div className="chapter-images w-full md:col-span-6 lg:col-span-6 relative flex items-center justify-center pointer-events-none order-2 md:order-2 mt-6 mb-auto md:mt-0 md:mb-0 px-4 md:px-0">
+                <div className="chapter-images w-full md:col-span-6 lg:col-span-6 relative flex items-center justify-center pointer-events-none order-2 md:order-2 mt-6 md:mt-0 px-4 md:px-0">
                   <div className="chapter-images-wrapper relative w-[85%] md:w-full aspect-[4/5] block items-center justify-center pointer-events-auto mx-auto max-w-[360px] md:max-w-none">
                     {chap.images.map((img, i) => (
                       <div 
@@ -400,12 +400,12 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         </div>
 
         {/* Conclusion / Transition to next section */}
-        <div className="container mx-auto px-6 md:px-12 relative z-10 w-full mb-20">
-          <div className="min-h-screen flex flex-col items-center justify-center text-center space-y-12">
-              <div className="story-conclusion-deco flex items-center justify-center gap-6 opacity-30">
-                  <div className="w-16 h-[0.5px] bg-olive"></div>
+        <div className="container mx-auto px-6 md:px-12 relative z-10 w-full pb-16 md:pb-20">
+          <div className="py-24 md:py-32 flex flex-col items-center justify-center text-center space-y-8 md:space-y-10">
+              <div className="story-conclusion-deco flex items-center justify-center gap-4 md:gap-6 opacity-30">
+                  <div className="w-12 md:w-16 h-[0.5px] bg-olive"></div>
                   <div className="w-2 h-2 rotate-45 border border-olive"></div>
-                  <div className="w-16 h-[0.5px] bg-olive"></div>
+                  <div className="w-12 md:w-16 h-[0.5px] bg-olive"></div>
               </div>
 
               <p className="story-conclusion-text text-3xl md:text-5xl lg:text-6xl font-heading text-burgundy italic leading-relaxed max-w-4xl mx-auto drop-shadow-sm px-4" style={{ perspective: "400px" }}>
