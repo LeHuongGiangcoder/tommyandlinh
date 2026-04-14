@@ -212,9 +212,8 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                  start: "top top",
                  end: `+=${scrollDistance}`,
                  pin: true,
-                 anticipatePin: 1, 
-                 pinType: "fixed", // Restored pinType fixed because overlap persists
-                 scrub: 1,
+                 pinSpacing: "margin",
+                 scrub: true,
                }
             });
 
@@ -375,7 +374,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                     {chap.images.map((img, i) => (
                       <div 
                         key={img} 
-                        className={`chapter-image-item absolute w-[80%] sm:w-[80%] md:w-[75%] lg:w-[65%] aspect-[3/4] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] bg-surface ${
+                        className={`chapter-image-item absolute w-[80%] sm:w-[80%] md:w-[75%] lg:w-[65%] aspect-[3/4] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] bg-surface will-change-transform ${
                           i === 0 ? '-rotate-2 left-[4%] md:left-[5%] top-[4%] md:top-[5%]' : 
                           i === 1 ? 'rotate-3 left-[10%] md:left-[17%] top-[10%] md:top-[15%]' : 
                           '-rotate-1 left-[16%] md:left-[29%] top-[16%] md:top-[25%]'
