@@ -212,6 +212,8 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                  start: "top top", // 'top top' handles mobile Safari dynamic address bar bounds better
                  end: `+=${scrollDistance}`,
                  pin: true,
+                 anticipatePin: 1, // Smooths out initialization jumps
+                 pinType: "fixed", // Enforces strict screen locking without transform jumps
                  scrub: 1,
                }
             });
@@ -366,15 +368,15 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 <div className="lg:col-span-1 hidden lg:block"></div>
 
                 {/* Right Column: Layered Cinematic Gallery */}
-                <div className="chapter-images w-full md:col-span-6 lg:col-span-6 relative flex items-center justify-center pointer-events-none order-2 md:order-2 mt-4 md:mt-0 px-4 md:px-0">
-                  <div className="chapter-images-wrapper relative h-[40svh] sm:h-[45svh] md:h-auto md:w-full aspect-[4/5] block items-center justify-center pointer-events-auto mx-auto max-w-full md:max-w-none">
+                <div className="chapter-images w-full md:col-span-6 lg:col-span-6 relative flex items-center justify-center pointer-events-none order-2 md:order-2 mt-4 md:mt-0 px-0 md:px-0">
+                  <div className="chapter-images-wrapper relative w-[88%] sm:w-[80%] md:w-full aspect-[4/5] max-h-[50svh] md:max-h-none block items-center justify-center pointer-events-auto mx-auto max-w-[420px] md:max-w-none">
                     {chap.images.map((img, i) => (
                       <div 
                         key={img} 
-                        className={`chapter-image-item absolute w-[65%] sm:w-[70%] md:w-[75%] lg:w-[65%] aspect-[3/4] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] bg-surface ${
-                          i === 0 ? '-rotate-2 left-[5%] top-[5%] md:top-[5%]' : 
-                          i === 1 ? 'rotate-3 left-[15%] md:left-[17%] top-[10%] md:top-[15%]' : 
-                          '-rotate-1 left-[25%] md:left-[29%] top-[15%] md:top-[25%]'
+                        className={`chapter-image-item absolute w-[82%] sm:w-[80%] md:w-[75%] lg:w-[65%] aspect-[3/4] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] bg-surface ${
+                          i === 0 ? '-rotate-2 left-[2%] md:left-[5%] top-[2%] md:top-[5%]' : 
+                          i === 1 ? 'rotate-3 left-[8%] md:left-[17%] top-[8%] md:top-[15%]' : 
+                          '-rotate-1 left-[14%] md:left-[29%] top-[14%] md:top-[25%]'
                         }`}
                         style={{ zIndex: 10 + i }}
                       >
