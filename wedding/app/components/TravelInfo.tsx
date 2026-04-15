@@ -864,7 +864,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
           <SapaSection />
 
-          <div className="mt-24 lg:mt-32 p-8 md:p-10 relative w-fit max-w-2xl mx-auto travel-card text-center bg-white/10 backdrop-blur-[1px] group overflow-hidden">
+          <div className="mt-24 lg:mt-32 p-10 md:p-14 relative w-fit max-w-3xl mx-auto travel-card text-center bg-white/10 backdrop-blur-[1px] group overflow-hidden">
             <div className="absolute inset-0 border border-olive/10 rounded-sm pointer-events-none group-hover:border-burgundy/20 transition-colors"></div>
             <div className="relative z-10 space-y-6">
               <div className="flex items-center justify-center gap-4 opacity-[0.15]">
@@ -872,7 +872,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 <div className="w-8 h-[0.5px] bg-burgundy"></div>
                 <div className="w-1 h-1 rounded-full bg-burgundy"></div>
               </div>
-              <p className="text-burgundy/80 italic font-heading text-lg md:text-xl leading-relaxed px-4 md:px-8">
+              <p className="text-burgundy/80 italic font-heading text-xl md:text-2xl lg:text-3xl leading-relaxed px-4 md:px-10">
                 &quot;{t.rsvpTravel}&quot;
               </p>
               <div className="pt-2">
