@@ -28,7 +28,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       num: "01",
       chapter: lang === 'en' ? "Chapter I" : "Chương I",
       title: lang === 'en' ? "The Spark" : "Khởi đầu bất ngờ",
-      content: lang === 'en' 
+      content: lang === 'en'
         ? "It all started in the most unexpected way in Colorado. We first crossed paths while working at a small marketing company, but it was a business trip to Vail that changed everything. At the time, neither of us could have imagined how significant that trip would become."
         : "Mọi chuyện bắt đầu theo một cách rất bất ngờ tại Colorado. Tụi mình lần đầu gặp nhau khi cùng làm việc tại một công ty marketing nhỏ, nhưng chính chuyến công tác đến Vail đã thay đổi tất cả. Lúc đó, không ai trong tụi mình có thể nghĩ rằng chuyến đi ấy lại trở nên đặc biệt đến vậy.",
       images: ["/7.webp", "/12.webp"]
@@ -74,7 +74,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
     const splits: SplitType[] = [];
 
     const ctx = gsap.context(() => {
-      
+
       // Reveal Title initially
       gsap.from(".story-header-reveal", {
         opacity: 0,
@@ -90,7 +90,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       // Sticky Story Scroll Logic Settings
       const pinWrapper = sectionRef.current?.querySelector('.story-pin-wrapper');
       const slides = gsap.utils.toArray('.chapter-slide') as HTMLElement[];
-      
+
       const mm = gsap.matchMedia();
 
       // DESKTOP: Complex pinned cross-fade
@@ -115,7 +115,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 trigger: pinWrapper,
                 start: "top top",
                 end: "+=500%", // Tighter pacing
-                scrub: 1, 
+                scrub: 1,
                 pin: true,
                 pinType: "fixed"
               }
@@ -141,19 +141,19 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
               // Phase 1: Scroll to Read & Discard Top Images 
               let accumulatedDuration = 0;
               for (let j = images.length - 1; j > 0; j--) {
-                 const img = images[j];
-                 tl.to(img, { 
-                     xPercent: 120, // Slide out to the right
-                     yPercent: 20, 
-                     rotation: (j % 2 === 0 ? 15 : -15),
-                     opacity: 0, 
-                     scale: 1.2, 
-                     duration: 1.5, 
-                     ease: "power2.inOut" 
-                 }, readingStep + "+=" + accumulatedDuration);
-                 accumulatedDuration += 1.5;
+                const img = images[j];
+                tl.to(img, {
+                  xPercent: 120, // Slide out to the right
+                  yPercent: 20,
+                  rotation: (j % 2 === 0 ? 15 : -15),
+                  opacity: 0,
+                  scale: 1.2,
+                  duration: 1.5,
+                  ease: "power2.inOut"
+                }, readingStep + "+=" + accumulatedDuration);
+                accumulatedDuration += 1.5;
               }
-              
+
               tl.to({}, { duration: 1 }, readingStep + "+=" + accumulatedDuration);
               accumulatedDuration += 1;
 
@@ -162,7 +162,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 const nextSlide = slides[i + 1];
                 const nextContent = nextSlide.querySelector('.chapter-content');
                 const nextImages = nextSlide.querySelectorAll('.chapter-image-item');
-                
+
                 const transStep = "trans" + i;
                 tl.add(transStep, readingStep + "+=" + accumulatedDuration);
 
@@ -325,7 +325,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       if (conclusionText) {
         const textSplit = new SplitType(conclusionText as HTMLElement, { types: 'lines,words' });
         splits.push(textSplit);
-        
+
         const tlConclusion = gsap.timeline({
           scrollTrigger: {
             trigger: conclusionText,
@@ -335,25 +335,25 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           }
         });
 
-        tlConclusion.from(".story-conclusion-deco", { 
-           opacity: 0, 
-           scale: 0.5, 
-           duration: 1, 
-           ease: "power2.out" 
-        })
-        .from(textSplit.words, {
-          y: 40,
+        tlConclusion.from(".story-conclusion-deco", {
           opacity: 0,
-          rotateX: -50,
-          stagger: 0.08,
-          duration: 1.2,
-          ease: "back.out(1.5)"
-        }, "-=0.5")
-        .from(".story-conclusion-line-inner", {
-           scaleY: 0,
-           duration: 1,
-           ease: "power2.inOut"
-        }, "-=0.8");
+          scale: 0.5,
+          duration: 1,
+          ease: "power2.out"
+        })
+          .from(textSplit.words, {
+            y: 40,
+            opacity: 0,
+            rotateX: -50,
+            stagger: 0.08,
+            duration: 1.2,
+            ease: "back.out(1.5)"
+          }, "-=0.5")
+          .from(".story-conclusion-line-inner", {
+            scaleY: 0,
+            duration: 1,
+            ease: "power2.inOut"
+          }, "-=0.8");
       }
 
     }, sectionRef);
@@ -375,51 +375,51 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       {/* Intro Header */}
       <div className="container mx-auto px-6 md:px-12 relative z-10 w-full">
         <div className="flex flex-col items-center pt-24 pb-12 md:pt-28 md:pb-16 story-header-reveal text-center min-h-[40vh] md:min-h-[30vh] justify-center">
-           <span className="text-[10px] md:text-xs tracking-[0.6em] uppercase text-olive font-medium mb-4 md:mb-6 animate-fade-in">{t.journey}</span>
-           <h2 className="text-4xl md:text-8xl font-heading text-burgundy italic leading-tight max-w-4xl drop-shadow-sm">{t.storyTitle}</h2>
-           <div className="w-20 h-[0.5px] bg-olive/30 mt-8 md:mt-12 mx-auto"></div>
+          <span className="text-[10px] md:text-xs tracking-[0.6em] uppercase text-olive font-medium mb-4 md:mb-6 animate-fade-in">{t.journey}</span>
+          <h2 className="text-4xl md:text-8xl font-heading text-burgundy italic leading-tight max-w-4xl drop-shadow-sm">{t.storyTitle}</h2>
+          <div className="w-20 h-[0.5px] bg-olive/30 mt-8 md:mt-12 mx-auto"></div>
         </div>
       </div>
 
       {/* GSAP Pin Container for Chapters - Gói trọn Background để khóa chặt */}
       <div className="story-pin-wrapper relative w-full h-auto md:h-[100svh] block md:flex md:flex-row md:items-center md:justify-center bg-surface">
-          {/* Static Backgrounds for the Pin Container to prevent sliding parity */}
-          <div className="absolute inset-0 opacity-[0.08] texture-grain pointer-events-none mix-blend-multiply md:block hidden" />
-          <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-multiply md:block hidden"
-            style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }}
-          />
-          
-          <div className="container mx-auto px-0 md:px-6 relative z-10 w-full h-full">
-            
-            {/* Global Progress Grid Overlay */}
-            <div className="absolute inset-0 w-full h-full pointer-events-none z-30 hidden md:flex items-center justify-center">
-               <div className="container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 h-full">
-                  <div className="lg:col-span-5 h-full relative">
-                     <div className="absolute left-0 top-1/2 -translate-y-1/2 h-[40vh] w-[1px] bg-olive/20 hidden lg:block overflow-hidden">
-                        <div className="story-progress-fill absolute top-0 left-0 w-full h-full bg-burgundy" />
-                     </div>
-                  </div>
-                  <div className="lg:col-span-1 hidden lg:block"></div>
-                  <div className="lg:col-span-6"></div>
-               </div>
+        {/* Static Backgrounds for the Pin Container to prevent sliding parity */}
+        <div className="absolute inset-0 opacity-[0.08] texture-grain pointer-events-none mix-blend-multiply md:block hidden" />
+        <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-multiply md:block hidden"
+          style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }}
+        />
+
+        <div className="container mx-auto px-0 md:px-6 relative z-10 w-full h-full">
+
+          {/* Global Progress Grid Overlay */}
+          <div className="absolute inset-0 w-full h-full pointer-events-none z-30 hidden md:flex items-center justify-center">
+            <div className="container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 h-full">
+              <div className="lg:col-span-5 h-full relative">
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 h-[40vh] w-[1px] bg-olive/20 hidden lg:block overflow-hidden">
+                  <div className="story-progress-fill absolute top-0 left-0 w-full h-full bg-burgundy" />
+                </div>
+              </div>
+              <div className="lg:col-span-1 hidden lg:block"></div>
+              <div className="lg:col-span-6"></div>
             </div>
-            
-            {chapters.map((chap, idx) => (
-              <div 
-                key={chap.id} 
-                className="chapter-slide relative md:absolute md:inset-0 w-full h-[150vh] md:h-full block md:grid md:grid-cols-12 md:items-center md:justify-center p-0 md:py-0 overflow-clip md:overflow-visible"
-                style={{ zIndex: chapters.length - idx }}
-              >
-                {/* CSS STICKY WRAPPER: Avoids GSAP pin overlap bugs on Mobile */}
-                <div className="md:relative sticky top-0 h-[100svh] w-full flex flex-col md:grid md:grid-cols-12 md:col-span-12 gap-4 md:gap-8 lg:gap-12 items-center justify-center pt-8 pb-12 md:py-0 overflow-visible md:overflow-visible bg-surface md:bg-transparent">
-                
+          </div>
+
+          {chapters.map((chap, idx) => (
+            <div
+              key={chap.id}
+              className="chapter-slide relative md:absolute md:inset-0 w-full h-[150vh] md:h-full block md:grid md:grid-cols-12 md:items-center md:justify-center p-0 md:py-0 overflow-clip md:overflow-visible"
+              style={{ zIndex: chapters.length - idx }}
+            >
+              {/* CSS STICKY WRAPPER: Avoids GSAP pin overlap bugs on Mobile */}
+              <div className="md:relative sticky top-0 h-[100svh] w-full flex flex-col md:grid md:grid-cols-12 md:col-span-12 gap-4 md:gap-8 lg:gap-12 items-center justify-center pt-8 pb-12 md:py-0 overflow-visible md:overflow-visible bg-surface md:bg-transparent">
+
                 {/* Left Column: Semantic Storytelling */}
                 <div className="chapter-content w-full md:col-span-6 lg:col-span-5 flex flex-col justify-center space-y-3 md:space-y-6 lg:space-y-10 px-6 md:px-0 lg:pl-12 z-20 order-1 md:order-1 pt-0 md:pt-0">
                   <div className="flex items-center gap-4 md:gap-6">
                     <span className="text-[2rem] md:text-6xl lg:text-8xl font-heading text-olive/10 italic select-none leading-none">{chap.num}</span>
                     <div className="flex-1 h-[0.5px] bg-olive/10"></div>
                   </div>
-                  
+
                   <div className="space-y-3 md:space-y-6 lg:space-y-8">
                     <span className="text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.5em] uppercase text-olive/50 font-semibold block">
                       {chap.chapter}
@@ -433,8 +433,8 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                   </div>
 
                   <div className="flex items-center gap-4 pt-1 lg:pt-0 hidden md:flex">
-                     <div className="w-12 h-[0.5px] bg-olive/20"></div>
-                     <div className="w-1.5 h-1.5 rounded-full border border-olive/20" />
+                    <div className="w-12 h-[0.5px] bg-olive/20"></div>
+                    <div className="w-1.5 h-1.5 rounded-full border border-olive/20" />
                   </div>
                 </div>
 
@@ -444,19 +444,18 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 <div className="chapter-images w-full md:col-span-6 lg:col-span-6 relative flex items-center justify-center pointer-events-none order-2 md:order-2 mt-4 md:mt-0 px-0 md:px-0">
                   <div className="chapter-images-wrapper relative w-[80%] sm:w-[75%] md:w-full aspect-[4/5] max-h-[40svh] md:max-h-none block items-center justify-center pointer-events-auto mx-auto max-w-[360px] md:max-w-none">
                     {chap.images.map((img, i) => (
-                      <div 
-                        key={img} 
-                        className={`chapter-image-item absolute w-[80%] sm:w-[80%] md:w-[75%] lg:w-[65%] aspect-[3/4] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] bg-surface will-change-transform ${
-                          i === 0 ? '-rotate-2 left-[4%] md:left-[5%] top-[4%] md:top-[5%]' : 
-                          i === 1 ? 'rotate-3 left-[10%] md:left-[17%] top-[10%] md:top-[15%]' : 
-                          '-rotate-1 left-[16%] md:left-[29%] top-[16%] md:top-[25%]'
-                        }`}
+                      <div
+                        key={img}
+                        className={`chapter-image-item absolute w-[80%] sm:w-[80%] md:w-[75%] lg:w-[65%] aspect-[3/4] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] bg-surface will-change-transform ${i === 0 ? '-rotate-2 left-[4%] md:left-[5%] top-[4%] md:top-[5%]' :
+                          i === 1 ? 'rotate-3 left-[10%] md:left-[17%] top-[10%] md:top-[15%]' :
+                            '-rotate-1 left-[16%] md:left-[29%] top-[16%] md:top-[25%]'
+                          }`}
                         style={{ zIndex: 10 + i }}
                       >
-                        <Image 
-                          src={img} 
-                          alt={chap.title} 
-                          fill 
+                        <Image
+                          src={img}
+                          alt={chap.title}
+                          fill
                           className="object-cover transition-transform duration-[2s] hover:scale-105"
                           sizes="(max-width: 768px) 100vw, 50vw"
                           priority={idx === 0}
@@ -469,31 +468,53 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                   </div>
                 </div>
                 {/* END STICKY WRAPPER */}
-                </div>
-
               </div>
-            ))}
+
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Conclusion / Transition to next section */}
+      <div className="container mx-auto px-6 md:px-12 relative z-10 w-full pb-16 md:pb-20">
+        <div className="py-24 md:py-32 flex flex-col items-center justify-center text-center space-y-8 md:space-y-10">
+          <div className="story-conclusion-deco flex items-center justify-center gap-4 md:gap-6 opacity-30">
+            <div className="w-12 md:w-16 h-[0.5px] bg-olive"></div>
+            <div className="w-2 h-2 rotate-45 border border-olive"></div>
+            <div className="w-12 md:w-16 h-[0.5px] bg-olive"></div>
+          </div>
+
+          <p className="story-conclusion-text text-3xl md:text-5xl lg:text-6xl font-heading text-burgundy italic leading-relaxed max-w-4xl mx-auto drop-shadow-sm px-4" style={{ perspective: "400px" }}>
+            {lang === 'en' ? "“Five years later, we celebrate where the journey brought us.”" : "“Năm năm sau, tụi mình cùng nhìn lại và ăn mừng nơi hành trình này đã đưa hai đứa đến.”"}
+          </p>
+
+          {/* Final photograph — the still frame after the story */}
+          <div className="story-conclusion-photo pt-4 md:pt-8 w-full flex flex-col items-center gap-4">
+            <div className="relative w-[200px] md:w-[260px] aspect-[3/4] -rotate-1 shadow-[0_24px_48px_-12px_rgba(0,0,0,0.22)] ring-1 ring-inset ring-black/8 overflow-hidden">
+              <Image
+                src="/2.webp"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 200px, 260px"
+              />
+              {/* Vignette — same treatment as chapter images */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-50 pointer-events-none" />
+              <div className="absolute inset-0 ring-1 ring-inset ring-black/5 pointer-events-none" />
+              {/* Paper texture */}
+              <div className="absolute inset-0 opacity-[0.06] mix-blend-multiply pointer-events-none"
+                style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }}
+              />
+            </div>
+            <span className="text-[9px] tracking-[0.5em] uppercase text-olive/40 font-medium">
+              {lang === 'en' ? 'Tommy & Linh' : 'Tommy & Linh'}
+            </span>
+          </div>
+
+          <div className="pt-6 story-conclusion-line">
+            <div className="story-conclusion-line-inner w-[0.5px] h-32 bg-gradient-to-b from-olive/60 to-transparent mx-auto origin-top"></div>
           </div>
         </div>
-
-        {/* Conclusion / Transition to next section */}
-        <div className="container mx-auto px-6 md:px-12 relative z-10 w-full pb-16 md:pb-20">
-          <div className="py-24 md:py-32 flex flex-col items-center justify-center text-center space-y-8 md:space-y-10">
-              <div className="story-conclusion-deco flex items-center justify-center gap-4 md:gap-6 opacity-30">
-                  <div className="w-12 md:w-16 h-[0.5px] bg-olive"></div>
-                  <div className="w-2 h-2 rotate-45 border border-olive"></div>
-                  <div className="w-12 md:w-16 h-[0.5px] bg-olive"></div>
-              </div>
-
-              <p className="story-conclusion-text text-3xl md:text-5xl lg:text-6xl font-heading text-burgundy italic leading-relaxed max-w-4xl mx-auto drop-shadow-sm px-4" style={{ perspective: "400px" }}>
-                 {lang === 'en' ? "“Five years later, we celebrate where the journey brought us.”" : "“Năm năm sau, tụi mình cùng nhìn lại và ăn mừng nơi hành trình này đã đưa hai đứa đến.”"}
-              </p>
-
-              <div className="pt-12 story-conclusion-line">
-                 <div className="story-conclusion-line-inner w-[0.5px] h-32 bg-gradient-to-b from-olive/60 to-transparent mx-auto origin-top"></div>
-              </div>
-          </div>
-        </div>
+      </div>
 
       {/* Background Floral Accents */}
       <div className="floral-bg absolute bottom-[-5%] right-[-5%] w-[40%] h-[60%] opacity-5 pointer-events-none rotate-12">
