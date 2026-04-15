@@ -254,41 +254,45 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           // Hold final image
           tl.to({}, { duration: 0.5 });
 
-          // --- Anchor trigger to the SECTION, not the sticky slide ---
-          // Each chapter takes CHAPTER_HEIGHT_VH in scroll space.
-          // The header intro above the pin wrapper is approximately 40svh.
-          const headerOffset = "40svh";
+          // --- Anchor trigger to the .story-pin-wrapper, computed at refresh time ---
+          //
+          // BUG FIXED: The previous code used `sectionTop + headerH - window.innerHeight`
+          // which shifted the start point 1 full viewport BEFORE the chapter appeared.
+          // By the time the user visually arrived at the chapter, scrub progress was
+          // already 1.0 and all images had been animated away.
+          //
+          // CORRECT formula:
+          //   start = pinWrapperTop + idx * 150vh
+          //   end   = pinWrapperTop + (idx + 1) * 150vh
+          //
+          // This means: animation plays from progress=0 (chapter enters viewport top)
+          // to progress=1 (next chapter enters viewport top). No viewport subtraction.
 
           ScrollTrigger.create({
             trigger: sectionRef.current,
-            // start when the top of this chapter's scroll block hits the top of viewport
             start: () => {
-              const sectionTop = sectionRef.current!.getBoundingClientRect().top + window.scrollY;
-              // header intro height (approximate, matches min-h-[40vh] intro + padding)
-              const headerH = window.innerHeight * 0.4;
-              const chapterOffset = idx * CHAPTER_HEIGHT_VH * (window.innerHeight / 100);
-              return sectionTop + headerH + chapterOffset - window.innerHeight;
+              // Re-measure at every refresh so resize/font-load don't break it
+              const pinWrapperEl = sectionRef.current!.querySelector('.story-pin-wrapper') as HTMLElement;
+              const pinTop = pinWrapperEl.getBoundingClientRect().top + window.scrollY;
+              return pinTop + idx * CHAPTER_HEIGHT_VH * (window.innerHeight / 100);
             },
             end: () => {
-              const sectionTop = sectionRef.current!.getBoundingClientRect().top + window.scrollY;
-              const headerH = window.innerHeight * 0.4;
-              const chapterOffset = idx * CHAPTER_HEIGHT_VH * (window.innerHeight / 100);
-              const chapterH = CHAPTER_HEIGHT_VH * (window.innerHeight / 100);
-              return sectionTop + headerH + chapterOffset + chapterH - window.innerHeight;
+              const pinWrapperEl = sectionRef.current!.querySelector('.story-pin-wrapper') as HTMLElement;
+              const pinTop = pinWrapperEl.getBoundingClientRect().top + window.scrollY;
+              return pinTop + (idx + 1) * CHAPTER_HEIGHT_VH * (window.innerHeight / 100);
             },
             scrub: 1,
             invalidateOnRefresh: true,
-            refreshPriority: -idx, // process in chapter order
+            refreshPriority: -idx, // process chapters in order
             onUpdate: (self) => {
               tl.progress(self.progress);
             },
             onEnter: () => {
-              // Reset images to initial stacked state when entering from above
-              // This guards against Chrome's eager scroll position calculation
+              // Safety net: reset in case Chrome still gives a stale initial position
               resetImages();
             },
             onLeaveBack: () => {
-              // When scrolling back above this chapter, fully reset
+              // Scroll backward past this chapter — fully restore stacked images
               resetImages();
             },
           });
