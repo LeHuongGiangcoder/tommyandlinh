@@ -320,44 +320,63 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         }
       });
 
-      // Conclusion: Split Reveal — "Origin Objects" style
-      // Quote line 1 slides LEFT, line 2 slides RIGHT, images reveal in the gap
-      const conclusionWrapper = sectionRef.current?.querySelector('.story-conclusion-split-wrapper');
-      if (conclusionWrapper) {
-        const leftLine = conclusionWrapper.querySelector('.split-line-left') as HTMLElement;
-        const rightLine = conclusionWrapper.querySelector('.split-line-right') as HTMLElement;
-        const splitImages = gsap.utils.toArray(
-          conclusionWrapper.querySelectorAll('.split-reveal-image')
+      // Conclusion: Pinned Split Reveal — "Origin Objects" style
+      // Pin → quote lines split apart → images reveal → unpin
+      const conclusionPin = sectionRef.current?.querySelector('.story-conclusion-pin');
+      if (conclusionPin) {
+        const leftLine  = conclusionPin.querySelector('.split-line-left')  as HTMLElement;
+        const rightLine = conclusionPin.querySelector('.split-line-right') as HTMLElement;
+        const imgRow    = conclusionPin.querySelector('.split-images-row') as HTMLElement;
+        const splitImgs = gsap.utils.toArray(
+          conclusionPin.querySelectorAll('.split-reveal-image')
         ) as HTMLElement[];
 
-        // Hidden initial state for images
-        gsap.set(splitImages, { opacity: 0, scale: 0.78, y: 44 });
 
-        // Deco fades in on enter
+        // Initial states: everything hidden
+        gsap.set([leftLine, rightLine], { opacity: 0, y: 30 });
+        gsap.set(splitImgs, { opacity: 0, scale: 0.82 });
+        gsap.set(imgRow, { opacity: 0, height: 0, overflow: 'hidden' });
+
+
+        // Deco + quote lines fade in before pin starts
+        const splitWrapper = sectionRef.current?.querySelector('.story-conclusion-split-wrapper');
         gsap.from('.story-conclusion-deco', {
-          opacity: 0,
-          y: 20,
-          duration: 1.2,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: conclusionWrapper, start: 'top 88%' },
+          opacity: 0, y: 20, duration: 1.2, ease: 'power3.out',
+          scrollTrigger: { trigger: splitWrapper, start: 'top 85%' },
         });
 
-        // Scrubbed split timeline
-        const tlConclusion = gsap.timeline({
+
+        // Pinned scrub timeline
+        const tlSplit = gsap.timeline({
           scrollTrigger: {
-            trigger: conclusionWrapper,
-            start: 'top 72%',
-            end: 'bottom 8%',
-            scrub: 1.5,
+            trigger: conclusionPin,
+            start: 'top top',
+            end: '+=150%',   // 1.5× viewport of scroll while pinned
+            scrub: 1.2,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
           },
         });
 
-        tlConclusion
-          .to(leftLine,         { x: '-12vw', ease: 'power2.inOut', duration: 2 }, 0)
-          .to(rightLine,        { x: '12vw',  ease: 'power2.inOut', duration: 2 }, 0)
-          .to(splitImages[0],   { opacity: 1,  scale: 1, y: 0, ease: 'power2.out', duration: 1.6 }, 0.18)
-          .to(splitImages[1],   { opacity: 1,  scale: 1, y: 0, ease: 'power2.out', duration: 1.6 }, 0.42)
-          .from('.story-conclusion-line-inner', { scaleY: 0, ease: 'power2.inOut', duration: 1 }, 1.7);
+        // Phase 0: Lines fade in and settle (0 → 1)
+        tlSplit
+          .to(leftLine,   { opacity: 1, y: 0, ease: 'power3.out', duration: 1 }, 0)
+          .to(rightLine,  { opacity: 1, y: 0, ease: 'power3.out', duration: 1 }, 0.15)
+
+        // Phase 1: Lines split apart horizontally (1 → 3)
+          .to(leftLine,   { x: '-14vw', ease: 'power2.inOut', duration: 2 }, 1)
+          .to(rightLine,  { x: '14vw',  ease: 'power2.inOut', duration: 2 }, 1)
+
+        // Phase 2: Image row expands, images fade in (1.2 → 3)
+          .to(imgRow,         { opacity: 1, height: 'auto', overflow: 'visible', ease: 'power2.inOut', duration: 1.4 }, 1.2)
+          .to(splitImgs[0],   { opacity: 1, scale: 1, ease: 'power2.out', duration: 1.6 }, 1.5)
+          .to(splitImgs[1],   { opacity: 1, scale: 1, ease: 'power2.out', duration: 1.6 }, 1.75)
+
+
+
+        // Phase 4: Brief hold at full reveal before unpin (3 → 3.6)
+          .to({}, { duration: 0.6 });
       }
 
     }, sectionRef);
@@ -480,27 +499,35 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       </div>
 
       {/* Conclusion: Split Reveal — Origin Objects style */}
-      <div className="story-conclusion-split-wrapper container mx-auto px-4 md:px-12 relative z-10 w-full pb-16 md:pb-24">
+      <div className="story-conclusion-split-wrapper relative z-10 w-full">
 
-        {/* Decorative separator */}
-        <div className="story-conclusion-deco flex items-center justify-center gap-4 md:gap-6 opacity-30 pt-20 md:pt-28 pb-10 md:pb-14">
+        {/* Decorative separator — sits ABOVE the pin target */}
+        <div className="story-conclusion-deco flex items-center justify-center gap-4 md:gap-6 opacity-30 pt-20 md:pt-28 pb-8 md:pb-10">
           <div className="w-12 md:w-16 h-[0.5px] bg-olive" />
           <div className="w-2 h-2 rotate-45 border border-olive" />
           <div className="w-12 md:w-16 h-[0.5px] bg-olive" />
         </div>
 
-        {/* Split quote + image reveal block */}
-        <div className="relative flex flex-col items-center justify-center text-center overflow-hidden">
+        {/* ═══ PIN TARGET: full viewport, centered content ═══ */}
+        <div className="story-conclusion-pin relative w-full min-h-[100svh] flex flex-col items-center justify-center bg-surface overflow-hidden pt-20 md:pt-24 pb-10 md:pb-16">
+
+          {/* Paper texture inside pinned area for seamless look */}
+          <div className="absolute inset-0 opacity-[0.08] texture-grain pointer-events-none mix-blend-multiply" />
+          <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-multiply"
+            style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }}
+          />
+
+          <div className="relative flex flex-col items-center justify-center text-center px-4 md:px-12 max-w-7xl mx-auto w-full">
 
           {/* Line 1 — slides LEFT on scroll */}
-          <p className="split-line-left w-full text-[1.9rem] sm:text-5xl md:text-6xl lg:text-[5rem] font-heading text-burgundy italic leading-tight drop-shadow-sm px-4 will-change-transform pb-2 md:pb-4">
+            <p className="split-line-left w-full text-[1.9rem] sm:text-5xl md:text-6xl lg:text-[5rem] font-heading text-burgundy italic leading-tight drop-shadow-sm will-change-transform pb-1 md:pb-2">
             {lang === 'en'
               ? '“Five years later, we celebrate'
               : '“Năm năm sau, tụi mình'}
           </p>
 
           {/* Images — revealed as text splits apart */}
-          <div className="split-images-row flex items-end justify-center gap-4 md:gap-8 py-6 md:py-10 px-4">
+            <div className="split-images-row flex items-end justify-center gap-4 md:gap-8 py-4 md:py-8">
 
             {/* Image 1 — counter-clockwise tilt */}
             <div className="split-reveal-image relative w-[130px] sm:w-[160px] md:w-[205px] lg:w-[248px] aspect-[3/4] -rotate-[2.5deg] overflow-hidden shadow-[0_28px_64px_-16px_rgba(0,0,0,0.28)] ring-1 ring-inset ring-black/10 will-change-transform shrink-0">
@@ -530,25 +557,16 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           </div>
 
           {/* Line 2 — slides RIGHT on scroll */}
-          <p className="split-line-right w-full text-[1.9rem] sm:text-5xl md:text-6xl lg:text-[5rem] font-heading text-burgundy italic leading-tight drop-shadow-sm px-4 will-change-transform pt-2 md:pt-4">
-            {lang === 'en'
-              ? 'where the journey brought us.”'
-              : 'cùng nhìn lại và ăn mừng nơi hành trình đã đưa đến.”'}
-          </p>
-        </div>
+            <p className="split-line-right w-full text-[1.9rem] sm:text-5xl md:text-6xl lg:text-[5rem] font-heading text-burgundy italic leading-tight drop-shadow-sm will-change-transform pt-1 md:pt-2">
+              {lang === 'en'
+                ? 'where the journey brought us.”'
+                : 'cùng nhìn lại và ăn mừng nơi hành trình đã đưa đến.”'}
+            </p>
 
-        {/* Name caption */}
-        <div className="flex justify-center mt-8 md:mt-12">
-          <span className="text-[9px] tracking-[0.5em] uppercase text-olive/40 font-medium">
-            Tommy &amp; Linh
-          </span>
-        </div>
 
-        {/* Trailing decorative line */}
-        <div className="pt-6 story-conclusion-line flex justify-center">
-          <div className="story-conclusion-line-inner w-[0.5px] h-32 bg-gradient-to-b from-olive/60 to-transparent origin-top" />
-        </div>
+          </div>
 
+        </div>
       </div>
 
       {/* Background Floral Accents */}
