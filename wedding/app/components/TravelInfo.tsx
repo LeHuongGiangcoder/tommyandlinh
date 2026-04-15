@@ -81,6 +81,162 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
     );
   };
 
+  // Sapa Feature Section
+  const SapaSection = () => {
+
+    const sapaContent = {
+      gettingThere: {
+        title: lang === 'en' ? 'Getting There' : 'Di chuyển',
+        body: lang === 'en'
+          ? 'Travel from Hanoi by sleeper bus (5–6 hours, $12–30 one way) or by train plus van via Lao Cai ($30–60 one way); taking an overnight option helps save time.'
+          : 'Di chuyển từ Hà Nội bằng xe giường nằm (5–6 tiếng, $12–30 một chiều) hoặc tàu hỏa kết hợp xe đến Lào Cai ($30–60 một chiều); chọn chuyến ban đêm để tiết kiệm thời gian.',
+      },
+      whereToStay: {
+        title: lang === 'en' ? 'Where to Stay' : 'Chỗ ở',
+        body: lang === 'en'
+          ? 'Stay in Sapa Town hotels ($15–50 per night) for convenience, or choose a homestay in Ta Van or Lao Chai ($20–40 per night, often with breakfast) for a more local experience.'
+          : 'Ở khách sạn tại thị trấn Sapa ($15–50/đêm) để tiện nghi, hoặc chọn homestay ở Tả Van hay Lao Chải ($20–40/đêm, thường bao sáng) để trải nghiệm gần gũi hơn.',
+      },
+      itinerary: [
+        {
+          day: lang === 'en' ? 'Day 1' : 'Ngày 1',
+          body: lang === 'en'
+            ? 'Arrive and explore Sapa Town and Cat Cat Village (entrance ~$3–5), with food and cafes costing $5–15.'
+            : 'Đến nơi và khám phá thị trấn Sapa cùng làng Cát Cát (vé vào cửa ~$3–5), ăn uống và cà phê khoảng $5–15.',
+        },
+        {
+          day: lang === 'en' ? 'Day 2' : 'Ngày 2',
+          body: lang === 'en'
+            ? 'Go trekking through Muong Hoa Valley; a guided trek costs $15–30 (or free if self-guided), meals are $5–10, and an optional homestay is $20–35.'
+            : 'Trekking qua thung lũng Mường Hoa; thuê hướng dẫn viên $15–30 (hoặc tự đi miễn phí), ăn uống $5–10, homestay tùy chọn $20–35.',
+        },
+        {
+          day: lang === 'en' ? 'Day 3' : 'Ngày 3',
+          body: lang === 'en'
+            ? 'Visit Fansipan via cable car and train (~$30–40) before returning to Hanoi ($12–60).'
+            : 'Tham quan Fansipan bằng cáp treo và tàu hỏa (~$30–40) rồi về lại Hà Nội ($12–60).',
+        },
+      ],
+      highlights: {
+        title: lang === 'en' ? 'Highlights' : 'Điểm nổi bật',
+        items: lang === 'en'
+          ? ['Stunning rice terrace trekking', 'Visits to ethnic villages', 'Panoramic views from Fansipan', 'Authentic homestay experiences']
+          : ['Trekking ruộng bậc thang tuyệt đẹp', 'Thăm các bản làng dân tộc', 'Toàn cảnh từ đỉnh Fansipan', 'Trải nghiệm homestay chân thực'],
+      },
+    };
+
+    return (
+      <div className="mt-24 pt-16 border-t border-olive/10 sapa-reveal">
+        {/* Section header */}
+        <div className="text-center max-w-4xl mx-auto px-6 mb-20">
+          <span className="text-[10px] tracking-[0.7em] uppercase text-olive/50 block mb-6 font-medium">
+            {lang === 'en' ? 'HIGHLAND ESCAPE' : 'THIÊN ĐƯỜNG MIỀN CAO'}
+          </span>
+          <h3 className="text-4xl md:text-6xl font-heading text-burgundy italic font-medium leading-tight">
+            {lang === 'en' ? 'Sapa — Mountains & Mist' : 'Sapa — Núi rừng & Mây ngàn'}
+          </h3>
+          <div className="flex items-center justify-center gap-4 mt-8 opacity-30">
+            <div className="w-1.5 h-1.5 rounded-full bg-burgundy/40"></div>
+            <div className="w-8 h-[0.5px] bg-olive"></div>
+            <div className="w-1.5 h-1.5 rounded-full bg-burgundy/40"></div>
+          </div>
+        </div>
+
+        {/* Main layout: image mosaic + journal content */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-olive/10 shadow-sm overflow-hidden">
+
+          {/* Left: Staggered image mosaic */}
+          <div className="relative bg-ink/5 min-h-[520px] lg:min-h-[700px] overflow-hidden">
+            <div className="absolute inset-0 opacity-[0.3] pointer-events-none mix-blend-multiply"
+              style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }}
+            />
+            {/* Top-left large image */}
+            <div className="absolute top-0 left-0 w-[58%] h-[54%] overflow-hidden shadow-[4px_4px_24px_rgba(0,0,0,0.15)]">
+              <Image src="/sapa1.webp" alt="Sapa rice terraces" fill className="object-cover transition-transform duration-[3s] hover:scale-110" sizes="(max-width:768px) 60vw, 30vw" />
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/20 pointer-events-none" />
+            </div>
+            {/* Top-right tall image */}
+            <div className="absolute top-[4%] right-0 w-[40%] h-[48%] overflow-hidden shadow-[4px_4px_24px_rgba(0,0,0,0.12)]">
+              <Image src="/sapa2.webp" alt="Sapa ethnic village" fill className="object-cover transition-transform duration-[3s] hover:scale-110" sizes="(max-width:768px) 40vw, 20vw" />
+            </div>
+            {/* Bottom-left square image */}
+            <div className="absolute bottom-[4%] left-[4%] w-[40%] h-[42%] overflow-hidden shadow-[4px_4px_24px_rgba(0,0,0,0.12)]">
+              <Image src="/sapa3.webp" alt="Sapa Fansipan" fill className="object-cover transition-transform duration-[3s] hover:scale-110" sizes="(max-width:768px) 40vw, 20vw" />
+            </div>
+            {/* Bottom-right wide image */}
+            <div className="absolute bottom-0 right-0 w-[54%] h-[46%] overflow-hidden shadow-[4px_4px_24px_rgba(0,0,0,0.15)]">
+              <Image src="/sapa4.webp" alt="Sapa homestay" fill className="object-cover transition-transform duration-[3s] hover:scale-110" sizes="(max-width:768px) 55vw, 28vw" />
+              <div className="absolute inset-0 bg-gradient-to-tl from-transparent to-black/15 pointer-events-none" />
+            </div>
+            {/* Ref label overlay */}
+            <div className="absolute top-5 left-5 z-10">
+              <span className="text-[9px] tracking-[0.5em] uppercase text-white/70 font-bold drop-shadow-md">REF. 04</span>
+            </div>
+          </div>
+
+          {/* Right: Journal content panel */}
+          <div className="bg-white/60 backdrop-blur-sm p-8 md:p-12 lg:p-14 flex flex-col justify-between relative overflow-hidden">
+            <div className="absolute inset-0 opacity-[0.35] pointer-events-none mix-blend-multiply"
+              style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }}
+            />
+            <div className="absolute -bottom-20 -right-20 w-64 h-64 opacity-[0.025] bg-burgundy rounded-full pointer-events-none" />
+
+            <div className="relative z-10 space-y-10">
+
+              {/* Getting There + Where to Stay */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pb-10 border-b border-olive/10">
+                {[sapaContent.gettingThere, sapaContent.whereToStay].map((block, i) => (
+                  <div key={i} className="space-y-3">
+                    <h4 className="text-[10px] tracking-[0.5em] uppercase text-olive font-bold">{block.title}</h4>
+                    <p className="text-[14px] md:text-[15px] text-ink/80 font-serif italic leading-relaxed font-light">{block.body}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* 3D2N Itinerary — always visible */}
+              <div className="space-y-5">
+                <h4 className="text-[10px] tracking-[0.5em] uppercase text-olive font-bold mb-6">
+                  {lang === 'en' ? '3D2N Itinerary' : 'Lịch trình 3 ngày 2 đêm'}
+                </h4>
+                {sapaContent.itinerary.map((item, i) => (
+                  <div key={i} className="border-l-[0.5px] border-olive/30 pl-5 space-y-2">
+                    <span className="text-[11px] tracking-[0.4em] uppercase font-bold text-burgundy/80 block">
+                      {item.day}
+                    </span>
+                    <p className="text-[14px] md:text-[15px] text-ink/80 font-serif italic leading-relaxed font-light">
+                      {item.body}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Highlights */}
+              <div className="pt-10 border-t border-olive/10">
+                <h4 className="text-[10px] tracking-[0.5em] uppercase text-olive font-bold mb-6">{sapaContent.highlights.title}</h4>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                  {sapaContent.highlights.items.map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-[14px] md:text-[15px] text-ink/80 font-normal leading-relaxed group/hl">
+                      <span className="text-olive/40 font-bold text-xs mt-[3px] group-hover/hl:text-burgundy/60 transition-colors">✦</span>
+                      <span className="group-hover/hl:text-ink transition-colors">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Bottom label */}
+              <div className="pt-8 border-t border-olive/5 flex justify-between items-center">
+                <span className="text-[9px] tracking-[0.4em] uppercase text-olive/40 font-bold">TRANSIT JOURNAL</span>
+                <span className="text-[9px] tracking-[0.4em] uppercase text-burgundy/30 font-bold italic font-serif">
+                  {lang === 'en' ? 'Northern Vietnam' : 'Miền Bắc Việt Nam'}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   // Interaction Component for Day Trips (3D Flip Journal)
   const DayTripCard = ({ trip, idx }: { trip: { src: string; name: string; desc: string; }; idx: number }) => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -363,6 +519,20 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             trigger: ".gallery-reveal",
             start: "top 85%",
             onEnter: () => ScrollTrigger.refresh()
+          }
+        }
+      );
+
+      gsap.fromTo(".sapa-reveal",
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.4,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".sapa-reveal",
+            start: "top 88%",
           }
         }
       );
@@ -691,6 +861,8 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
               </div>
             </div>
           </div>
+
+          <SapaSection />
 
           <div className="mt-24 lg:mt-32 p-8 md:p-10 relative w-fit max-w-2xl mx-auto travel-card text-center bg-white/10 backdrop-blur-[1px] group overflow-hidden">
             <div className="absolute inset-0 border border-olive/10 rounded-sm pointer-events-none group-hover:border-burgundy/20 transition-colors"></div>
