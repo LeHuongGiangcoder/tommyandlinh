@@ -67,7 +67,9 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
   useEffect(() => {
     // Prevent layout thrashing on mobile browsers when address bar hides/shows
-    ScrollTrigger.config({ ignoreMobileResize: true });
+    // fastScrollEnd: snap scrub to final value when user scrolls faster than scrub can keep up
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ScrollTrigger.config({ ignoreMobileResize: true, fastScrollEnd: true } as any);
 
     const splits: SplitType[] = [];
 
@@ -178,64 +180,118 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         }
       });
 
-      // MOBILE: Pinned stack image reveals 
+      // MOBILE: Pinned stack image reveals
       mm.add("(max-width: 767px)", () => {
-        // Preserve inline React styles like zIndex, but clear GSAP-specific opacity/transform
+        // Clear any desktop GSAP state that may have leaked in
         gsap.set(slides, { clearProps: "opacity,transform,pointerEvents" });
         gsap.set('.chapter-content', { clearProps: "opacity,transform,y" });
-        gsap.set('.chapter-image-item', { clearProps: "opacity,transform,scale,y,x" });
+        gsap.set('.chapter-image-item', { clearProps: "opacity,transform,scale,y,x,xPercent,yPercent,rotation" });
 
-        slides.forEach((slide) => {
-          const content = slide.querySelector('.chapter-content');
+        /**
+         * FIX FOR CHROME MOBILE PREMATURE TRIGGER BUG:
+         *
+         * Root cause: When slides use `position: sticky`, Chrome mobile calculates
+         * their bounding rect at their *stuck* position (top:0), not their natural
+         * flow position. GSAP ScrollTrigger reads this stuck position, so triggers
+         * for chapters 2/3/4 fire immediately at page load (progress already = 1).
+         *
+         * Solution: Instead of triggering on each `slide` element (which is sticky
+         * and gives wrong rects on Chrome), we anchor ALL triggers to the outer
+         * `sectionRef` and compute the correct scroll offset manually per chapter.
+         * Each chapter occupies 150vh of scroll space in the DOM flow.
+         */
+        const CHAPTER_HEIGHT_VH = 150; // matches h-[150vh] on .chapter-slide
+
+        slides.forEach((slide, idx) => {
+          const content = slide.querySelector('.chapter-content') as HTMLElement | null;
           const images = gsap.utils.toArray(slide.querySelectorAll('.chapter-image-item')) as HTMLElement[];
 
-          // Guarantee visibility locally to prevent FOUC side-effects
-          gsap.set(content, { opacity: 1, y: 0 });
+          // Ensure text content is always visible on mobile
+          if (content) gsap.set(content, { opacity: 1, y: 0 });
 
-          // Frame-level Pinned Scrolling Image reveal stack
-          if (images.length > 0) {
-            // Initial setup: ensure all are visible
-            images.forEach((img) => {
-                gsap.set(img, { opacity: 1, scale: 1, xPercent: 0, yPercent: 0, rotation: 0 });
+          if (images.length === 0) return;
+
+          // Helper: reset images to their natural stacked state (called on enter/leaveBack)
+          const resetImages = () => {
+            images.forEach((img, i) => {
+              gsap.set(img, {
+                xPercent: 0,
+                yPercent: 0,
+                opacity: 1,
+                scale: 1,
+                rotation: i === 0 ? -2 : i === 1 ? 3 : -1,
+              });
             });
-            // Re-apply correct initial rotations manually for GSAP consistency
-            gsap.set(images[0], { rotation: -2 });
-            if(images[1]) gsap.set(images[1], { rotation: 3 });
-            if(images[2]) gsap.set(images[2], { rotation: -1 });
+          };
 
-            // CSS Sticky natively replaces GSAP pinning on Mobile!
-            const tl = gsap.timeline({
-               scrollTrigger: {
-                 trigger: slide, 
-                 start: "top top",
-                 end: "bottom bottom",
-                 pin: false,
-                 scrub: 1,
-               }
-            });
+          // Set initial state
+          resetImages();
 
-            let accumulated = 0;
-            
-            // Short hold so the user begins reading text before image slides away
-            tl.to({}, { duration: 0.5 });
-            accumulated += 0.5;
+          // Build the reveal timeline (scrubbed)
+          const tl = gsap.timeline({ paused: true });
 
-            // Slide out top images, revealing the bottom ones smoothly
-            for (let j = images.length - 1; j > 0; j--) {
-                 tl.to(images[j], {
-                   xPercent: 120, // Slide right
-                   yPercent: 20, // And slightly down
-                   rotation: j % 2 === 0 ? 15 : -15,
-                   opacity: 0, // Fade out softly
-                   scale: 1.05,
-                   duration: 1,
-                   ease: "power2.inOut"
-                 }, accumulated);
-                 accumulated += 1.2; 
-            }
-            // Add a small pause at the end to hold the final image perfectly
-            tl.to({}, { duration: 0.5 });
+          // Brief hold before first image slides away
+          tl.to({}, { duration: 0.5 });
+          let accumulated = 0.5;
+
+          for (let j = images.length - 1; j > 0; j--) {
+            tl.to(
+              images[j],
+              {
+                xPercent: 120,
+                yPercent: 20,
+                rotation: j % 2 === 0 ? 15 : -15,
+                opacity: 0,
+                scale: 1.05,
+                duration: 1,
+                ease: "power2.inOut",
+              },
+              accumulated
+            );
+            accumulated += 1.2;
           }
+
+          // Hold final image
+          tl.to({}, { duration: 0.5 });
+
+          // --- Anchor trigger to the SECTION, not the sticky slide ---
+          // Each chapter takes CHAPTER_HEIGHT_VH in scroll space.
+          // The header intro above the pin wrapper is approximately 40svh.
+          const headerOffset = "40svh";
+
+          ScrollTrigger.create({
+            trigger: sectionRef.current,
+            // start when the top of this chapter's scroll block hits the top of viewport
+            start: () => {
+              const sectionTop = sectionRef.current!.getBoundingClientRect().top + window.scrollY;
+              // header intro height (approximate, matches min-h-[40vh] intro + padding)
+              const headerH = window.innerHeight * 0.4;
+              const chapterOffset = idx * CHAPTER_HEIGHT_VH * (window.innerHeight / 100);
+              return sectionTop + headerH + chapterOffset - window.innerHeight;
+            },
+            end: () => {
+              const sectionTop = sectionRef.current!.getBoundingClientRect().top + window.scrollY;
+              const headerH = window.innerHeight * 0.4;
+              const chapterOffset = idx * CHAPTER_HEIGHT_VH * (window.innerHeight / 100);
+              const chapterH = CHAPTER_HEIGHT_VH * (window.innerHeight / 100);
+              return sectionTop + headerH + chapterOffset + chapterH - window.innerHeight;
+            },
+            scrub: 1,
+            invalidateOnRefresh: true,
+            refreshPriority: -idx, // process in chapter order
+            onUpdate: (self) => {
+              tl.progress(self.progress);
+            },
+            onEnter: () => {
+              // Reset images to initial stacked state when entering from above
+              // This guards against Chrome's eager scroll position calculation
+              resetImages();
+            },
+            onLeaveBack: () => {
+              // When scrolling back above this chapter, fully reset
+              resetImages();
+            },
+          });
         });
       });
 
