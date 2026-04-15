@@ -320,40 +320,44 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         }
       });
 
-      // Conclusion Cinematic Animation
-      const conclusionText = sectionRef.current?.querySelector('.story-conclusion-text');
-      if (conclusionText) {
-        const textSplit = new SplitType(conclusionText as HTMLElement, { types: 'lines,words' });
-        splits.push(textSplit);
+      // Conclusion: Split Reveal — "Origin Objects" style
+      // Quote line 1 slides LEFT, line 2 slides RIGHT, images reveal in the gap
+      const conclusionWrapper = sectionRef.current?.querySelector('.story-conclusion-split-wrapper');
+      if (conclusionWrapper) {
+        const leftLine = conclusionWrapper.querySelector('.split-line-left') as HTMLElement;
+        const rightLine = conclusionWrapper.querySelector('.split-line-right') as HTMLElement;
+        const splitImages = gsap.utils.toArray(
+          conclusionWrapper.querySelectorAll('.split-reveal-image')
+        ) as HTMLElement[];
 
-        const tlConclusion = gsap.timeline({
-          scrollTrigger: {
-            trigger: conclusionText,
-            start: "top 95%",
-            end: "bottom 70%",
-            scrub: 1,
-          }
+        // Hidden initial state for images
+        gsap.set(splitImages, { opacity: 0, scale: 0.78, y: 44 });
+
+        // Deco fades in on enter
+        gsap.from('.story-conclusion-deco', {
+          opacity: 0,
+          y: 20,
+          duration: 1.2,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: conclusionWrapper, start: 'top 88%' },
         });
 
-        tlConclusion.from(".story-conclusion-deco", {
-          opacity: 0,
-          scale: 0.5,
-          duration: 1,
-          ease: "power2.out"
-        })
-          .from(textSplit.words, {
-            y: 40,
-            opacity: 0,
-            rotateX: -50,
-            stagger: 0.08,
-            duration: 1.2,
-            ease: "back.out(1.5)"
-          }, "-=0.5")
-          .from(".story-conclusion-line-inner", {
-            scaleY: 0,
-            duration: 1,
-            ease: "power2.inOut"
-          }, "-=0.8");
+        // Scrubbed split timeline
+        const tlConclusion = gsap.timeline({
+          scrollTrigger: {
+            trigger: conclusionWrapper,
+            start: 'top 72%',
+            end: 'bottom 8%',
+            scrub: 1.5,
+          },
+        });
+
+        tlConclusion
+          .to(leftLine,         { x: '-12vw', ease: 'power2.inOut', duration: 2 }, 0)
+          .to(rightLine,        { x: '12vw',  ease: 'power2.inOut', duration: 2 }, 0)
+          .to(splitImages[0],   { opacity: 1,  scale: 1, y: 0, ease: 'power2.out', duration: 1.6 }, 0.18)
+          .to(splitImages[1],   { opacity: 1,  scale: 1, y: 0, ease: 'power2.out', duration: 1.6 }, 0.42)
+          .from('.story-conclusion-line-inner', { scaleY: 0, ease: 'power2.inOut', duration: 1 }, 1.7);
       }
 
     }, sectionRef);
@@ -475,45 +479,76 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         </div>
       </div>
 
-      {/* Conclusion / Transition to next section */}
-      <div className="container mx-auto px-6 md:px-12 relative z-10 w-full pb-16 md:pb-20">
-        <div className="py-24 md:py-32 flex flex-col items-center justify-center text-center space-y-8 md:space-y-10">
-          <div className="story-conclusion-deco flex items-center justify-center gap-4 md:gap-6 opacity-30">
-            <div className="w-12 md:w-16 h-[0.5px] bg-olive"></div>
-            <div className="w-2 h-2 rotate-45 border border-olive"></div>
-            <div className="w-12 md:w-16 h-[0.5px] bg-olive"></div>
-          </div>
+      {/* Conclusion: Split Reveal — Origin Objects style */}
+      <div className="story-conclusion-split-wrapper container mx-auto px-4 md:px-12 relative z-10 w-full pb-16 md:pb-24">
 
-          <p className="story-conclusion-text text-3xl md:text-5xl lg:text-6xl font-heading text-burgundy italic leading-relaxed max-w-4xl mx-auto drop-shadow-sm px-4" style={{ perspective: "400px" }}>
-            {lang === 'en' ? "“Five years later, we celebrate where the journey brought us.”" : "“Năm năm sau, tụi mình cùng nhìn lại và ăn mừng nơi hành trình này đã đưa hai đứa đến.”"}
+        {/* Decorative separator */}
+        <div className="story-conclusion-deco flex items-center justify-center gap-4 md:gap-6 opacity-30 pt-20 md:pt-28 pb-10 md:pb-14">
+          <div className="w-12 md:w-16 h-[0.5px] bg-olive" />
+          <div className="w-2 h-2 rotate-45 border border-olive" />
+          <div className="w-12 md:w-16 h-[0.5px] bg-olive" />
+        </div>
+
+        {/* Split quote + image reveal block */}
+        <div className="relative flex flex-col items-center justify-center text-center overflow-hidden">
+
+          {/* Line 1 — slides LEFT on scroll */}
+          <p className="split-line-left w-full text-[1.9rem] sm:text-5xl md:text-6xl lg:text-[5rem] font-heading text-burgundy italic leading-tight drop-shadow-sm px-4 will-change-transform pb-2 md:pb-4">
+            {lang === 'en'
+              ? '“Five years later, we celebrate'
+              : '“Năm năm sau, tụi mình'}
           </p>
 
-          {/* Final photograph — the still frame after the story */}
-          <div className="story-conclusion-photo pt-4 md:pt-8 w-full flex flex-col items-center gap-4">
-            <div className="relative w-[200px] md:w-[260px] aspect-[3/4] -rotate-1 shadow-[0_24px_48px_-12px_rgba(0,0,0,0.22)] ring-1 ring-inset ring-black/8 overflow-hidden">
+          {/* Images — revealed as text splits apart */}
+          <div className="split-images-row flex items-end justify-center gap-4 md:gap-8 py-6 md:py-10 px-4">
+
+            {/* Image 1 — counter-clockwise tilt */}
+            <div className="split-reveal-image relative w-[130px] sm:w-[160px] md:w-[205px] lg:w-[248px] aspect-[3/4] -rotate-[2.5deg] overflow-hidden shadow-[0_28px_64px_-16px_rgba(0,0,0,0.28)] ring-1 ring-inset ring-black/10 will-change-transform shrink-0">
               <Image
                 src="/2.webp"
+                alt="Tommy & Linh — the proposal moment"
                 fill
                 className="object-cover"
-                sizes="(max-width: 768px) 200px, 260px"
+                sizes="(max-width: 640px) 130px, (max-width: 768px) 160px, (max-width: 1024px) 205px, 248px"
               />
-              {/* Vignette — same treatment as chapter images */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-50 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent opacity-50 pointer-events-none" />
               <div className="absolute inset-0 ring-1 ring-inset ring-black/5 pointer-events-none" />
-              {/* Paper texture */}
-              <div className="absolute inset-0 opacity-[0.06] mix-blend-multiply pointer-events-none"
-                style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }}
-              />
             </div>
-            <span className="text-[9px] tracking-[0.5em] uppercase text-olive/40 font-medium">
-              {lang === 'en' ? 'Tommy & Linh' : 'Tommy & Linh'}
-            </span>
+
+            {/* Image 2 — clockwise tilt, offset upward for stagger feel */}
+            <div className="split-reveal-image relative w-[130px] sm:w-[160px] md:w-[205px] lg:w-[248px] aspect-[3/4] rotate-[2deg] overflow-hidden shadow-[0_28px_64px_-16px_rgba(0,0,0,0.28)] ring-1 ring-inset ring-black/10 will-change-transform shrink-0 -translate-y-5 md:-translate-y-8">
+              <Image
+                src="/4.webp"
+                alt="Tommy & Linh — together"
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 130px, (max-width: 768px) 160px, (max-width: 1024px) 205px, 248px"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent opacity-50 pointer-events-none" />
+              <div className="absolute inset-0 ring-1 ring-inset ring-black/5 pointer-events-none" />
+            </div>
           </div>
 
-          <div className="pt-6 story-conclusion-line">
-            <div className="story-conclusion-line-inner w-[0.5px] h-32 bg-gradient-to-b from-olive/60 to-transparent mx-auto origin-top"></div>
-          </div>
+          {/* Line 2 — slides RIGHT on scroll */}
+          <p className="split-line-right w-full text-[1.9rem] sm:text-5xl md:text-6xl lg:text-[5rem] font-heading text-burgundy italic leading-tight drop-shadow-sm px-4 will-change-transform pt-2 md:pt-4">
+            {lang === 'en'
+              ? 'where the journey brought us.”'
+              : 'cùng nhìn lại và ăn mừng nơi hành trình đã đưa đến.”'}
+          </p>
         </div>
+
+        {/* Name caption */}
+        <div className="flex justify-center mt-8 md:mt-12">
+          <span className="text-[9px] tracking-[0.5em] uppercase text-olive/40 font-medium">
+            Tommy &amp; Linh
+          </span>
+        </div>
+
+        {/* Trailing decorative line */}
+        <div className="pt-6 story-conclusion-line flex justify-center">
+          <div className="story-conclusion-line-inner w-[0.5px] h-32 bg-gradient-to-b from-olive/60 to-transparent origin-top" />
+        </div>
+
       </div>
 
       {/* Background Floral Accents */}
