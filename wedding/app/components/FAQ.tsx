@@ -7,7 +7,11 @@ import { ChevronDown, HelpCircle, Info, MapPin, Wind, Briefcase, CreditCard, Pla
 
 gsap.registerPlugin(ScrollTrigger);
 
-
+interface FAQItem {
+  question: string;
+  answer: string;
+  icon?: React.ReactNode;
+}
 
 const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -69,7 +73,7 @@ const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           icon: <Pill className="w-5 h-5" />
         },
         {
-          question: "what immunizations do i need for vietnam?",
+          question: "What immunizations do I need for Vietnam?",
           answer: "For travel to Vietnam, the CDC and WHO recommend vaccinations for Hepatitis A, Typhoid, and Japanese Encephalitis (especially for rural stays or long trips). Ensure routine vaccines (MMR, Tdap) are up to date, and consider Hepatitis B, Rabies, and COVID-19 vaccinations.",
           icon: <Pill className="w-5 h-5" />
         },
@@ -162,7 +166,7 @@ const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(".faq-header-reveal", 
+      gsap.fromTo(".faq-header-reveal",
         { opacity: 0, y: 20 },
         {
           opacity: 1,
@@ -178,7 +182,7 @@ const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       );
 
       // Immediate, high-performance fade reveal for FAQ items
-      gsap.fromTo(".faq-item-reveal", 
+      gsap.fromTo(".faq-item-reveal",
         { opacity: 0, y: 10 },
         {
           opacity: 1,
@@ -195,10 +199,10 @@ const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       );
 
       // Simple entry for botanical accents instead of complex scrubbing
-      gsap.fromTo([".faq-parallax-1", ".faq-parallax-2"], 
+      gsap.fromTo([".faq-parallax-1", ".faq-parallax-2"],
         { opacity: 0, scale: 0.95 },
-        { 
-          opacity: 0.03, 
+        {
+          opacity: 0.03,
           scale: 1,
           duration: 2,
           ease: "power2.out",
@@ -224,25 +228,25 @@ const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }}
       />
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-olive/5 to-transparent pointer-events-none" />
-      
+
       {/* Grain Texture Overlay */}
       <div className="absolute inset-0 opacity-[0.4] texture-grain pointer-events-none mix-blend-soft-light" />
-      
+
       {/* Cinematic Ambient Glow Orbs */}
       <div className="absolute top-[10%] right-[-15%] w-[600px] h-[600px] md:w-[900px] md:h-[900px] bg-olive/[0.04] rounded-full filter blur-[120px] pointer-events-none mix-blend-multiply" />
       <div className="absolute bottom-[20%] left-[-15%] w-[500px] h-[500px] md:w-[800px] md:h-[800px] bg-burgundy/[0.03] rounded-full filter blur-[120px] pointer-events-none mix-blend-multiply" />
-      
+
       {/* Decorative Botanical SVGs in background with Parallax */}
       <div className="absolute top-20 right-10 w-64 h-64 md:w-[400px] md:h-[400px] opacity-[0.03] text-olive pointer-events-none faq-parallax-1">
-         <svg viewBox="0 0 512 512" className="w-full h-full fill-current">
-            <path d="M383.8 351.7c2.5-2.5 105.2-92.4 105.2-92.4l-17.5-7.5c-10-4.9-7.4-11.5-5-17.4 2.4-7.6 20.1-67.3 20.1-67.3s-47.7 10-57.7 12.5c-7.5 2.4-10-2.5-12.5-7.5s-15-32.4-15-32.4-52.6 59.9-55.1 62.3c-10 7.5-20.1 0-17.6-10 0-10 27.6-129.6 27.6-129.6s-30.1 17.4-40.1 22.4c-7.5 5-12.6 5-17.6-5C293.5 72.3 255.9 0 255.9 0s-37.5 72.3-42.5 79.8c-5 10-10 10-17.6 5-10-5-40.1-22.4-40.1-22.4S183.3 182 183.3 192c2.5 10-7.5 17.5-17.6 10-2.5-2.5-55.1-62.3-55.1-62.3S98.1 167 95.6 172s-5 9.9-12.5 7.5C73 177 25.4 167 25.4 167s17.6 59.7 20.1 67.3c2.4 6 5 12.5-5 17.4L23 259.3s102.6 89.9 105.2 92.4c5.1 5 10 7.5 5.1 22.5-5.1 15-10.1 35.1-10.1 35.1s95.2-20.1 105.3-22.6c8.7-.9 18.3 2.5 18.3 12.5S241 512 241 512h30s-5.8-102.7-5.8-112.8 9.5-13.4 18.4-12.5c10 2.5 105.2 22.6 105.2 22.6s-5-20.1-10-35.1 0-17.5 5-22.5z"/>
-         </svg>
+        <svg viewBox="0 0 512 512" className="w-full h-full fill-current">
+          <path d="M383.8 351.7c2.5-2.5 105.2-92.4 105.2-92.4l-17.5-7.5c-10-4.9-7.4-11.5-5-17.4 2.4-7.6 20.1-67.3 20.1-67.3s-47.7 10-57.7 12.5c-7.5 2.4-10-2.5-12.5-7.5s-15-32.4-15-32.4-52.6 59.9-55.1 62.3c-10 7.5-20.1 0-17.6-10 0-10 27.6-129.6 27.6-129.6s-30.1 17.4-40.1 22.4c-7.5 5-12.6 5-17.6-5C293.5 72.3 255.9 0 255.9 0s-37.5 72.3-42.5 79.8c-5 10-10 10-17.6 5-10-5-40.1-22.4-40.1-22.4S183.3 182 183.3 192c2.5 10-7.5 17.5-17.6 10-2.5-2.5-55.1-62.3-55.1-62.3S98.1 167 95.6 172s-5 9.9-12.5 7.5C73 177 25.4 167 25.4 167s17.6 59.7 20.1 67.3c2.4 6 5 12.5-5 17.4L23 259.3s102.6 89.9 105.2 92.4c5.1 5 10 7.5 5.1 22.5-5.1 15-10.1 35.1-10.1 35.1s95.2-20.1 105.3-22.6c8.7-.9 18.3 2.5 18.3 12.5S241 512 241 512h30s-5.8-102.7-5.8-112.8 9.5-13.4 18.4-12.5c10 2.5 105.2 22.6 105.2 22.6s-5-20.1-10-35.1 0-17.5 5-22.5z" />
+        </svg>
       </div>
 
       <div className="absolute -bottom-20 -left-20 w-80 h-80 md:w-[600px] md:h-[600px] opacity-[0.02] text-burgundy pointer-events-none rotate-12 faq-parallax-2">
-         <svg viewBox="0 0 512 512" className="w-full h-full fill-current">
-            <path d="M383.8 351.7c2.5-2.5 105.2-92.4 105.2-92.4l-17.5-7.5c-10-4.9-7.4-11.5-5-17.4 2.4-7.6 20.1-67.3 20.1-67.3s-47.7 10-57.7 12.5c-7.5 2.4-10-2.5-12.5-7.5s-15-32.4-15-32.4-52.6 59.9-55.1 62.3c-10 7.5-20.1 0-17.6-10 0-10 27.6-129.6 27.6-129.6s-30.1 17.4-40.1 22.4c-7.5 5-12.6 5-17.6-5C293.5 72.3 255.9 0 255.9 0s-37.5 72.3-42.5 79.8c-5 10-10 10-17.6 5-10-5-40.1-22.4-40.1-22.4S183.3 182 183.3 192c2.5 10-7.5 17.5-17.6 10-2.5-2.5-55.1-62.3-55.1-62.3S98.1 167 95.6 172s-5 9.9-12.5 7.5C73 177 25.4 167 25.4 167s17.6 59.7 20.1 67.3c2.4 6 5 12.5-5 17.4L23 259.3s102.6 89.9 105.2 92.4c5.1 5 10 7.5 5.1 22.5-5.1 15-10.1 35.1-10.1 35.1s95.2-20.1 105.3-22.6c8.7-.9 18.3 2.5 18.3 12.5S241 512 241 512h30s-5.8-102.7-5.8-112.8 9.5-13.4 18.4-12.5c10 2.5 105.2 22.6 105.2 22.6s-5-20.1-10-35.1 0-17.5 5-22.5z"/>
-         </svg>
+        <svg viewBox="0 0 512 512" className="w-full h-full fill-current">
+          <path d="M383.8 351.7c2.5-2.5 105.2-92.4 105.2-92.4l-17.5-7.5c-10-4.9-7.4-11.5-5-17.4 2.4-7.6 20.1-67.3 20.1-67.3s-47.7 10-57.7 12.5c-7.5 2.4-10-2.5-12.5-7.5s-15-32.4-15-32.4-52.6 59.9-55.1 62.3c-10 7.5-20.1 0-17.6-10 0-10 27.6-129.6 27.6-129.6s-30.1 17.4-40.1 22.4c-7.5 5-12.6 5-17.6-5C293.5 72.3 255.9 0 255.9 0s-37.5 72.3-42.5 79.8c-5 10-10 10-17.6 5-10-5-40.1-22.4-40.1-22.4S183.3 182 183.3 192c2.5 10-7.5 17.5-17.6 10-2.5-2.5-55.1-62.3-55.1-62.3S98.1 167 95.6 172s-5 9.9-12.5 7.5C73 177 25.4 167 25.4 167s17.6 59.7 20.1 67.3c2.4 6 5 12.5-5 17.4L23 259.3s102.6 89.9 105.2 92.4c5.1 5 10 7.5 5.1 22.5-5.1 15-10.1 35.1-10.1 35.1s95.2-20.1 105.3-22.6c8.7-.9 18.3 2.5 18.3 12.5S241 512 241 512h30s-5.8-102.7-5.8-112.8 9.5-13.4 18.4-12.5c10 2.5 105.2 22.6 105.2 22.6s-5-20.1-10-35.1 0-17.5 5-22.5z" />
+        </svg>
       </div>
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
@@ -261,7 +265,7 @@ const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         <div className="max-w-4xl mx-auto faq-list">
           <div className="grid grid-cols-1 gap-4">
             {items.map((item, index) => (
-              <div 
+              <div
                 key={index}
                 className="faq-item-reveal group bg-white border border-olive/10 shadow-sm transition-colors duration-300 hover:border-olive/30 overflow-hidden"
               >
@@ -279,11 +283,10 @@ const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                   </div>
                   <ChevronDown className={`w-5 h-5 text-olive/40 transition-transform duration-300 ease-in-out ${openIndex === index ? 'rotate-180 text-burgundy' : ''}`} />
                 </button>
-                
-                <div 
-                  className={`transition-all duration-500 ease-in-out px-10 md:px-[88px] overflow-hidden ${
-                    openIndex === index ? 'max-h-[500px] opacity-100 pb-8 md:pb-12' : 'max-h-0 opacity-0 pb-0'
-                  }`}
+
+                <div
+                  className={`transition-all duration-500 ease-in-out px-10 md:px-[88px] overflow-hidden ${openIndex === index ? 'max-h-[500px] opacity-100 pb-8 md:pb-12' : 'max-h-0 opacity-0 pb-0'
+                    }`}
                 >
                   <div className="pt-2 border-t border-olive/5">
                     <p className="text-ink/80 font-serif font-light italic text-base md:text-lg leading-relaxed pt-6">
@@ -302,7 +305,7 @@ const FAQ = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           <div className="w-[1px] h-12 bg-gradient-to-b from-olive to-transparent mx-auto"></div>
         </div>
       </div>
-      
+
       {/* Bottom Border Accent */}
       <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-olive/20 to-transparent"></div>
     </section>
