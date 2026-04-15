@@ -256,30 +256,37 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
           // --- Anchor trigger to the .story-pin-wrapper, computed at refresh time ---
           //
-          // BUG FIXED: The previous code used `sectionTop + headerH - window.innerHeight`
-          // which shifted the start point 1 full viewport BEFORE the chapter appeared.
-          // By the time the user visually arrived at the chapter, scrub progress was
-          // already 1.0 and all images had been animated away.
+          // ROOT CAUSE OF CHAPTERS 2-4 BUG:
+          //   CSS `h-[150vh]` uses the LARGE viewport height (full screen, no browser chrome).
+          //   `window.innerHeight` is the SMALL viewport (with address bar visible).
+          //   These differ by ~50-100px on Chrome mobile.
+          //   → Chapter 1 (idx=0): 0 * difference = 0px error ✓
+          //   → Chapter 2 (idx=1): 1 * ~75px = 75px error ✗
+          //   → Chapter 4 (idx=3): 3 * ~75px = 225px error ✗ (trigger starts way too early)
           //
-          // CORRECT formula:
-          //   start = pinWrapperTop + idx * 150vh
-          //   end   = pinWrapperTop + (idx + 1) * 150vh
-          //
-          // This means: animation plays from progress=0 (chapter enters viewport top)
-          // to progress=1 (next chapter enters viewport top). No viewport subtraction.
+          // FIX: Measure actual pixel heights from the DOM directly. No vh math. No approximation.
 
           ScrollTrigger.create({
             trigger: sectionRef.current,
             start: () => {
-              // Re-measure at every refresh so resize/font-load don't break it
               const pinWrapperEl = sectionRef.current!.querySelector('.story-pin-wrapper') as HTMLElement;
               const pinTop = pinWrapperEl.getBoundingClientRect().top + window.scrollY;
-              return pinTop + idx * CHAPTER_HEIGHT_VH * (window.innerHeight / 100);
+              // Sum the actual rendered heights of all chapters before this one
+              let offset = 0;
+              for (let i = 0; i < idx; i++) {
+                offset += slides[i].getBoundingClientRect().height;
+              }
+              return pinTop + offset;
             },
             end: () => {
               const pinWrapperEl = sectionRef.current!.querySelector('.story-pin-wrapper') as HTMLElement;
               const pinTop = pinWrapperEl.getBoundingClientRect().top + window.scrollY;
-              return pinTop + (idx + 1) * CHAPTER_HEIGHT_VH * (window.innerHeight / 100);
+              // Sum heights of this chapter and all preceding ones
+              let offset = 0;
+              for (let i = 0; i <= idx; i++) {
+                offset += slides[i].getBoundingClientRect().height;
+              }
+              return pinTop + offset;
             },
             scrub: 1,
             invalidateOnRefresh: true,
@@ -288,7 +295,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
               tl.progress(self.progress);
             },
             onEnter: () => {
-              // Safety net: reset in case Chrome still gives a stale initial position
+              // Safety net: ensure images are in stacked state when chapter enters
               resetImages();
             },
             onLeaveBack: () => {
