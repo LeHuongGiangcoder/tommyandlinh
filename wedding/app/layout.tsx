@@ -55,10 +55,10 @@ export const metadata: Metadata = {
     siteName: "Tommy & Linh Wedding",
     images: [
       {
-        url: "/1.jpg", // Next.js will use metadataBase to make this absolute
+        url: "/1.webp", // Switched to webp as requested
         width: 1200,
         height: 800,
-        type: "image/jpeg",
+        type: "image/webp",
         alt: "Tommy & Linh Wedding Preview Image",
       },
     ],
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     title: "Tommy & Linh Wedding",
     description:
       "We're getting married! Come celebrate our big day with us. We're so excited to have you there.",
-    images: ["/1.jpg"],
+    images: ["/1.webp"],
   },
 };
 
