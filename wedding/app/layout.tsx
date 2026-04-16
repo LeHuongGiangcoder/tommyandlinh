@@ -55,13 +55,15 @@ export const metadata: Metadata = {
     siteName: "Tommy & Linh Wedding",
     images: [
       {
-        url: "https://tommylinh.giangle.site/1.jpg",
+        url: "/1.jpg", // Next.js will use metadataBase to make this absolute
         width: 1200,
         height: 800,
+        type: "image/jpeg",
         alt: "Tommy & Linh Wedding Preview Image",
       },
     ],
-    locale: "en_US",
+    locale: "vi_VN",
+    alternateLocale: ["en_US"],
     type: "website",
   },
   twitter: {
@@ -69,7 +71,7 @@ export const metadata: Metadata = {
     title: "Tommy & Linh Wedding",
     description:
       "We're getting married! Come celebrate our big day with us. We're so excited to have you there.",
-    images: ["https://tommylinh.giangle.site/1.jpg"],
+    images: ["/1.jpg"],
   },
 };
 
