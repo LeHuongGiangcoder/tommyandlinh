@@ -523,7 +523,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             <p className="split-line-left w-full text-[1.9rem] sm:text-5xl md:text-6xl lg:text-[5rem] font-heading text-burgundy italic leading-tight drop-shadow-sm will-change-transform pb-1 md:pb-2">
             {lang === 'en'
               ? '“Five years later, we celebrate'
-              : '“Năm năm sau, tụi mình'}
+              : '“Năm năm sau, tụi mình cùng nhìn lại'}
           </p>
 
           {/* Images — revealed as text splits apart */}
@@ -560,7 +560,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
             <p className="split-line-right w-full text-[1.9rem] sm:text-5xl md:text-6xl lg:text-[5rem] font-heading text-burgundy italic leading-tight drop-shadow-sm will-change-transform pt-1 md:pt-2">
               {lang === 'en'
                 ? 'where the journey brought us.”'
-                : 'cùng nhìn lại và ăn mừng nơi hành trình đã đưa đến.”'}
+                : 'và ăn mừng nơi hành trình đã đưa đến.”'}
             </p>
 
 
