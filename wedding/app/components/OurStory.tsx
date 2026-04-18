@@ -398,7 +398,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
               style={{ zIndex: chapters.length - idx }}
             >
               {/* CSS STICKY WRAPPER: Avoids GSAP pin overlap bugs on Mobile */}
-              <div className="md:relative sticky top-0 h-[100svh] w-full flex flex-col md:grid md:grid-cols-12 md:col-span-12 gap-4 md:gap-8 lg:gap-12 items-center justify-center pt-8 pb-12 md:py-0 overflow-visible md:overflow-visible bg-surface md:bg-transparent">
+              <div className="md:relative sticky top-0 h-[100svh] w-full flex flex-col md:grid md:grid-cols-12 md:col-span-12 gap-6 md:gap-8 lg:gap-12 items-start md:items-center justify-start md:justify-center pt-24 pb-12 md:py-0 overflow-visible bg-surface md:bg-transparent">
 
                 {/* Left Column: Semantic Storytelling */}
                 <div className="chapter-content w-full md:col-span-6 lg:col-span-5 flex flex-col justify-center space-y-3 md:space-y-6 lg:space-y-10 px-6 md:px-0 lg:pl-12 z-20 order-1 md:order-1 pt-0 md:pt-0">
@@ -428,8 +428,8 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 <div className="lg:col-span-1 hidden lg:block"></div>
 
                 {/* Right Column: Layered Cinematic Gallery */}
-                <div className="chapter-images w-full md:col-span-6 lg:col-span-6 relative flex items-center justify-center pointer-events-none order-2 md:order-2 mt-4 md:mt-0 px-0 md:px-0">
-                  <div className="chapter-images-wrapper relative w-[80%] sm:w-[75%] md:w-full aspect-[4/5] max-h-[40svh] md:max-h-none flex items-center justify-center pointer-events-auto mx-auto max-w-[360px] md:max-w-none">
+                <div className="chapter-images w-full md:col-span-6 lg:col-span-6 relative flex items-center justify-center pointer-events-none order-2 md:order-2 mt-4 md:mt-0 px-6 md:px-0">
+                  <div className="chapter-images-wrapper relative w-full sm:w-[75%] md:w-full aspect-[4/5] max-h-[45svh] md:max-h-none flex items-center justify-center pointer-events-auto mx-auto max-w-[360px] md:max-w-none">
                     {chap.images.map((img) => (
                       <div
                         key={img}
