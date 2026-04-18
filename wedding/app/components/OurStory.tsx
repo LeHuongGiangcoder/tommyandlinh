@@ -211,8 +211,8 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           const resetImages = () => {
             if (images[0]) {
               gsap.set(images[0], {
-                xPercent: 0,
-                yPercent: 0,
+                x: 0,
+                y: 0,
                 opacity: 1,
                 scale: 1,
                 rotation: -1,
@@ -429,11 +429,11 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
                 {/* Right Column: Layered Cinematic Gallery */}
                 <div className="chapter-images w-full md:col-span-6 lg:col-span-6 relative flex items-center justify-center pointer-events-none order-2 md:order-2 mt-4 md:mt-0 px-0 md:px-0">
-                  <div className="chapter-images-wrapper relative w-[80%] sm:w-[75%] md:w-full aspect-[4/5] max-h-[40svh] md:max-h-none block items-center justify-center pointer-events-auto mx-auto max-w-[360px] md:max-w-none">
+                  <div className="chapter-images-wrapper relative w-[80%] sm:w-[75%] md:w-full aspect-[4/5] max-h-[40svh] md:max-h-none flex items-center justify-center pointer-events-auto mx-auto max-w-[360px] md:max-w-none">
                     {chap.images.map((img) => (
                       <div
                         key={img}
-                        className="chapter-image-item absolute w-[95%] sm:w-[90%] md:w-[85%] lg:w-[80%] aspect-[3/4] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)] bg-surface will-change-transform -rotate-1 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2"
+                        className="chapter-image-item relative w-[95%] sm:w-[90%] md:w-[85%] lg:w-[80%] aspect-[3/4] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)] bg-surface will-change-transform -rotate-1"
                         style={{ zIndex: 10 }}
                       >
                         <Image
@@ -480,14 +480,14 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
           <div className="relative flex flex-col items-center justify-center text-center px-4 md:px-12 max-w-7xl mx-auto w-full">
 
-          {/* Split quote layout — text only for elegance */}
-            <p className="split-line-left w-full text-[1.9rem] sm:text-5xl md:text-6xl lg:text-[5.5rem] font-heading text-burgundy italic leading-tight drop-shadow-sm will-change-transform pb-1 md:pb-4">
+          {/* Split quote layout — text only for elegance. Using whitespace-nowrap to prevent breaks. */}
+            <p className={`split-line-left w-full ${lang === 'vi' ? 'text-[4.3vw] sm:text-[4.2rem] md:text-5xl lg:text-[5.2rem]' : 'text-[5vw] sm:text-5xl md:text-6xl lg:text-[5.5rem]'} font-heading text-burgundy italic leading-tight drop-shadow-sm will-change-transform pb-1 md:pb-4 whitespace-nowrap tracking-tight md:tracking-normal`}>
             {lang === 'en'
               ? '“Five years later, we celebrate'
               : '“Năm năm sau, tụi mình cùng nhìn lại'}
           </p>
 
-          <p className="split-line-right w-full text-[1.9rem] sm:text-5xl md:text-6xl lg:text-[5.5rem] font-heading text-burgundy italic leading-tight drop-shadow-sm will-change-transform pt-1 md:pt-4">
+          <p className={`split-line-right w-full ${lang === 'vi' ? 'text-[4.3vw] sm:text-[4.2rem] md:text-5xl lg:text-[5.2rem]' : 'text-[5vw] sm:text-5xl md:text-6xl lg:text-[5.5rem]'} font-heading text-burgundy italic leading-tight drop-shadow-sm will-change-transform pt-1 md:pt-4 whitespace-nowrap tracking-tight md:tracking-normal`}>
               {lang === 'en'
                 ? 'where the journey brought us.”'
                 : 'và ăn mừng nơi hành trình đã đưa đến.”'}
