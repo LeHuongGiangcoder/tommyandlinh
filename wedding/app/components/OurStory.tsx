@@ -31,7 +31,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       content: lang === 'en'
         ? "It all started in the most unexpected way in Colorado. We first crossed paths while working at a small marketing company, but it was a business trip to Vail that changed everything. At the time, neither of us could have imagined how significant that trip would become."
         : "Mọi chuyện bắt đầu theo một cách rất bất ngờ tại Colorado. Tụi mình lần đầu gặp nhau khi cùng làm việc tại một công ty marketing nhỏ, nhưng chính chuyến công tác đến Vail đã thay đổi tất cả. Lúc đó, không ai trong tụi mình có thể nghĩ rằng chuyến đi ấy lại trở nên đặc biệt đến vậy.",
-      images: ["/7.webp", "/12.webp"]
+      images: ["/16.webp"]
     },
     {
       id: "growth",
@@ -41,7 +41,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       content: lang === 'en'
         ? "What started as a strong friendship slowly grew into something deeper. From navigating long distance to eventually moving in together amidst the pandemic, our relationship grew into a partnership filled with laughter, support, and love."
         : "Tụi mình nhanh chóng kết nối qua những điều quan trọng nhất: tình cảm dành cho gia đình, những thử thách đã từng trải qua, những ước mơ và định hướng trong tương lai. Từ một tình bạn mộc mạc, mọi thứ dần trở nên sâu sắc hơn lúc nào không hay. Qua nhiều giai đoạn thăng trầm và những biến cố của cuộc sống, mối quan hệ ấy dần trở thành một sự đồng hành vững chắc, nơi luôn có tiếng cười, sự sẻ chia và tình yêu.",
-      images: ["/8.webp", "/11.webp", "/14.webp"]
+      images: ["/15.webp"]
     },
     {
       id: "adventure",
@@ -51,7 +51,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       content: lang === 'en'
         ? "On an early autumn day several years ago, what began as a simple day turned into one of the most meaningful moments of our lives. Tommy planned a trip to see the golden aspens changing. After an unforgettable 11-mile hike through rugged mountain terrain, we reached the breathtaking Crystal Mill in Colorado."
         : "Tommy đã lên kế hoạch cho một chuyến đi thường niên để ngắm lá vàng mùa thu. Nhưng thật ra anh đã âm thầm chuẩn bị cho một điều đặc biệt hơn rất nhiều. Sau hành trình trekking 18 km, gặp cả động vật hoang dã, Tommy và Linh đặt chân đến Crystal Mill, một nơi có khung cảnh thiên nhiên đẹp đến nao lòng.",
-      images: ["/6.webp", "/5.webp"]
+      images: ["/6.webp"]
     },
     {
       id: "proposal",
@@ -61,7 +61,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       content: lang === 'en'
         ? "There, with a full heart and a quiet certainty, Tommy got down on one knee. Flustered and completely overjoyed, Linh said yes. It wasn’t perfect in the traditional sense, but it was perfect for us: thoughtful, adventurous, and filled with love."
         : "Tại đó, với tất cả sự chân thành, Tommy đã quỳ gối, hỏi câu hỏi mà anh đã giữ trong lòng suốt nhiều tháng: “Em sẽ lấy anh chứ?”. Tuy đó không phải là một màn cầu hôn hoàn hảo theo kiểu truyền thống, nhưng lại hoàn hảo theo cách riêng của tụi mình: đầy chân thành, có chút phiêu lưu, và trọn vẹn yêu thương.",
-      images: ["/3.webp", "/10.webp", "/13.webp"]
+      images: ["/13.webp"]
     }
   ];
 
@@ -129,33 +129,29 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
               if (i > 0) {
                 gsap.set(slide, { zIndex: slides.length - i, opacity: 0, pointerEvents: "none" });
                 gsap.set(content, { opacity: 0, y: 50 });
-                gsap.set(images, { opacity: 0, scale: 0.9, y: 30 });
+                gsap.set(images, { opacity: 0, scale: 0.98, y: 40 });
               } else {
                 gsap.set(slide, { opacity: 1, zIndex: slides.length, pointerEvents: "auto" });
-                gsap.set(images, { opacity: 1, scale: 1, y: 0 }); // ensure first images are visible
+                gsap.set(images, { opacity: 1, scale: 1, y: 0 }); // ensure first image is visible
               }
 
               const readingStep = "read" + i;
               tl.add(readingStep);
 
-              // Phase 1: Scroll to Read & Discard Top Images 
+              // Phase 1: Reading phase - Elegant Vertical Parallax & Soft Drift
               let accumulatedDuration = 0;
-              for (let j = images.length - 1; j > 0; j--) {
-                const img = images[j];
-                tl.to(img, {
-                  xPercent: 120, // Slide out to the right
-                  yPercent: 20,
-                  rotation: (j % 2 === 0 ? 15 : -15),
-                  opacity: 0,
-                  scale: 1.2,
-                  duration: 1.5,
-                  ease: "power2.inOut"
-                }, readingStep + "+=" + accumulatedDuration);
-                accumulatedDuration += 1.5;
+              if (images[0]) {
+                tl.to(images[0], {
+                  y: -50, // Gentle parallax glide
+                  rotation: 0, // Subtle tilt shift
+                  duration: 3,
+                  ease: "none"
+                }, readingStep);
+                accumulatedDuration += 3;
+              } else {
+                tl.to({}, { duration: 1 }, readingStep);
+                accumulatedDuration += 1;
               }
-
-              tl.to({}, { duration: 1 }, readingStep + "+=" + accumulatedDuration);
-              accumulatedDuration += 1;
 
               // Phase 2: Slide Transition
               if (i < slides.length - 1) {
@@ -211,48 +207,36 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
           if (images.length === 0) return;
 
-          // Helper: reset images to their natural stacked state (called on enter/leaveBack)
+          // Helper: reset images to their natural state (called on enter/leaveBack)
           const resetImages = () => {
-            images.forEach((img, i) => {
-              gsap.set(img, {
+            if (images[0]) {
+              gsap.set(images[0], {
                 xPercent: 0,
                 yPercent: 0,
                 opacity: 1,
                 scale: 1,
-                rotation: i === 0 ? -2 : i === 1 ? 3 : -1,
+                rotation: -1,
               });
-            });
+            }
           };
 
           // Set initial state
           resetImages();
 
-          // Build the reveal timeline (scrubbed)
+          // Build the reveal timeline (scrubbed) - Elegant Parallax Glide
           const tl = gsap.timeline({ paused: true });
 
-          // Brief hold before first image slides away
-          tl.to({}, { duration: 0.5 });
-          let accumulated = 0.5;
-
-          for (let j = images.length - 1; j > 0; j--) {
-            tl.to(
-              images[j],
-              {
-                xPercent: 120,
-                yPercent: 20,
-                rotation: j % 2 === 0 ? 15 : -15,
-                opacity: 0,
-                scale: 1.05,
-                duration: 1,
-                ease: "power2.inOut",
-              },
-              accumulated
-            );
-            accumulated += 1.2;
+          if (images[0]) {
+            tl.to(images[0], {
+              y: -40, // Parallax movement
+              scale: 1.02, // Very slight scale for depth
+              duration: 2,
+              ease: "none",
+            }, 0);
           }
 
-          // Hold final image
-          tl.to({}, { duration: 0.5 });
+          // Small buffer duration
+          tl.to({}, { duration: 0.1 });
 
           // --- Anchor trigger to the .story-pin-wrapper, computed at refresh time ---
           //
@@ -466,14 +450,11 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 {/* Right Column: Layered Cinematic Gallery */}
                 <div className="chapter-images w-full md:col-span-6 lg:col-span-6 relative flex items-center justify-center pointer-events-none order-2 md:order-2 mt-4 md:mt-0 px-0 md:px-0">
                   <div className="chapter-images-wrapper relative w-[80%] sm:w-[75%] md:w-full aspect-[4/5] max-h-[40svh] md:max-h-none block items-center justify-center pointer-events-auto mx-auto max-w-[360px] md:max-w-none">
-                    {chap.images.map((img, i) => (
+                    {chap.images.map((img) => (
                       <div
                         key={img}
-                        className={`chapter-image-item absolute w-[80%] sm:w-[80%] md:w-[75%] lg:w-[65%] aspect-[3/4] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] bg-surface will-change-transform ${i === 0 ? '-rotate-2 left-[4%] md:left-[5%] top-[4%] md:top-[5%]' :
-                          i === 1 ? 'rotate-3 left-[10%] md:left-[17%] top-[10%] md:top-[15%]' :
-                            '-rotate-1 left-[16%] md:left-[29%] top-[16%] md:top-[25%]'
-                          }`}
-                        style={{ zIndex: 10 + i }}
+                        className="chapter-image-item absolute w-[95%] sm:w-[90%] md:w-[85%] lg:w-[80%] aspect-[3/4] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)] bg-surface will-change-transform -rotate-1 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2"
+                        style={{ zIndex: 10 }}
                       >
                         <Image
                           src={img}
