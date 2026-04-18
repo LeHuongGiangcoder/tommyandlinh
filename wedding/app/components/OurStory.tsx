@@ -176,117 +176,48 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         }
       });
 
-      // MOBILE: Pinned stack image reveals
+      // MOBILE: Natural flow fade-in sequence
       mm.add("(max-width: 767px)", () => {
         // Clear any desktop GSAP state that may have leaked in
-        gsap.set(slides, { clearProps: "opacity,transform,pointerEvents" });
-        gsap.set('.chapter-content', { clearProps: "opacity,transform,y" });
-        gsap.set('.chapter-image-item', { clearProps: "opacity,transform,scale,y,x,xPercent,yPercent,rotation" });
+        gsap.set(slides, { clearProps: "all" });
+        gsap.set('.chapter-content', { clearProps: "all" });
+        gsap.set('.chapter-image-item', { clearProps: "all" });
 
-        /**
-         * FIX FOR CHROME MOBILE PREMATURE TRIGGER BUG:
-         *
-         * Root cause: When slides use `position: sticky`, Chrome mobile calculates
-         * their bounding rect at their *stuck* position (top:0), not their natural
-         * flow position. GSAP ScrollTrigger reads this stuck position, so triggers
-         * for chapters 2/3/4 fire immediately at page load (progress already = 1).
-         *
-         * Solution: Instead of triggering on each `slide` element (which is sticky
-         * and gives wrong rects on Chrome), we anchor ALL triggers to the outer
-         * `sectionRef` and compute the correct scroll offset manually per chapter.
-         * Each chapter occupies 150vh of scroll space in the DOM flow.
-         */
-        const CHAPTER_HEIGHT_VH = 150; // matches h-[150vh] on .chapter-slide
-
-        slides.forEach((slide, idx) => {
+        slides.forEach((slide) => {
           const content = slide.querySelector('.chapter-content') as HTMLElement | null;
           const images = gsap.utils.toArray(slide.querySelectorAll('.chapter-image-item')) as HTMLElement[];
 
-          // Ensure text content is always visible on mobile
-          if (content) gsap.set(content, { opacity: 1, y: 0 });
-
-          if (images.length === 0) return;
-
-          // Helper: reset images to their natural state (called on enter/leaveBack)
-          const resetImages = () => {
-            if (images[0]) {
-              gsap.set(images[0], {
-                x: 0,
-                y: 0,
-                opacity: 1,
-                scale: 1,
-                rotation: -1,
-              });
-            }
-          };
-
-          // Set initial state
-          resetImages();
-
-          // Build the reveal timeline (scrubbed) - Elegant Parallax Glide
-          const tl = gsap.timeline({ paused: true });
-
-          if (images[0]) {
-            tl.to(images[0], {
-              y: -40, // Parallax movement
-              scale: 1.02, // Very slight scale for depth
-              duration: 2,
-              ease: "none",
-            }, 0);
+          // Fade up content text
+          if (content) {
+            gsap.fromTo(content, 
+              { opacity: 0, y: 40 },
+              {
+                opacity: 1, y: 0, 
+                duration: 1, ease: "power2.out",
+                scrollTrigger: {
+                  trigger: slide,
+                  start: "top 85%",
+                }
+              }
+            );
           }
 
-          // Small buffer duration
-          tl.to({}, { duration: 0.1 });
-
-          // --- Anchor trigger to the .story-pin-wrapper, computed at refresh time ---
-          //
-          // ROOT CAUSE OF CHAPTERS 2-4 BUG:
-          //   CSS `h-[150vh]` uses the LARGE viewport height (full screen, no browser chrome).
-          //   `window.innerHeight` is the SMALL viewport (with address bar visible).
-          //   These differ by ~50-100px on Chrome mobile.
-          //   → Chapter 1 (idx=0): 0 * difference = 0px error ✓
-          //   → Chapter 2 (idx=1): 1 * ~75px = 75px error ✗
-          //   → Chapter 4 (idx=3): 3 * ~75px = 225px error ✗ (trigger starts way too early)
-          //
-          // FIX: Measure actual pixel heights from the DOM directly. No vh math. No approximation.
-
-          ScrollTrigger.create({
-            trigger: sectionRef.current,
-            start: () => {
-              const pinWrapperEl = sectionRef.current!.querySelector('.story-pin-wrapper') as HTMLElement;
-              const pinTop = pinWrapperEl.getBoundingClientRect().top + window.scrollY;
-              // Sum the actual rendered heights of all chapters before this one
-              let offset = 0;
-              for (let i = 0; i < idx; i++) {
-                offset += slides[i].getBoundingClientRect().height;
+          if (images[0]) {
+            // Elegant parallax scrub for the image within its natural flow
+            gsap.fromTo(images[0],
+              { y: 30, opacity: 0, scale: 0.96 },
+              {
+                y: -10, opacity: 1, scale: 1,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: images[0].parentElement,
+                  start: "top 85%",
+                  end: "bottom 30%",
+                  scrub: 1,
+                }
               }
-              return pinTop + offset;
-            },
-            end: () => {
-              const pinWrapperEl = sectionRef.current!.querySelector('.story-pin-wrapper') as HTMLElement;
-              const pinTop = pinWrapperEl.getBoundingClientRect().top + window.scrollY;
-              // Sum heights of this chapter and all preceding ones
-              let offset = 0;
-              for (let i = 0; i <= idx; i++) {
-                offset += slides[i].getBoundingClientRect().height;
-              }
-              return pinTop + offset;
-            },
-            scrub: 1,
-            invalidateOnRefresh: true,
-            refreshPriority: -idx, // process chapters in order
-            onUpdate: (self) => {
-              tl.progress(self.progress);
-            },
-            onEnter: () => {
-              // Safety net: ensure images are in stacked state when chapter enters
-              resetImages();
-            },
-            onLeaveBack: () => {
-              // Scroll backward past this chapter — fully restore stacked images
-              resetImages();
-            },
-          });
+            );
+          }
         });
       });
 
@@ -394,14 +325,14 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           {chapters.map((chap, idx) => (
             <div
               key={chap.id}
-              className="chapter-slide relative md:absolute md:inset-0 w-full h-[150vh] md:h-full block md:grid md:grid-cols-12 md:items-center md:justify-center p-0 md:py-0 overflow-clip md:overflow-visible"
+              className="chapter-slide relative md:absolute md:inset-0 w-full h-auto md:h-full block md:grid md:grid-cols-12 md:items-center md:justify-center p-0 md:py-0 overflow-visible"
               style={{ zIndex: chapters.length - idx }}
             >
-              {/* CSS STICKY WRAPPER: Avoids GSAP pin overlap bugs on Mobile */}
-              <div className="md:relative sticky top-0 h-[100svh] w-full flex flex-col md:grid md:grid-cols-12 md:col-span-12 gap-6 md:gap-8 lg:gap-12 items-start md:items-center justify-start md:justify-center pt-24 pb-12 md:py-0 overflow-visible bg-surface md:bg-transparent">
+              {/* Natural flow wrapper for mobile, absolute for desktop */}
+              <div className="relative w-full min-h-[100svh] md:min-h-0 md:h-[100svh] flex flex-col md:grid md:grid-cols-12 md:col-span-12 gap-10 md:gap-8 lg:gap-12 items-center justify-center py-20 md:py-0 overflow-visible bg-surface md:bg-transparent">
 
                 {/* Left Column: Semantic Storytelling */}
-                <div className="chapter-content w-full md:col-span-6 lg:col-span-5 flex flex-col justify-center space-y-3 md:space-y-6 lg:space-y-10 px-6 md:px-0 lg:pl-12 z-20 order-1 md:order-1 pt-0 md:pt-0">
+                <div className="chapter-content w-full md:col-span-6 lg:col-span-5 flex flex-col justify-center space-y-3 md:space-y-6 lg:space-y-10 px-6 md:px-0 lg:pl-12 z-20 order-1 md:order-1 mt-auto md:mt-0">
                   <div className="flex items-center gap-4 md:gap-6">
                     <span className="text-[2rem] md:text-6xl lg:text-8xl font-heading text-olive/10 italic select-none leading-none">{chap.num}</span>
                     <div className="flex-1 h-[0.5px] bg-olive/10"></div>
@@ -428,8 +359,8 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
                 <div className="lg:col-span-1 hidden lg:block"></div>
 
                 {/* Right Column: Layered Cinematic Gallery */}
-                <div className="chapter-images w-full md:col-span-6 lg:col-span-6 relative flex items-center justify-center pointer-events-none order-2 md:order-2 mt-4 md:mt-0 px-6 md:px-0">
-                  <div className="chapter-images-wrapper relative w-full sm:w-[75%] md:w-full aspect-[4/5] max-h-[45svh] md:max-h-none flex items-center justify-center pointer-events-auto mx-auto max-w-[360px] md:max-w-none">
+                <div className="chapter-images w-full md:col-span-6 lg:col-span-6 relative flex items-center justify-center pointer-events-none order-2 md:order-2 px-6 md:px-0 mb-auto md:mb-0">
+                  <div className="chapter-images-wrapper relative w-full sm:w-[75%] md:w-full h-auto flex items-center justify-center pointer-events-auto mx-auto max-w-[360px] md:max-w-none">
                     {chap.images.map((img) => (
                       <div
                         key={img}
