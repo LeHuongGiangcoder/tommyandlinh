@@ -39,8 +39,8 @@ const lato = localFont({
 import AudioPlayer from "./components/AudioPlayer";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tommylinh.giangle.site"),
-  title: "Tommy & Linh Wedding",
+  metadataBase: new URL("https://mylinh.thetwo.site"),
+  title: "Tommy & Linh Wedding | 17.01.2027",
   description:
     "We're getting married! Come celebrate our big day with us. We're so excited to have you there.",
   icons: {
@@ -51,14 +51,14 @@ export const metadata: Metadata = {
     title: "Tommy & Linh Wedding",
     description:
       "We're getting married! Come celebrate our big day with us. We're so excited to have you there.",
-    url: "https://tommylinh.giangle.site",
+    url: "https://mylinh.thetwo.site",
     siteName: "Tommy & Linh Wedding",
     images: [
       {
-        url: "/1.webp", // Switched to webp as requested
+        url: "/1.jpg", 
         width: 1200,
-        height: 800,
-        type: "image/webp",
+        height: 630, // Optimized for social sharing
+        type: "image/jpeg",
         alt: "Tommy & Linh Wedding Preview Image",
       },
     ],
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     title: "Tommy & Linh Wedding",
     description:
       "We're getting married! Come celebrate our big day with us. We're so excited to have you there.",
-    images: ["/1.webp"],
+    images: ["/1.jpg"],
   },
 };
 
