@@ -254,24 +254,20 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
         });
 
 
-        // Pinned scrub timeline
+        // Natural scroll reveal timeline (No Pinning for smoother flow)
         const tlSplit = gsap.timeline({
           scrollTrigger: {
             trigger: conclusionPin,
-            start: 'top top',
-            end: '+=100%',   // Slightly shorter since no images to reveal
-            scrub: 1.2,
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
+            start: 'top 85%',
+            end: 'bottom 60%',
+            scrub: 1,
           },
         });
 
         // Phase 1: Lines fade in and settle
         tlSplit
           .to(leftLine,   { opacity: 1, y: 0, ease: 'power3.out', duration: 1.5 }, 0)
-          .to(rightLine,  { opacity: 1, y: 0, ease: 'power3.out', duration: 1.5 }, 0.4)
-          .to({}, { duration: 1 }); // Hold for reading
+          .to(rightLine,  { opacity: 1, y: 0, ease: 'power3.out', duration: 1.5 }, 0.4);
       }
 
     }, sectionRef);
@@ -400,8 +396,8 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           <div className="w-12 md:w-16 h-[0.5px] bg-olive" />
         </div>
 
-        {/* ═══ PIN TARGET: full viewport, centered content ═══ */}
-        <div className="story-conclusion-pin relative w-full min-h-[100svh] flex flex-col items-center justify-center bg-surface overflow-hidden pt-20 md:pt-24 pb-10 md:pb-16">
+        {/* ═══ NATURAL REVEAL TARGET: Centered content ═══ */}
+        <div className="story-conclusion-pin relative w-full min-h-[60svh] flex flex-col items-center justify-center bg-surface overflow-hidden pt-20 md:pt-32 pb-20 md:pb-40">
 
           {/* Paper texture inside pinned area for seamless look */}
           <div className="absolute inset-0 opacity-[0.08] texture-grain pointer-events-none mix-blend-multiply" />
