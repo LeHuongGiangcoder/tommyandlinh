@@ -55,10 +55,10 @@ export const metadata: Metadata = {
     siteName: "Tommy & Linh Wedding",
     images: [
       {
-        url: "/1.jpg", 
+        url: "https://mylinh.thetwo.site/1.webp", 
         width: 1200,
-        height: 630, // Optimized for social sharing
-        type: "image/jpeg",
+        height: 800,
+        type: "image/webp",
         alt: "Tommy & Linh Wedding Preview Image",
       },
     ],
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     title: "Tommy & Linh Wedding",
     description:
       "We're getting married! Come celebrate our big day with us. We're so excited to have you there.",
-    images: ["/1.jpg"],
+    images: ["https://mylinh.thetwo.site/1.webp"],
   },
 };
 
@@ -88,6 +88,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      prefix="og: http://ogp.me/ns#"
       className={`${cormorant.variable} ${lato.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col font-body bg-surface">
