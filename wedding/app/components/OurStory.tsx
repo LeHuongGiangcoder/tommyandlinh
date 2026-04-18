@@ -310,16 +310,9 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       if (conclusionPin) {
         const leftLine  = conclusionPin.querySelector('.split-line-left')  as HTMLElement;
         const rightLine = conclusionPin.querySelector('.split-line-right') as HTMLElement;
-        const imgRow    = conclusionPin.querySelector('.split-images-row') as HTMLElement;
-        const splitImgs = gsap.utils.toArray(
-          conclusionPin.querySelectorAll('.split-reveal-image')
-        ) as HTMLElement[];
-
 
         // Initial states: everything hidden
-        gsap.set([leftLine, rightLine], { opacity: 0, y: 30 });
-        gsap.set(splitImgs, { opacity: 0, scale: 0.82 });
-        gsap.set(imgRow, { opacity: 0, height: 0, overflow: 'hidden' });
+        gsap.set([leftLine, rightLine], { opacity: 0, y: 40 });
 
 
         // Deco + quote lines fade in before pin starts
@@ -335,7 +328,7 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           scrollTrigger: {
             trigger: conclusionPin,
             start: 'top top',
-            end: '+=150%',   // 1.5× viewport of scroll while pinned
+            end: '+=100%',   // Slightly shorter since no images to reveal
             scrub: 1.2,
             pin: true,
             pinSpacing: true,
@@ -343,24 +336,11 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           },
         });
 
-        // Phase 0: Lines fade in and settle (0 → 1)
+        // Phase 1: Lines fade in and settle
         tlSplit
-          .to(leftLine,   { opacity: 1, y: 0, ease: 'power3.out', duration: 1 }, 0)
-          .to(rightLine,  { opacity: 1, y: 0, ease: 'power3.out', duration: 1 }, 0.15)
-
-        // Phase 1: Lines split apart horizontally (1 → 3)
-          .to(leftLine,   { x: '-14vw', ease: 'power2.inOut', duration: 2 }, 1)
-          .to(rightLine,  { x: '14vw',  ease: 'power2.inOut', duration: 2 }, 1)
-
-        // Phase 2: Image row expands, images fade in (1.2 → 3)
-          .to(imgRow,         { opacity: 1, height: 'auto', overflow: 'visible', ease: 'power2.inOut', duration: 1.4 }, 1.2)
-          .to(splitImgs[0],   { opacity: 1, scale: 1, ease: 'power2.out', duration: 1.6 }, 1.5)
-          .to(splitImgs[1],   { opacity: 1, scale: 1, ease: 'power2.out', duration: 1.6 }, 1.75)
-
-
-
-        // Phase 4: Brief hold at full reveal before unpin (3 → 3.6)
-          .to({}, { duration: 0.6 });
+          .to(leftLine,   { opacity: 1, y: 0, ease: 'power3.out', duration: 1.5 }, 0)
+          .to(rightLine,  { opacity: 1, y: 0, ease: 'power3.out', duration: 1.5 }, 0.4)
+          .to({}, { duration: 1 }); // Hold for reading
       }
 
     }, sectionRef);
@@ -500,45 +480,14 @@ const OurStory = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
           <div className="relative flex flex-col items-center justify-center text-center px-4 md:px-12 max-w-7xl mx-auto w-full">
 
-          {/* Line 1 — slides LEFT on scroll */}
-            <p className="split-line-left w-full text-[1.9rem] sm:text-5xl md:text-6xl lg:text-[5rem] font-heading text-burgundy italic leading-tight drop-shadow-sm will-change-transform pb-1 md:pb-2">
+          {/* Split quote layout — text only for elegance */}
+            <p className="split-line-left w-full text-[1.9rem] sm:text-5xl md:text-6xl lg:text-[5.5rem] font-heading text-burgundy italic leading-tight drop-shadow-sm will-change-transform pb-1 md:pb-4">
             {lang === 'en'
               ? '“Five years later, we celebrate'
               : '“Năm năm sau, tụi mình cùng nhìn lại'}
           </p>
 
-          {/* Images — revealed as text splits apart */}
-            <div className="split-images-row flex items-end justify-center gap-4 md:gap-8 py-4 md:py-8">
-
-            {/* Image 1 — counter-clockwise tilt */}
-            <div className="split-reveal-image relative w-[130px] sm:w-[160px] md:w-[205px] lg:w-[248px] aspect-[3/4] -rotate-[2.5deg] overflow-hidden shadow-[0_28px_64px_-16px_rgba(0,0,0,0.28)] ring-1 ring-inset ring-black/10 will-change-transform shrink-0">
-              <Image
-                src="/2.webp"
-                alt="Tommy & Linh — the proposal moment"
-                fill
-                className="object-cover"
-                sizes="(max-width: 640px) 130px, (max-width: 768px) 160px, (max-width: 1024px) 205px, 248px"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent opacity-50 pointer-events-none" />
-              <div className="absolute inset-0 ring-1 ring-inset ring-black/5 pointer-events-none" />
-            </div>
-
-            {/* Image 2 — clockwise tilt, offset upward for stagger feel */}
-            <div className="split-reveal-image relative w-[130px] sm:w-[160px] md:w-[205px] lg:w-[248px] aspect-[3/4] rotate-[2deg] overflow-hidden shadow-[0_28px_64px_-16px_rgba(0,0,0,0.28)] ring-1 ring-inset ring-black/10 will-change-transform shrink-0 -translate-y-5 md:-translate-y-8">
-              <Image
-                src="/4.webp"
-                alt="Tommy & Linh — together"
-                fill
-                className="object-cover"
-                sizes="(max-width: 640px) 130px, (max-width: 768px) 160px, (max-width: 1024px) 205px, 248px"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent opacity-50 pointer-events-none" />
-              <div className="absolute inset-0 ring-1 ring-inset ring-black/5 pointer-events-none" />
-            </div>
-          </div>
-
-          {/* Line 2 — slides RIGHT on scroll */}
-            <p className="split-line-right w-full text-[1.9rem] sm:text-5xl md:text-6xl lg:text-[5rem] font-heading text-burgundy italic leading-tight drop-shadow-sm will-change-transform pt-1 md:pt-2">
+          <p className="split-line-right w-full text-[1.9rem] sm:text-5xl md:text-6xl lg:text-[5.5rem] font-heading text-burgundy italic leading-tight drop-shadow-sm will-change-transform pt-1 md:pt-4">
               {lang === 'en'
                 ? 'where the journey brought us.”'
                 : 'và ăn mừng nơi hành trình đã đưa đến.”'}
