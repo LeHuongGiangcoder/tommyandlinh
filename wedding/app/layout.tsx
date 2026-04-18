@@ -39,7 +39,7 @@ const lato = localFont({
 import AudioPlayer from "./components/AudioPlayer";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mylinh.thetwo.site"),
+  metadataBase: new URL("https://tommylinh.thetwo.site"),
   title: "Tommy & Linh Wedding | 17.01.2027",
   description:
     "We're getting married! Come celebrate our big day with us. We're so excited to have you there.",
@@ -51,11 +51,11 @@ export const metadata: Metadata = {
     title: "Tommy & Linh Wedding",
     description:
       "We're getting married! Come celebrate our big day with us. We're so excited to have you there.",
-    url: "https://mylinh.thetwo.site",
+    url: "https://tommylinh.thetwo.site",
     siteName: "Tommy & Linh Wedding",
     images: [
       {
-        url: "https://mylinh.thetwo.site/1.webp", 
+        url: "https://tommylinh.thetwo.site/1.webp", 
         width: 1200,
         height: 800,
         type: "image/webp",
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     title: "Tommy & Linh Wedding",
     description:
       "We're getting married! Come celebrate our big day with us. We're so excited to have you there.",
-    images: ["https://mylinh.thetwo.site/1.webp"],
+    images: ["https://tommylinh.thetwo.site/1.webp"],
   },
 };
 
