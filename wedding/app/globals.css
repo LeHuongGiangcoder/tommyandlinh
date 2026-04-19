@@ -157,3 +157,23 @@ html {
   font-style: italic;
   font-variant-caps: all-small-caps;
 }
+
+@keyframes scroll-nudge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+.animate-scroll-nudge {
+  animation: scroll-nudge 2s ease-in-out infinite;
+}
+
+@keyframes hand-swipe {
+  0% { transform: translateY(10px) rotate(5deg); opacity: 0; }
+  30% { transform: translateY(0px) rotate(0deg); opacity: 1; }
+  70% { transform: translateY(-12px) rotate(-2deg); opacity: 1; }
+  100% { transform: translateY(-20px) rotate(-5deg); opacity: 0; }
+}
+
+.animate-hand-swipe {
+  animation: hand-swipe 2.5s ease-in-out infinite;
+}

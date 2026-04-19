@@ -123,6 +123,18 @@ export default function Home() {
           { opacity: 0, y: 15 },
           { opacity: 1, y: 0, duration: 1.2, ease: "power2.out", stagger: 0.2 },
           "-=0.6"
+        )
+        // 3. Scroll Hint Reveal & Nudge (2.5s after fade-up)
+        .to(
+          ".scroll-hint",
+          { opacity: 1, duration: 1.5, ease: "power2.inOut" },
+          "+=0.5"
+        )
+        // Subtle Auto-Nudge (Subtle camera shake/nudge to hint scroll)
+        .to(
+          ".hero-image",
+          { y: -15, duration: 1, ease: "power2.inOut", yoyo: true, repeat: 1 },
+          "-=0.5"
         );
 
     }, containerRef);
@@ -452,10 +464,19 @@ export default function Home() {
             </a>
           </div>
 
-          {/* Ultra-Minimal Scroll Hint - Just a breathing line */}
-          <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center fade-up opacity-0 pointer-events-none z-30">
-            <div className="w-[1px] h-10 md:h-12 bg-gradient-to-b from-olive/40 via-olive/10 to-transparent relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1/2 bg-burgundy/40 animate-scroll-line" />
+          {/* Hand-Hint Scroll Indicator */}
+          <div className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 scroll-hint opacity-0 pointer-events-none z-40">
+            <span className="text-[9px] md:text-[10px] tracking-[0.4em] uppercase text-olive/60 font-medium italic mb-1">{lang === 'vi' ? 'Cuộn để khám phá' : 'Scroll to explore'}</span>
+            
+            <div className="relative w-7 h-11 border border-olive/30 rounded-full flex justify-center p-1.5 scroll-mouse">
+              <div className="w-1 h-2 bg-burgundy/60 rounded-full animate-scroll-nudge" />
+              
+              {/* Hand Hinting - Ultra-Minimal Version */}
+              <div className="absolute -right-7 -top-4 w-7 h-7 opacity-50 hand-scroll-hint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full text-olive animate-hand-swipe rotate-[90deg]">
+                  <path d="M10 11V6a2 2 0 0 1 4 0v7m0-11a2 2 0 0 1 4 0v9a5 5 0 0 1-5 5h-3a7 7 0 0 1-7-7v-3a2 2 0 0 1 4 0v3" />
+                </svg>
+              </div>
             </div>
           </div>
         </div>
