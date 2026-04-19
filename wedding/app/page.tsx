@@ -283,23 +283,23 @@ export default function Home() {
               </div>
 
               {/* BOTANICAL ELEMENTS (Custom SVG Decorations - Increased Size & Adjusted Position) */}
-              {/* Top Right: 3.svg */}
+              {/* Top Right: 4.svg */}
               <div className="absolute -top-[60px] -right-[80px] md:-top-[96px] md:-right-[125px] w-[240px] h-[240px] md:w-[336px] md:h-[336px] z-[60] pointer-events-none leaf-container-1">
                 <div className="relative w-full h-full">
                   <Image
-                    src="/3.svg"
+                    src="/4.svg"
                     alt="Floral Decoration Top Right"
                     fill
                     className="object-contain"
                   />
                 </div>
               </div>
-              
-              {/* Bottom Left: 2.svg */}
+
+              {/* Bottom Left: 4.svg */}
               <div className="absolute -bottom-[80px] -left-[60px] md:-bottom-[125px] md:-left-[96px] w-[240px] h-[240px] md:w-[336px] md:h-[336px] z-[60] pointer-events-none leaf-container-2">
                 <div className="relative w-full h-full">
                   <Image
-                    src="/2.svg"
+                    src="/4.svg"
                     alt="Floral Decoration Bottom Left"
                     fill
                     className="object-contain"
