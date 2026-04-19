@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  .bg { background-color: purple; padding: 50px; }
+  .flower { width: 400px; filter: url(#remove-black); }
+</style>
+</head>
+<body class="bg">
+  <svg width="0" height="0" style="position:absolute;">
+    <filter id="remove-black" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="
+        1 0 0 0 0
+        0 1 0 0 0
+        0 0 1 0 0
+        1 1 1 0 0
+      " />
+    </filter>
+  </svg>
+  <img src="public/orchid-corner.png" class="flower" />
+</body>
+</html>
