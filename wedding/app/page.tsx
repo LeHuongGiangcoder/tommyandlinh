@@ -282,27 +282,27 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* BOTANICAL ELEMENTS (Minimalist Single Rose, Softened for Elegance) */}
-              {/* Top Right */}
-              <div className="absolute -top-10 -right-10 md:-top-14 md:-right-14 w-32 h-32 md:w-44 md:h-44 z-[60] pointer-events-none leaf-container-1">
-                <div className="relative w-full h-full opacity-85 hover:opacity-100 transition-opacity duration-1000">
+              {/* BOTANICAL ELEMENTS (Custom SVG Decorations - Increased Size & Adjusted Position) */}
+              {/* Top Right: 3.svg */}
+              <div className="absolute -top-[60px] -right-[80px] md:-top-[96px] md:-right-[125px] w-[240px] h-[240px] md:w-[336px] md:h-[336px] z-[60] pointer-events-none leaf-container-1">
+                <div className="relative w-full h-full">
                   <Image
-                    src="/rose-transparent.png"
-                    alt="Single White Rose Decoration"
+                    src="/3.svg"
+                    alt="Floral Decoration Top Right"
                     fill
-                    className="object-contain rotate-[45deg] drop-shadow-[0_4px_8px_rgba(0,0,0,0.12)] filter blur-[0.4px] brightness-[0.85] contrast-[0.9] sepia-[0.15]"
+                    className="object-contain"
                   />
                 </div>
               </div>
               
-              {/* Bottom Left */}
-              <div className="absolute -bottom-10 -left-10 md:-bottom-14 md:-left-14 w-32 h-32 md:w-44 md:h-44 z-[60] pointer-events-none leaf-container-2">
-                <div className="relative w-full h-full opacity-85 hover:opacity-100 transition-opacity duration-1000">
+              {/* Bottom Left: 2.svg */}
+              <div className="absolute -bottom-[80px] -left-[60px] md:-bottom-[125px] md:-left-[96px] w-[240px] h-[240px] md:w-[336px] md:h-[336px] z-[60] pointer-events-none leaf-container-2">
+                <div className="relative w-full h-full">
                   <Image
-                    src="/rose-transparent.png"
-                    alt="Single White Rose Decoration"
+                    src="/2.svg"
+                    alt="Floral Decoration Bottom Left"
                     fill
-                    className="object-contain rotate-[225deg] drop-shadow-[0_4px_8px_rgba(0,0,0,0.12)] filter blur-[0.4px] brightness-[0.85] contrast-[0.9] sepia-[0.15]"
+                    className="object-contain"
                   />
                 </div>
               </div>
