@@ -168,7 +168,7 @@ export default function Home() {
     }, 0.4);
 
     // Fade out button and visual hints
-    tl.to([".envelope-button", ".leaf-guide"], {
+    tl.to([".envelope-button", ".leaf-guide", ".hand-hint"], {
       opacity: 0,
       scale: 0.8,
       duration: 0.4,
@@ -344,6 +344,16 @@ export default function Home() {
                   <span className="text-[11px] md:text-xs font-heading text-surface tracking-[0.4em] uppercase mb-1 drop-shadow-lg italic">{currentT.open}</span>
                   <div className="w-6 h-[0.5px] bg-white/40" />
                 </button>
+
+                {/* Elegant Hand Hint (Pointing and tapping) */}
+                <div className="absolute -bottom-8 -right-8 md:-bottom-10 md:-right-10 pointer-events-none z-[60] animate-hand-point opacity-0 hand-hint">
+                  <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="opacity-80 drop-shadow-[0_8px_16px_rgba(0,0,0,0.4)] rotate-[-15deg]">
+                    <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0" />
+                    <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2" />
+                    <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8" />
+                    <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.82-2.82L9 15" />
+                  </svg>
+                </div>
               </div>
 
               {/* Inner Letter Detail */}
