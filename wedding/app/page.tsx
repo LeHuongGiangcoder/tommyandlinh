@@ -302,6 +302,7 @@ export default function Home() {
                     src="/4.svg"
                     alt="Floral Decoration Top Right"
                     fill
+                    priority
                     className="object-contain"
                   />
                 </div>
@@ -314,6 +315,7 @@ export default function Home() {
                     src="/4.svg"
                     alt="Floral Decoration Bottom Left"
                     fill
+                    priority
                     className="object-contain"
                   />
                 </div>
@@ -470,13 +472,6 @@ export default function Home() {
             
             <div className="relative w-7 h-11 border border-olive/30 rounded-full flex justify-center p-1.5 scroll-mouse">
               <div className="w-1 h-2 bg-burgundy/60 rounded-full animate-scroll-nudge" />
-              
-              {/* Hand Hinting - Ultra-Minimal Version */}
-              <div className="absolute -right-7 -top-4 w-7 h-7 opacity-50 hand-scroll-hint">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full text-olive animate-hand-swipe rotate-[90deg]">
-                  <path d="M10 11V6a2 2 0 0 1 4 0v7m0-11a2 2 0 0 1 4 0v9a5 5 0 0 1-5 5h-3a7 7 0 0 1-7-7v-3a2 2 0 0 1 4 0v3" />
-                </svg>
-              </div>
             </div>
           </div>
         </div>
