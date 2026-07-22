@@ -527,8 +527,7 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
           ease: "power2.out",
           scrollTrigger: {
             trigger: ".gallery-reveal",
-            start: "top 85%",
-            onEnter: () => ScrollTrigger.refresh()
+            start: "top 85%"
           }
         }
       );
