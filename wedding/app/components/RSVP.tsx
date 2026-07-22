@@ -129,7 +129,7 @@ const RSVP = ({ lang = 'en' }: RSVPProps) => {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch("https://n8n.giangle.site/webhook/5559aeff-8da3-4379-b522-8cab48176c51", {
+      const response = await fetch("https://n8n.giangle.site/webhook-test/45f71d02-abdb-46b3-96b8-b9b63bd49e8c", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

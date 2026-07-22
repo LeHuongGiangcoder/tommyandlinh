@@ -465,12 +465,12 @@ export default function Home() {
 
             <div className="fade-up opacity-0 mt-8 mb-20 md:mb-0 ml-4 md:ml-6 flex flex-wrap gap-4 items-center">
               <a href="#rsvp" className="inline-block">
-                <button className="px-8 md:px-10 py-4 md:py-5 bg-burgundy text-surface hover:bg-burgundy/80 transition-all duration-700 tracking-[0.3em] uppercase text-[11px] md:text-xs font-medium border border-burgundy shadow-sm rounded-none">
+                <button className="w-40 md:w-56 py-4 md:py-5 bg-burgundy text-surface hover:bg-burgundy/80 transition-all duration-700 tracking-[0.3em] uppercase text-[11px] md:text-xs font-medium border border-burgundy shadow-sm rounded-none text-center">
                   {currentT.rsvpBtn}
                 </button>
               </a>
               <a href="#travel" className="inline-block">
-                <button className="px-8 md:px-10 py-4 md:py-5 bg-white/10 backdrop-blur-[2px] text-burgundy hover:bg-burgundy hover:text-surface transition-all duration-700 tracking-[0.3em] uppercase text-[11px] md:text-xs font-medium border border-burgundy/60 shadow-sm rounded-none">
+                <button className="w-40 md:w-56 py-4 md:py-5 bg-white/10 backdrop-blur-[2px] text-burgundy hover:bg-burgundy hover:text-surface transition-all duration-700 tracking-[0.3em] uppercase text-[11px] md:text-xs font-medium border border-burgundy/60 shadow-sm rounded-none text-center">
                   {currentT.visaGuide}
                 </button>
               </a>
