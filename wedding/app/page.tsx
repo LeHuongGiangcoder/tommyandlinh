@@ -35,7 +35,7 @@ export default function Home() {
       scroll: "Scroll to explore",
       hint: "Kindly open the invitation",
       rsvpBtn: "RSVP",
-      visaGuide: "Visa guide",
+      visaGuide: "Visa Update",
       toggle: "VI"
     },
     vi: {
@@ -46,7 +46,7 @@ export default function Home() {
       scroll: "Cuộn để xem tiếp",
       hint: "Trân trọng mời mở thiệp",
       rsvpBtn: "RSVP",
-      visaGuide: "Hướng dẫn Visa",
+      visaGuide: "Visa Update",
       toggle: "EN"
     }
   };
@@ -382,7 +382,7 @@ export default function Home() {
         </div>
       )}
       {/* Cinematic Hero Section */}
-      <section id="hero" className="relative w-full h-screen overflow-hidden flex flex-col shrink-0">
+      <section id="hero" className="relative w-full min-h-[100svh] overflow-hidden flex flex-col shrink-0">
         {/* Immersive Hero Image */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -418,7 +418,7 @@ export default function Home() {
         </div>
 
         {/* Airy, Dreamy Floating Hero Content */}
-        <div className="relative z-10 flex-1 flex flex-col justify-center px-12 sm:px-20 md:px-32 lg:px-44 w-full h-screen">
+        <div className="relative z-10 flex-1 flex flex-col justify-center py-12 md:py-0 px-12 sm:px-20 md:px-32 lg:px-44 w-full min-h-[100svh]">
 
           {/* Unconstrained, flowing text grouping */}
           <div className="flex flex-col items-start w-full relative">

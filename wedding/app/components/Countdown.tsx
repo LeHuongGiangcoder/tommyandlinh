@@ -26,6 +26,7 @@ const Countdown = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       hours: "Hours",
       minutes: "Minutes",
       seconds: "Seconds",
+      time: "03:00 PM",
       placeName: "Nang Song Hong Restaurant"
     },
     vi: {
@@ -35,6 +36,7 @@ const Countdown = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
       hours: "Giờ",
       minutes: "Phút",
       seconds: "Giây",
+      time: "15:00",
       placeName: "Nhà hàng Nắng Sông Hồng"
     }
   };
@@ -176,6 +178,10 @@ const Countdown = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
 
           {/* Place & Map Link */}
           <div className="flex flex-col sm:flex-row items-center gap-3 md:gap-5 text-center mt-2">
+            <span className="text-sm md:text-base font-light italic text-surface tracking-wider">
+              {t.time}
+            </span>
+            <span className="hidden sm:inline text-[#d4af37]/40">•</span>
             <span className="text-sm md:text-base font-light italic text-surface tracking-wider">
               {t.placeName}
             </span>
