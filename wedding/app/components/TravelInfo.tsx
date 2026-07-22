@@ -584,49 +584,49 @@ const TravelInfo = ({ lang = 'en' }: { lang?: 'en' | 'vi' }) => {
               </div>
 
               <div className="space-y-16 text-ink/80 font-light leading-relaxed">
-                <div className="relative pl-10 border-l-[0.5px] border-olive/30 max-w-4xl">
-                  <div className="px-8 py-6 bg-olive/[0.05] border-l-4 border-olive/30 rounded-r-sm max-w-2xl shadow-sm mb-10">
+                <div className="relative pl-6 md:pl-10 border-l-[0.5px] border-olive/30 max-w-4xl">
+                  <div className="px-6 md:px-8 py-6 bg-olive/[0.05] border-l-4 border-olive/30 rounded-r-sm max-w-2xl shadow-sm">
                     <p className="text-[16px] md:text-[18px] italic text-olive/90 font-serif leading-relaxed">{t.visaExemption}</p>
                   </div>
+                </div>
 
-                  {/* Health Declaration / PAI Portal Notice Card */}
-                  <div className="p-8 md:p-10 bg-burgundy/[0.03] border border-burgundy/15 border-l-4 border-l-burgundy relative shadow-sm max-w-4xl">
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className="p-2.5 bg-burgundy/10 rounded-full text-burgundy flex-shrink-0 mt-0.5">
-                        <FileText className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <span className="text-[10px] tracking-[0.4em] uppercase text-olive font-bold block mb-1">
-                          {t.healthDeclTitle}
-                        </span>
-                        <h3 className="text-2xl md:text-3xl font-heading italic text-burgundy font-medium leading-tight">
-                          {t.healthDeclSub}
-                        </h3>
-                      </div>
+                {/* Health Declaration / PAI Portal Notice - NO BOX, FULL WIDTH */}
+                <div className="max-w-4xl pt-4">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="text-burgundy flex-shrink-0 mt-1">
+                      <FileText className="w-5 h-5 md:w-6 md:h-6" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] tracking-[0.4em] uppercase text-olive font-bold block mb-2">
+                        {t.healthDeclTitle}
+                      </span>
+                      <h3 className="text-2xl md:text-3xl font-heading italic text-burgundy font-medium leading-tight">
+                        {t.healthDeclSub}
+                      </h3>
+                    </div>
+                  </div>
+
+                  <p className="text-[16px] md:text-[17px] text-ink/90 font-light leading-relaxed mb-8">
+                    {t.healthDeclDesc}
+                  </p>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-olive/10">
+                    <div className="space-y-2">
+                      <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-olive block">
+                        {lang === 'en' ? 'How to Apply:' : 'Cách Thực Hiện:'}
+                      </span>
+                      <p className="text-[14px] md:text-[15px] text-ink/80 font-light leading-relaxed">
+                        {t.healthDeclHow}
+                      </p>
                     </div>
 
-                    <p className="text-base md:text-lg text-ink/80 font-light leading-relaxed mb-6">
-                      {t.healthDeclDesc}
-                    </p>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-olive/15 text-sm">
-                      <div className="space-y-1.5">
-                        <span className="text-xs font-bold tracking-wider uppercase text-burgundy block">
-                          {lang === 'en' ? 'How to Apply:' : 'Cách Thực Hiện:'}
-                        </span>
-                        <p className="text-ink/80 font-light leading-relaxed text-xs md:text-sm">
-                          {t.healthDeclHow}
-                        </p>
-                      </div>
-
-                      <div className="space-y-1.5">
-                        <span className="text-xs font-bold tracking-wider uppercase text-burgundy block">
-                          {lang === 'en' ? 'Requirement:' : 'Yêu Cầu:'}
-                        </span>
-                        <p className="text-ink/80 font-light leading-relaxed text-xs md:text-sm">
-                          {t.healthDeclReq}
-                        </p>
-                      </div>
+                    <div className="space-y-2">
+                      <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-olive block">
+                        {lang === 'en' ? 'Requirement:' : 'Yêu Cầu:'}
+                      </span>
+                      <p className="text-[14px] md:text-[15px] text-ink/80 font-light leading-relaxed">
+                        {t.healthDeclReq}
+                      </p>
                     </div>
                   </div>
                 </div>
