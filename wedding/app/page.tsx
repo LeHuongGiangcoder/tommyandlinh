@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import Countdown from "./components/Countdown";
 import OurStory from "./components/OurStory";
+import WeddingDetails from "./components/WeddingDetails";
 import TravelInfo from "./components/TravelInfo";
 import FAQ from "./components/FAQ";
 import RSVP from "./components/RSVP";
@@ -33,6 +34,7 @@ export default function Home() {
       open: "Open",
       scroll: "Scroll to explore",
       hint: "Kindly open the invitation",
+      rsvpBtn: "RSVP",
       visaGuide: "Visa guide",
       toggle: "VI"
     },
@@ -43,6 +45,7 @@ export default function Home() {
       open: "Mở",
       scroll: "Cuộn để xem tiếp",
       hint: "Trân trọng mời mở thiệp",
+      rsvpBtn: "RSVP",
       visaGuide: "Hướng dẫn Visa",
       toggle: "EN"
     }
@@ -460,11 +463,18 @@ export default function Home() {
               </p>
             </div>
 
-            <a href="#travel" className="fade-up opacity-0 mt-8 mb-20 md:mb-0 ml-4 md:ml-6 inline-block">
-              <button className="px-10 md:px-12 py-4 md:py-5 bg-white/10 backdrop-blur-[2px] text-burgundy hover:bg-burgundy hover:text-surface transition-all duration-700 tracking-[0.3em] uppercase text-[11px] md:text-xs font-medium border border-burgundy/60 shadow-sm rounded-none">
-                {currentT.visaGuide}
-              </button>
-            </a>
+            <div className="fade-up opacity-0 mt-8 mb-20 md:mb-0 ml-4 md:ml-6 flex flex-wrap gap-4 items-center">
+              <a href="#rsvp" className="inline-block">
+                <button className="px-8 md:px-10 py-4 md:py-5 bg-burgundy text-surface hover:bg-burgundy/80 transition-all duration-700 tracking-[0.3em] uppercase text-[11px] md:text-xs font-medium border border-burgundy shadow-sm rounded-none">
+                  {currentT.rsvpBtn}
+                </button>
+              </a>
+              <a href="#travel" className="inline-block">
+                <button className="px-8 md:px-10 py-4 md:py-5 bg-white/10 backdrop-blur-[2px] text-burgundy hover:bg-burgundy hover:text-surface transition-all duration-700 tracking-[0.3em] uppercase text-[11px] md:text-xs font-medium border border-burgundy/60 shadow-sm rounded-none">
+                  {currentT.visaGuide}
+                </button>
+              </a>
+            </div>
           </div>
 
           {/* Hand-Hint Scroll Indicator */}
@@ -496,6 +506,7 @@ export default function Home() {
 
       {isStarted && (
         <>
+          <WeddingDetails key={`details-${lang}`} lang={lang} />
           <OurStory key={`story-${lang}`} lang={lang} />
           <TravelInfo key={`travel-${lang}`} lang={lang} />
           <RSVP key={`rsvp-${lang}`} lang={lang} />

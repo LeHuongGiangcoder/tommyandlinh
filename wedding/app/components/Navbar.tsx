@@ -10,8 +10,8 @@ const Navbar: React.FC<{ lang: 'en' | 'vi', setLang: (l: 'en' | 'vi') => void }>
   const t = {
     en: [
       { name: 'Home', href: '#hero' },
-      { name: 'Our story', href: '#story' },
       { name: 'Wedding details', href: '#details' },
+      { name: 'Our story', href: '#story' },
       { name: 'RSVP', href: '#rsvp' },
       { name: 'Visa & Flight', href: '#travel' },
       { name: 'FAQ', href: '#faq' },
@@ -19,8 +19,8 @@ const Navbar: React.FC<{ lang: 'en' | 'vi', setLang: (l: 'en' | 'vi') => void }>
     ],
     vi: [
       { name: 'Trang chủ', href: '#hero' },
-      { name: 'Câu chuyện', href: '#story' },
       { name: 'Sự kiện', href: '#details' },
+      { name: 'Câu chuyện', href: '#story' },
       { name: 'RSVP', href: '#rsvp' },
       { name: 'Thị thực & Di chuyển', href: '#travel' },
       { name: 'FAQ', href: '#faq' },
