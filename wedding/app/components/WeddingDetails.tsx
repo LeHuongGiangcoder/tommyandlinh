@@ -22,7 +22,7 @@ const WeddingDetails = ({ lang = 'en' }: WeddingDetailsProps) => {
         {
           time: "15:00",
           title: "GUESTS ARRIVE",
-          desc: "Guests arrive & welcome drinks at Nắng Sông Hồng",
+          desc: "Guests arrive & welcome drinks at Nang song Hong",
         },
         {
           time: "15:30",
@@ -59,32 +59,32 @@ const WeddingDetails = ({ lang = 'en' }: WeddingDetailsProps) => {
         {
           time: "15:00",
           title: "ĐÓN KHÁCH",
-          desc: "Đón tiếp quý khách & thưởng thức thức uống chào mừng tại Nắng Sông Hồng",
+          desc: "Đón tiếp quý khách tại Nắng Sông Hồng với thức uống chào mừng và không gian giao lưu trước buổi lễ.",
         },
         {
           time: "15:30",
-          title: "MÚA RỐI NƯỚC",
-          desc: "Biểu diễn nghệ thuật rối nước truyền thống dành tặng quý quan khách",
+          title: "BIỂU DIỄN MÚA RỐI NƯỚC",
+          desc: "Thưởng thức màn trình diễn múa rối nước truyền thống như một món quà văn hóa dành tặng quý khách.",
         },
         {
           time: "16:15",
           title: "ỔN ĐỊNH CHỖ NGỒI",
-          desc: "Quý khách tiến vào khu vực làm lễ và ổn định vị trí",
+          desc: "Kính mời quý khách di chuyển vào khu vực làm lễ và ổn định vị trí để chuẩn bị cho nghi thức chính.",
         },
         {
           time: "16:30",
-          title: "LỄ THÀNH HÔN",
-          desc: "Nghi thức trao lời thề nguyện & chính thức nên duyên vợ chồng",
+          title: "LỄ VOWS THÂN MẬT",
+          desc: "Cô dâu và chú rể cùng trao lời thề nguyện, chính thức bắt đầu hành trình hôn nhân trong sự chứng kiến của gia đình và bạn bè.",
         },
         {
           time: "17:45",
-          title: "KHAI TIỆC ĐÓN KHÁCH",
-          desc: "Thưởng thức cocktail, chụp ảnh lưu niệm & giao lưu thân mật",
+          title: "TIỆC COCKTAIL THÂN MẬT",
+          desc: "Cùng nâng ly, trò chuyện, chụp ảnh lưu niệm và tận hưởng khoảng thời gian gặp gỡ trong không gian ấm cúng.",
         },
         {
           time: "18:30",
-          title: "TIỆC TỐI & ĂN MỪNG",
-          desc: "Dùng tiệc cưới, nâng ly chúc mừng và hòa mình cùng âm nhạc",
+          title: "LỄ THÀNH HÔN & CHUNG VUI",
+          desc: "Thưởng thức bữa tiệc tối, gửi những lời chúc phúc đến cô dâu chú rể và cùng hòa mình vào không khí vui vẻ của buổi tiệc.",
         },
       ]
     }
@@ -124,14 +124,14 @@ const WeddingDetails = ({ lang = 'en' }: WeddingDetailsProps) => {
   }, [lang]);
 
   return (
-    <section 
-      ref={sectionRef} 
-      id="details" 
+    <section
+      ref={sectionRef}
+      id="details"
       className="relative py-20 md:py-32 bg-surface text-ink overflow-hidden selection:bg-burgundy selection:text-surface"
     >
       {/* Background Subtle Grain Texture */}
       <div className="absolute inset-0 opacity-[0.03] texture-grain pointer-events-none mix-blend-multiply" />
-      
+
       <div className="container mx-auto px-6 relative z-10 max-w-3xl">
         {/* Header Section */}
         <div className="text-center mb-14 md:mb-20 details-reveal">
@@ -154,8 +154,8 @@ const WeddingDetails = ({ lang = 'en' }: WeddingDetailsProps) => {
 
           <div className="space-y-8 sm:space-y-10">
             {t.timeline.map((item, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className="timeline-item relative flex items-start gap-5 sm:gap-8 md:gap-10 group"
               >
                 {/* Left: Script/Italic Time */}
