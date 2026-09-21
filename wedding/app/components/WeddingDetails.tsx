@@ -21,17 +21,17 @@ const WeddingDetails = ({ lang = 'en' }: WeddingDetailsProps) => {
       timeline: [
         {
           time: "15:00",
-          title: "GUESTS ARRIVE",
+          title: "GUEST ARRIVAL",
           desc: "Guests arrive & welcome drinks at Nang song Hong",
         },
         {
           time: "15:30",
-          title: "WATER PUPPET SHOW",
+          title: "PUPPET SHOW",
           desc: "Traditional Water Puppet Show performance",
         },
         {
           time: "16:15",
-          title: "GUESTS SEATED",
+          title: "GUEST SEATING",
           desc: "Guests seated for the Vow Ceremony",
         },
         {
@@ -40,13 +40,18 @@ const WeddingDetails = ({ lang = 'en' }: WeddingDetailsProps) => {
           desc: "Vow Ceremony & union celebration",
         },
         {
-          time: "17:45",
-          title: "RECEPTION BEGINS",
-          desc: "Reception begins, cocktails & photo moments",
+          time: "17:00",
+          title: "WELCOME DINNER",
+          desc: "A welcome dinner shared with family & friends",
         },
         {
-          time: "18:30",
-          title: "WEDDING DINNER & CELEBRATION",
+          time: "17:30",
+          title: "RECEPTION",
+          desc: "Reception, cocktails & photo moments",
+        },
+        {
+          time: "18:00",
+          title: "WEDDING DINNER",
           desc: "Wedding dinner & celebration into the night",
         },
       ]
@@ -77,13 +82,18 @@ const WeddingDetails = ({ lang = 'en' }: WeddingDetailsProps) => {
           desc: "Cô dâu và chú rể cùng trao lời thề nguyện, chính thức bắt đầu hành trình hôn nhân trong sự chứng kiến của gia đình và bạn bè.",
         },
         {
-          time: "17:45",
+          time: "17:00",
+          title: "TIỆC CHÀO MỪNG",
+          desc: "Cùng dùng bữa tối chào mừng, quây quần bên gia đình và bạn bè thân thiết.",
+        },
+        {
+          time: "17:30",
           title: "TIỆC COCKTAIL THÂN MẬT",
           desc: "Cùng nâng ly, trò chuyện, chụp ảnh lưu niệm và tận hưởng khoảng thời gian gặp gỡ trong không gian ấm cúng.",
         },
         {
-          time: "18:30",
-          title: "LỄ THÀNH HÔN & CHUNG VUI",
+          time: "18:00",
+          title: "TIỆC CƯỚI & CHUNG VUI",
           desc: "Thưởng thức bữa tiệc tối, gửi những lời chúc phúc đến cô dâu chú rể và cùng hòa mình vào không khí vui vẻ của buổi tiệc.",
         },
       ]
