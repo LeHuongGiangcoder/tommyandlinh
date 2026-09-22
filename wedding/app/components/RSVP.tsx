@@ -129,15 +129,17 @@ const RSVP = ({ lang = 'en' }: RSVPProps) => {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch("https://n8n.giangle.site/webhook/45f71d02-abdb-46b3-96b8-b9b63bd49e8c", {
+      // Google Apps Script web app. text/plain keeps this a "simple" CORS request (no preflight).
+      const response = await fetch("https://script.google.com/macros/s/AKfycbzsdhEZPO3S2ts8dZUahg4NgP3328hOXt5aMPhUAcPLRP7aq6ErdPJhkyNTRTsxqh7I4A/exec", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "text/plain;charset=utf-8",
         },
         body: JSON.stringify(data),
       });
+      const result = response.ok ? await response.json().catch(() => null) : null;
 
-      if (response.ok) {
+      if (result?.ok) {
         setIsSubmitted(true);
         if (formRef.current) formRef.current.reset();
       } else {
