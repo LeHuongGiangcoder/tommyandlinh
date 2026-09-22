@@ -41,8 +41,8 @@ const WeddingDetails = ({ lang = 'en' }: WeddingDetailsProps) => {
         },
         {
           time: "17:00",
-          title: "WELCOME DINNER",
-          desc: "A welcome dinner shared with family & friends",
+          title: "BREAK BEFORE DINNER",
+          desc: "Take a moment to relax and mingle before dinner",
         },
         {
           time: "17:30",
@@ -83,8 +83,8 @@ const WeddingDetails = ({ lang = 'en' }: WeddingDetailsProps) => {
         },
         {
           time: "17:00",
-          title: "TIỆC CHÀO MỪNG",
-          desc: "Cùng dùng bữa tối chào mừng, quây quần bên gia đình và bạn bè thân thiết.",
+          title: "NGHỈ GIẢI LAO TRƯỚC TIỆC",
+          desc: "Quý khách thư giãn, trò chuyện và giao lưu trong ít phút trước khi bữa tiệc bắt đầu.",
         },
         {
           time: "17:30",
