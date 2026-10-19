@@ -47,6 +47,9 @@ export const metadata: Metadata = {
     icon: "/icon.png",
     apple: "/apple-icon.png",
   },
+  other: {
+    google: "notranslate",
+  },
   openGraph: {
     title: "Tommy & Linh Wedding",
     description:
@@ -85,11 +88,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // The page ships its own EN/VI copy, so browser auto-translation must stay off
+  // — otherwise Chrome re-translates sections back to English as they scroll into
+  // view. `lang` is kept in sync with the toggle on the client (see page.tsx).
   return (
     <html
       lang="en"
       prefix="og: http://ogp.me/ns#"
-      className={`${cormorant.variable} ${lato.variable} h-full antialiased scroll-smooth`}
+      translate="no"
+      className={`${cormorant.variable} ${lato.variable} notranslate h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col font-body bg-surface">
         {children}

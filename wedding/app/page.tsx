@@ -15,6 +15,8 @@ import Navbar from "./components/Navbar";
 import SnowEffect from "./components/SnowEffect";
 import ThankYou from "./components/ThankYou";
 
+const LANG_STORAGE_KEY = 'tl-wedding-lang';
+
 export default function Home() {
   const [isStarted, setIsStarted] = useState(false);
   const [isEnvelopeOpening, setIsEnvelopeOpening] = useState(false);
@@ -24,6 +26,28 @@ export default function Home() {
   useEffect(() => {
     gsap.registerPlugin(MotionPathPlugin);
   }, []);
+
+  // Restore the guest's previous choice. Read after mount, not during render,
+  // so the server and the first client render still agree on 'en'.
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem(LANG_STORAGE_KEY);
+      if (saved === 'vi' || saved === 'en') setLang(saved);
+    } catch {
+      // Private mode / blocked storage: fall back to the default language.
+    }
+  }, []);
+
+  // Keep the choice across reloads, and keep <html lang> honest so the browser
+  // never mistakes the Vietnamese copy for English and offers to translate it.
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    try {
+      window.localStorage.setItem(LANG_STORAGE_KEY, lang);
+    } catch {
+      // Nothing to do — the language still applies for this visit.
+    }
+  }, [lang]);
 
   // Translation dictionary for current page content
   const t = {
