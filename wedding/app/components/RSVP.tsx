@@ -3,9 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Send, User, Users, Utensils, AlertCircle, MessageSquare, CheckCircle2 } from "lucide-react";
+import { Send, User, Users, Utensils, AlertCircle, MessageSquare, CheckCircle2, Gift, ArrowUpRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const REGISTRY_URL = "https://www.zola.com/registry/tommyandlinh";
 
 interface RSVPProps {
   lang?: 'en' | 'vi';
@@ -36,6 +38,11 @@ const RSVP = ({ lang = 'en' }: RSVPProps) => {
         error: "Something went wrong",
         errorDesc: "We couldn't process your response. Please wait 30s and try again."
       },
+      registry: {
+        label: "Registry",
+        desc: "Your presence is the greatest gift. For those who wish to share a little something more, our registry is on Zola.",
+        cta: "View Our Registry"
+      },
       options: {
         yes: "Yes, count me in!",
         no: "Sorry, I can't make it",
@@ -61,6 +68,11 @@ const RSVP = ({ lang = 'en' }: RSVPProps) => {
         successDesc: "Thông tin của bạn đã được ghi lại. Chúng mình rất mong chờ được gặp bạn!",
         error: "Đã có lỗi xảy ra",
         errorDesc: "Hệ thống chưa ghi nhận được phản hồi của bạn. Vui lòng đợi 30 giây rồi thử lại nha."
+      },
+      registry: {
+        label: "Quà cưới",
+        desc: "Sự hiện diện của bạn là món quà ý nghĩa nhất. Nếu bạn muốn gửi thêm chút yêu thương, danh sách quà của tụi mình có trên Zola.",
+        cta: "Xem danh sách quà"
       },
       options: {
         yes: "Có, mình sẽ đến",
@@ -302,6 +314,24 @@ const RSVP = ({ lang = 'en' }: RSVPProps) => {
               <p className="text-surface/80 font-light italic text-lg leading-relaxed max-w-sm mx-auto">{t.fields.successDesc}</p>
             </div>
           )}
+        </div>
+
+        {/* Registry */}
+        <div className="max-w-3xl mx-auto mt-16 md:mt-20 text-center rsvp-reveal">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <Gift className="w-4 h-4 text-[#d4af37]/80" />
+            <span className="text-surface/80 text-[11px] tracking-[0.5em] uppercase font-medium">{t.registry.label}</span>
+          </div>
+          <p className="text-surface/80 font-light italic text-base md:text-lg leading-relaxed max-w-xl mx-auto mb-10">{t.registry.desc}</p>
+          <a
+            href={REGISTRY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-4 border border-[#d4af37]/50 hover:bg-surface hover:border-surface text-surface hover:text-burgundy px-10 py-5 transition-all duration-700"
+          >
+            <span className="text-[12px] tracking-[0.5em] uppercase font-semibold">{t.registry.cta}</span>
+            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />
+          </a>
         </div>
       </div>
 
